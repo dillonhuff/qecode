@@ -40,10 +40,16 @@ procedure writeDecl(fm); begin
 	  write(") {");
 	  end;
 
+procedure writeFormulaAsCpp(fm); begin
+	  write("true");
+	  end;
+
 procedure writeFormula(fm);
 	  begin writeDecl(fm);
 	  write("return ");
-	  COMMENT for i := 1 step 1 until length parts do writePart("|| ", fm, i);
+	  writeFormulaAsCpp(fm);
+
+	  COMMENT COMMENT for i := 1 step 1 until length parts do writePart("|| ", fm, i);
 	  write(";");
 	  write("}");
 	  end;
