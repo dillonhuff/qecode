@@ -40,8 +40,22 @@ procedure writeDecl(fm); begin
 	  write(") {");
 	  end;
 
+procedure writeVal(str, valList, i); begin
+	  if (length valList = i) or (length valList = 1) then writeFormulaAsCpp(part(valList, i)) else
+	  write(str," ", writeFormulaAsCpp(part(valList, i)));
+	  end;
+
+procedure writeClauseAsCpp(connective, fm); begin;
+	  write("(");
+	  for i := 1 step 1 until length(part(fm)) do writeVal(connective, fm, i);
+	  COMMENT writeFormulaAsCpp(part(fm, i));
+	  write(")");
+	  end;
+
 procedure writeFormulaAsCpp(fm); begin
-	  write("true");
+	  if part(fm, 0) = or then writeClauseAsCpp("||", fm) else
+	  if part(fm, 0) = and then writeClauseAsCpp("&&", fm) else
+	  write(fm);
 	  end;
 
 procedure writeFormula(fm);
@@ -49,7 +63,7 @@ procedure writeFormula(fm);
 	  write("return ");
 	  writeFormulaAsCpp(fm);
 
-	  COMMENT COMMENT for i := 1 step 1 until length parts do writePart("|| ", fm, i);
+
 	  write(";");
 	  write("}");
 	  end;
