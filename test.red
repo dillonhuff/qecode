@@ -19,9 +19,23 @@ COMMENT phi := ex( x, ex( y, ex( z, inCubeFormula( a, b, c, l ) and inSphereForm
 
 val := rlqe phi;
 
+if part(val, 0) = or then write "OR!!" else "NOT OR!!";
+
 vars := rlfvarl val;
 
-for i := 0 step 1 until length vars do write 
+parts := part val;
+length parts;
+
+procedure writePart(val, i); begin
+	  write "hey";
+	  write part(val, i);
+	  end;
+
+for i := 1 step 1 until length parts do writePart(val, i);
+
+COMMENT for each p in part val 1;
+
+COMMENT for i := 0 step 1 until length vars do write .
 
 COMMENT parts := part val;
 
