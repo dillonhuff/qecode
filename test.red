@@ -26,12 +26,29 @@ vars := rlfvarl val;
 parts := part val;
 length parts;
 
-procedure writePart(val, i); begin
-	  write "hey";
-	  write part(val, i);
+procedure writePart(str, val, i); begin
+	  write(str, part(val, i));
 	  end;
 
-for i := 1 step 1 until length parts do writePart(val, i);
+procedure writeVar(varList, i); begin
+	  if length varList = i then write("const double ", part(varList, i)) else write("const double ", part(varList, i), ", ");
+	  end;
+
+procedure writeDecl(fm); begin
+	  write("bool test(");
+	  for i := 1 step 1 until length vars do writeVar(vars, i);
+	  write(") {");
+	  end;
+
+procedure writeFormula(fm);
+	  begin writeDecl(fm);
+	  write("return ");
+	  COMMENT for i := 1 step 1 until length parts do writePart("|| ", fm, i);
+	  write(";");
+	  write("}");
+	  end;
+
+writeFormula(val);
 
 COMMENT for each p in part val 1;
 
