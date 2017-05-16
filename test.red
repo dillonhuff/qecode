@@ -11,8 +11,21 @@ procedure inSphereFormula(a, b, c, r); (x - a)^2 + (y - b)^2 + (z - c)^2 <= r^2;
 
 
 rlset ofsf;
-COMMENT phi := ex( x, ex( y, inCircleFormula(a, b, r) and inSquareFormula(c, d, l) and (l > 0) and (r > 0) ) );
+phi := ex( x, ex( y, inCircleFormula(a, b, r) and inSquareFormula(c, d, l) and (l > 0) and (r > 0) ) );
 
-phi := ex( x, ex( y, ex( z, inCubeFormula( a, b, c, l ) and inSphereFormula( a, b, c, r) and (l > 0) and (r > 0) ) ) );
+COMMENT phi := ex( x, ex( y, ex( z, inCubeFormula( a, b, c, l ) and inSphereFormula( a, b, c, r) and (l > 0) and (r > 0) ) ) );
 
-rlqe phi;
+
+
+val := rlqe phi;
+
+vars := rlfvarl val;
+
+for i := 0 step 1 until length vars do write 
+
+COMMENT parts := part val;
+
+COMMENT length parts;
+
+COMMENT atoms := rlatl val;
+
