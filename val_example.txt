@@ -1,0 +1,44 @@
+(r > 0 and l > 0 and l - r >= 0 and a - c + r >= 0 and a - c - l + r <= 0)
+
+                            2    2
+ or (r > 0 and l > 0 and 2*l  - r  <= 0 and a - c <= 0 and a - c + l >= 0) or (
+
+r > 0 and l > 0 and a - c >= 0 and a - c - l <= 0
+
+      2                    2              2    2            2    2
+ and a  - 2*a*c - 2*a*l + c  + 2*c*l + 2*l  - r  <= 0) or (l  - r  <= 0 and (
+
+(r > 0 and l > 0 and l - r = 0 and a - c <= 0 and a - c + l >= 0)
+
+                            2    2
+ or (r > 0 and l > 0 and 2*l  - r  >= 0 and a - c <= 0 and a - c + l >= 0))) or 
+
+  2    2
+(l  - r  <= 0 and ((r > 0 and l > 0 and l - r = 0 and a - c >= 0
+
+      2            2    2    2
+ and a  - 2*a*c + c  + l  - r  >= 0
+
+                         2                    2              2    2
+ and (a - c - l <= 0 or a  - 2*a*c - 2*a*l + c  + 2*c*l + 2*l  - r  <= 0)) or (
+
+                       2    2
+r > 0 and l > 0 and 2*l  - r  >= 0 and a - c - l <= 0
+
+      2                    2              2    2
+ and a  - 2*a*c - 2*a*l + c  + 2*c*l + 2*l  - r  >= 0
+
+                     2            2    2    2
+ and (a - c >= 0 or a  - 2*a*c + c  + l  - r  <= 0)))) or (
+
+ 2                    2            2    2
+a  - 2*a*c - 2*a*l + c  + 2*c*l + l  - r  <= 0 and ((r > 0 and l > 0
+
+ and a - c >= 0 and a - c - l <= 0
+
+      2                    2              2    2
+ and a  - 2*a*c - 2*a*l + c  + 2*c*l + 2*l  - r  >= 0) or (r > 0 and l > 0
+
+ and a - c >= 0 and a - c - l <= 0 and (a - c - l - r = 0 or a - c - l + r = 0))
+
+))
