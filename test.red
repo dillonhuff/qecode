@@ -16,7 +16,7 @@ phi := ex( x, ex( y, inCircleFormula(a, b, r) and inSquareFormula(c, d, l) and (
 phi := ex( x, ex( y, ex( z, inCubeFormula( a, b, c, l ) and inSphereFormula( a, b, c, r) and (l > 0) and (r > 0) ) ) );
 
 
-COMMENT phi := (x^2 + y^2 = 0) and (x = 0) and (z = 2);
+phi := (x^2 + y^2 = 0) and (x = 0) and (z = 2);
 val := rlqe phi;
 
 vars := rlfvarl val;
@@ -57,8 +57,13 @@ procedure writeClauseAsCpp(connective, fm); begin;
 	  write(")")$
 	  end$
 
+procedure opString(op); if op = equal then "=="
+	  else if op = leq then "<="
+	  else if op = geq then ">="
+	  else "!=";
+
 procedure writeTerm(term); begin
-	  write("( ", lhs(term), " ", part(term, 0), " ", rhs(term), " )")$
+	  write("( ", lhs(term), " ", opString( part(term, 0) ), " ", rhs(term), " )")$
 	  end;
 
 procedure writeFormulaAsCpp(fm); begin
