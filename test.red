@@ -16,7 +16,7 @@ phi := ex( x, ex( y, inCircleFormula(a, b, r) and inSquareFormula(c, d, l) and (
 phi := ex( x, ex( y, ex( z, inCubeFormula( a, b, c, l ) and inSphereFormula( a, b, c, r) and (l > 0) and (r > 0) ) ) );
 
 
-phi := (x^2 + y^2 = 0) and (x = 0) and (z = 2);
+COMMENT phi := (x^2 + y^2 = 0) and (x = 0) and (z = 2);
 val := rlqe phi;
 
 vars := rlfvarl val;
@@ -63,7 +63,9 @@ procedure opString(op); if op = equal then "=="
 	  else "!=";
 
 procedure writeTerm(term); begin
+	  on fort$
 	  write("( ", lhs(term), " ", opString( part(term, 0) ), " ", rhs(term), " )")$
+	  off fort$
 	  end;
 
 procedure writeFormulaAsCpp(fm); begin
