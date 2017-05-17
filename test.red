@@ -10,14 +10,15 @@ procedure inSphereFormula(a, b, c, r); (x - a)^2 + (y - b)^2 + (z - c)^2 <= r^2;
 
 
 
-rlset ofsf;
 phi := ex( x, ex( y, inCircleFormula(a, b, r) and inSquareFormula(c, d, l) and (l > 0) and (r > 0) ) );
 
 phi := ex( x, ex( y, ex( z, inCubeFormula( a, b, c, l ) and inSphereFormula( a, b, c, r) and (l > 0) and (r > 0) ) ) );
 
 
 COMMENT phi := (x^2 + y^2 = 0) and (x = 0) and (z = 2);
+
 val := rlqe phi;
+
 
 vars := rlfvarl val;
 
