@@ -41,8 +41,9 @@ procedure writeDecl(fm); begin
 	  end;
 
 procedure writeVal(str, valList, i); begin
-	  if (length valList = i) or (length valList = 1) then writeFormulaAsCpp(part(valList, i)) else
-	  write(str," ", writeFormulaAsCpp(part(valList, i)));
+	  if (length valList = i) or (length valList <= 1) then writeFormulaAsCpp(part(valList, i)) else
+	  COMMENT write(str," ", writeFormulaAsCpp(part(valList, i)));
+	  writeFormulaAsCpp(part(valList, i));
 	  end;
 
 procedure writeClauseAsCpp(connective, fm); begin;
@@ -70,13 +71,25 @@ procedure writeFormula(fm);
 
 writeFormula(val);
 
-COMMENT for each p in part val 1;
+s1 := "This is a value";
+write("hey");
+s2 := "YET";
 
-COMMENT for i := 0 step 1 until length vars do write .
+s3 := concat(s1, s2);
 
-COMMENT parts := part val;
+write(s3);
 
-COMMENT length parts;
+kl := {1, 2, 3};
+write kl;
 
-COMMENT atoms := rlatl val;
+
+COMMENT for each p in part val 1$
+
+COMMENT for i := 0 step 1 until length vars do write $
+
+COMMENT parts := part val$
+
+COMMENT length parts$
+
+COMMENT atoms := rlatl val$
 
