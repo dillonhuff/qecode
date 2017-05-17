@@ -1,22 +1,29 @@
 bool test(
 
-const double a, 
+const double x, 
 
-const double b, 
+const double y, 
 
-const double c, 
-
-const double d, 
-
-const double l, 
-
-const double r
+const double z
 
 ) {
 
 return 
 
-true
+(
+
+( z - 2 = 0 )
+
+ &&
+
+   2
+( y  = 0 )
+
+ &&
+
+( x = 0 )
+
+)
 
 ;
 
