@@ -59,10 +59,11 @@ TEST_CASE("circle contains square") {
 }
 
 TEST_CASE("Overlap with circle outside square") {
-  square s{0.0, 0.0, 100};
-  circle c{101.0, 1.01, 1.1};
+  double r = 1.4;
+  square s{1.0, 1.0, 100};
+  circle c{102.0, 2.01, r};
 
-  double test_x = 101 - 1.1;
+  double test_x = 101 - r;
   double test_y = 1.01;
 
   cout << "Test point in square = " << in_square(test_x, test_y, s) << endl;
