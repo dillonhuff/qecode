@@ -53,10 +53,12 @@ showCpp (Var r) = r
 
 showCpp a = error $ show a
 
+cppTestString expr = "#include<cmath>\n\n" ++ (showCppDecl expr) ++ " { return " ++
+                     (showCpp expr) ++ "; }"
+
 main :: IO ()
 main = do
   a <- readFile "circle_sphere_post.txt"-- "val_example_no_newlines_caret.txt"
   case runParser expr () "expr" a of
    Left err -> putStrLn $ show err
-   Right expr -> putStrLn $ (showCppDecl expr) ++ " { return " ++
-                 (showCpp expr) ++ "; }"
+   Right expr -> putStrLn $ cppTestString expr
