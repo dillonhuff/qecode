@@ -5,6 +5,7 @@ import Parser
 
 import Data.List
 import Data.Char
+import System.Process
 import Text.Parsec
 import Text.Parsec.Expr
 
@@ -69,8 +70,15 @@ cppTestString expr = "#include<cmath>\n\n" ++ (showCppDecl expr) ++ " { return "
 preprocessFormulaString a =
   replace ". " "" $ replace "**" "^" (filter (\c -> c /= '\n') a)
 
+--qeString = "load redlog;\nrlset ofsf;\nin \"shape_formulas.red\";\nphi := ex( x, ex( y, inCircleFormula(a, b, r) and inSquareFormula(c, d, l) and (l > 0) and (r > 0) ) );\nval := rlqe phi;\nin \"output.red\"$\nwriteFormula(val);"
+
+qeString = "load redlog;\nrlset ofsf;\nin \"shape_formulas.red\";\nphi := ex( x, ex( y, inCircleFormula(a, b, r) and inSquareFormula(a, b, l) and (l > 0) and (r > 0) ) );\nval := rlqe phi;\nin \"output.red\"$\nwriteFormula(val);"
+
 main :: IO ()
 main = do
+  writeFile "qe_input.red" qeString
+  pr <- runCommand "/Volumes/x86_64-mac_10.11_elcapitan-darwin15.0.0_svn3258/reduce.app/Contents/Resources/reduce qe_input.red"
+  waitForProcess pr
   a <- readFile "formula_file"
   putStrLn $ preprocessFormulaString a
   let fmStr = preprocessFormulaString a in
