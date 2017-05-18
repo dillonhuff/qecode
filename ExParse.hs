@@ -17,7 +17,24 @@ data Arith =
   Neg Arith |
   Num Int |
   Var String deriving (Eq, Ord, Show)
-  
+
+showCppBinop str a b = "( " ++ (showCpp a) ++ " " ++ str ++ " " ++ (showCpp b) ++ " )"
+
+showCpp :: Arith -> String
+showCpp (Or a b) = showCppBinop "||" a b
+showCpp (And a b) = showCppBinop "&&" a b
+showCpp (NEQ a b) = showCppBinop "!=" a b
+showCpp (GEQ a b) = showCppBinop ">=" a b
+showCpp (LEQ a b) = showCppBinop "<=" a b
+showCpp (EQL a b) = showCppBinop "==" a b
+showCpp (Times a b) = showCppBinop "*" a b --(showCpp a) ++ " + " ++ (showCpp b)
+showCpp (Minus a b) = showCppBinop "-" a b
+showCpp (Plus a b) = showCppBinop "+" a b
+showCpp (Pow a b) = "pow( " ++ (showCpp a) ++ ", " ++ (showCpp b) ++ " )"
+showCpp (Var r) = r
+
+showCpp a = error $ show a
+
 parens :: (Monad m) => ParsecT String u m a -> ParsecT String u m a
 parens p = do
     char '('
@@ -69,4 +86,6 @@ res = runParser expr () "expr" "2+a"
 main :: IO ()
 main = do
   a <- readFile "val_example_no_newlines_caret.txt"
-  putStrLn $ show $ runParser expr () "expr" a
+  case runParser expr () "expr" a of
+   Left err -> putStrLn $ show err
+   Right expr -> putStrLn $ showCpp expr
