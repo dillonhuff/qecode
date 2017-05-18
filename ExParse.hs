@@ -71,7 +71,6 @@ preprocessFormulaString a =
 
 main :: IO ()
 main = do
-  --a <- readFile "circle_sphere_post.txt"-- "val_example_no_newlines_caret.txt"
   a <- readFile "formula_file"
   putStrLn $ preprocessFormulaString a
   let fmStr = preprocessFormulaString a in
