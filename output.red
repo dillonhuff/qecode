@@ -49,14 +49,14 @@ procedure writeFormulaAsCpp(fm); begin
 	  writeTerm(fm)$
 	  end$
 
-procedure writeFormula(fm);
-	  begin writeDecl(fm)$
-	  write("return ")$
+procedure writeFormula(fm); begin
+	  COMMENT writeDecl(fm);
+	  COMMENT write("return ");
 
 	  out formula_file$
 	  writeFormulaAsCpp(fm)$
 	  shut formula_file$
 
-	  write(";")$
+	  write(";");
 	  write("}")$
 	  end$
