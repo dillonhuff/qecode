@@ -52,11 +52,12 @@ term    =  parens expr
            <?> "simple expression"
 
 table   = [ [prefix "-" Neg, prefix "+" id ]
-          , [binary "**" Pow AssocLeft]
+          , [binary "^" Pow AssocLeft]
           , [binary "*" Times AssocLeft] --, binary "/" (div) AssocLeft ]
           , [binary "+" Plus AssocLeft, binary "-" Minus AssocLeft ]
-          , [binary "!=" NEQ AssocLeft, binary ">=" GEQ AssocLeft]
-          , [binary "&&" And AssocLeft]
+          , [binary "!=" NEQ AssocLeft, binary ">=" GEQ AssocLeft,
+             binary "<=" LEQ AssocLeft, binary "==" EQL AssocLeft]
+          , [binary "&&" And AssocLeft, binary "||" Or AssocLeft]
           ]
 
 binary  name fun assoc = Infix (do{ reservedOp name; return fun }) assoc
@@ -67,5 +68,5 @@ res = runParser expr () "expr" "2+a"
 
 main :: IO ()
 main = do
-  a <- readFile "val_example_no_newlines.txt"
+  a <- readFile "val_example_no_newlines_caret.txt"
   putStrLn $ show $ runParser expr () "expr" a
