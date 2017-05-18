@@ -27,7 +27,7 @@ bool in_square(const double x, const double y, const square sq) {
 }
 
 bool overlap(const square sq, const circle circ) {
-  return test(circ.r, sq.l, sq.y, circ.y, circ.x, sq.x);
+  return test(circ.r, sq.l, circ.y, sq.y, circ.x, sq.x);
 }
 
 TEST_CASE("circle and square do overlap") {
@@ -45,9 +45,15 @@ TEST_CASE("circle and square do not overlap") {
 }
 
 TEST_CASE("circle and square do not overlap, more complex") {
-  square s{0.0, -1.6, 2.0};
-  circle c{0.7, 0.1, 1.0};
+  double test_x = 3.1;
+  double test_y = 2.1;
 
+  square s{0.0, -1.6, 2.0};
+  circle c{test_x, test_y, 0.1};
+
+  cout << "Test point in square = " << in_square(test_x, test_y, s) << endl;
+  cout << "Test point in circle = " << in_circle(test_x, test_y, c) << endl;
+  
   REQUIRE(!overlap(s, c));
 }
 
