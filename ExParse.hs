@@ -17,7 +17,7 @@ data Arith =
   And Arith Arith |
   Or Arith Arith |
   Neg Arith |
-  Num Int |
+  Num Double |
   Var String deriving (Eq, Ord, Show)
 
 showCppBinop str a b = "( " ++ (showCpp a) ++ " " ++ str ++ " " ++ (showCpp b) ++ " )"
@@ -40,7 +40,7 @@ varNames (NEQ a b) = varNamesBinop a b
 varNames (Pow a b) = varNamesBinop a b
 varNames (Or a b) = varNamesBinop a b
 varNames (And a b) = varNamesBinop a b
-varNames (Var i) = if all (\c -> isDigit c) i then [] else [i]
+varNames (Var i) = if all (\c -> (isDigit c) || (c == '.')) i then [] else [i]
 varNames (Num i) = []
 varNames e = error $ show e
 
@@ -82,11 +82,16 @@ reservedOp s = do
 
 natural = do
   spaces
-  fmap (Num . read) $ many1 digit
+  front <- many1 digit
+  char '.'
+  back <- many1 digit
+  --f <- floating
+  return $ (Num . read) $ (front ++ "." ++ back)
+  --fmap (Num . read) $ many1 digit
 
 variable = do
   spaces
-  chars <- many1 alphaNum
+  chars <- many1 (alphaNum <|> (char '.'))
   spaces
   return $ Var chars
 
@@ -114,7 +119,7 @@ res = runParser expr () "expr" "2+a"
 
 main :: IO ()
 main = do
-  a <- readFile "val_example_no_newlines_caret.txt"
+  a <- readFile "circle_sphere_post.txt"-- "val_example_no_newlines_caret.txt"
   case runParser expr () "expr" a of
    Left err -> putStrLn $ show err
    Right expr -> putStrLn $ (showCppDecl expr) ++ " { return " ++ (showCpp expr) ++ "; }"
