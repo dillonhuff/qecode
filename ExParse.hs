@@ -1,5 +1,7 @@
 module ExParse where
 
+import Data.List
+import Data.Char
 import Text.Parsec
 import Text.Parsec.Expr
 
@@ -19,6 +21,33 @@ data Arith =
   Var String deriving (Eq, Ord, Show)
 
 showCppBinop str a b = "( " ++ (showCpp a) ++ " " ++ str ++ " " ++ (showCpp b) ++ " )"
+
+cppVarList :: [String] -> String
+cppVarList [] = ""
+cppVarList (a:[]) = "const double " ++ a
+cppVarList (a:as) = "const double " ++ a ++ ", " ++ (cppVarList as)
+
+varNamesBinop a b = (varNames a) ++ (varNames b)
+
+varNames :: Arith -> [String]
+varNames (Times a b) = varNamesBinop a b
+varNames (Plus a b) = varNamesBinop a b
+varNames (Minus a b) = varNamesBinop a b
+varNames (GEQ a b) = varNamesBinop a b
+varNames (LEQ a b) = varNamesBinop a b
+varNames (EQL a b) = varNamesBinop a b
+varNames (NEQ a b) = varNamesBinop a b
+varNames (Pow a b) = varNamesBinop a b
+varNames (Or a b) = varNamesBinop a b
+varNames (And a b) = varNamesBinop a b
+varNames (Var i) = if all (\c -> isDigit c) i then [] else [i]
+varNames (Num i) = []
+varNames e = error $ show e
+
+varNamesUnique expr = nub $ varNames expr
+
+showCppDecl :: Arith -> String
+showCppDecl expr = "bool test( " ++ (cppVarList $ varNamesUnique $ expr) ++ " )"
 
 showCpp :: Arith -> String
 showCpp (Or a b) = showCppBinop "||" a b
@@ -88,4 +117,4 @@ main = do
   a <- readFile "val_example_no_newlines_caret.txt"
   case runParser expr () "expr" a of
    Left err -> putStrLn $ show err
-   Right expr -> putStrLn $ showCpp expr
+   Right expr -> putStrLn $ (showCppDecl expr) ++ " { return " ++ (showCpp expr) ++ "; }"
