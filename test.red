@@ -78,11 +78,14 @@ procedure writeFormulaAsCpp(fm); begin
 procedure writeFormula(fm);
 	  begin writeDecl(fm)$
 	  write("return ")$
-	  writeFormulaAsCpp(fm)$
 
+	  out formula_file$
+	  writeFormulaAsCpp(fm)$
+	  shut formula_file$
 
 	  write(";")$
 	  write("}")$
 	  end$
 
 writeFormula(val);
+
