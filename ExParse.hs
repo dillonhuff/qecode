@@ -1,26 +1,15 @@
 module ExParse where
 
+import Formula
+import Parser
+
 import Data.List
 import Data.Char
 import Text.Parsec
 import Text.Parsec.Expr
 
-data Arith =
-  Times Arith Arith |
-  Plus Arith Arith |
-  Minus Arith Arith |
-  Pow Arith Arith |
-  NEQ Arith Arith |
-  GEQ Arith Arith |
-  LEQ Arith Arith |
-  EQL Arith Arith |
-  And Arith Arith |
-  Or Arith Arith |
-  Neg Arith |
-  Num Double |
-  Var String deriving (Eq, Ord, Show)
-
-showCppBinop str a b = "( " ++ (showCpp a) ++ " " ++ str ++ " " ++ (showCpp b) ++ " )"
+showCppBinopNoParens str a b = (showCpp a) ++ " " ++ str ++ " " ++ (showCpp b)
+showCppBinop str a b = "( " ++ (showCppBinopNoParens str a b) ++ " )"
 
 cppVarList :: [String] -> String
 cppVarList [] = ""
@@ -56,70 +45,18 @@ showCpp (NEQ a b) = showCppBinop "!=" a b
 showCpp (GEQ a b) = showCppBinop ">=" a b
 showCpp (LEQ a b) = showCppBinop "<=" a b
 showCpp (EQL a b) = showCppBinop "==" a b
-showCpp (Times a b) = showCppBinop "*" a b --(showCpp a) ++ " + " ++ (showCpp b)
-showCpp (Minus a b) = showCppBinop "-" a b
-showCpp (Plus a b) = showCppBinop "+" a b
+showCpp (Times a b) = showCppBinopNoParens "*" a b
+showCpp (Minus a b) = showCppBinopNoParens "-" a b
+showCpp (Plus a b) = showCppBinopNoParens "+" a b
 showCpp (Pow a b) = "pow( " ++ (showCpp a) ++ ", " ++ (showCpp b) ++ " )"
 showCpp (Var r) = r
 
 showCpp a = error $ show a
-
-parens :: (Monad m) => ParsecT String u m a -> ParsecT String u m a
-parens p = do
-    char '('
-    spaces
-    e <- p
-    spaces
-    char ')'
-    spaces
-    return e
-
-reservedOp :: (Monad m) => String -> ParsecT String u m ()
-reservedOp s = do
-    string s
-    return ()
---    notFollowedBy letter
-
-natural = do
-  spaces
-  front <- many1 digit
-  char '.'
-  back <- many1 digit
-  --f <- floating
-  return $ (Num . read) $ (front ++ "." ++ back)
-  --fmap (Num . read) $ many1 digit
-
-variable = do
-  spaces
-  chars <- many1 (alphaNum <|> (char '.'))
-  spaces
-  return $ Var chars
-
-expr    = buildExpressionParser table term
-
-term    =  parens expr
-           <|> variable
-           <|> natural
-           <?> "simple expression"
-
-table   = [ [prefix "-" Neg, prefix "+" id ]
-          , [binary "^" Pow AssocLeft]
-          , [binary "*" Times AssocLeft] --, binary "/" (div) AssocLeft ]
-          , [binary "+" Plus AssocLeft, binary "-" Minus AssocLeft ]
-          , [binary "!=" NEQ AssocLeft, binary ">=" GEQ AssocLeft,
-             binary "<=" LEQ AssocLeft, binary "==" EQL AssocLeft]
-          , [binary "&&" And AssocLeft, binary "||" Or AssocLeft]
-          ]
-
-binary  name fun assoc = Infix (do{ reservedOp name; return fun }) assoc
-prefix  name fun       = Prefix (do{ reservedOp name; return fun })
-postfix name fun       = Postfix (do{ reservedOp name; return fun })
-
-res = runParser expr () "expr" "2+a"
 
 main :: IO ()
 main = do
   a <- readFile "circle_sphere_post.txt"-- "val_example_no_newlines_caret.txt"
   case runParser expr () "expr" a of
    Left err -> putStrLn $ show err
-   Right expr -> putStrLn $ (showCppDecl expr) ++ " { return " ++ (showCpp expr) ++ "; }"
+   Right expr -> putStrLn $ (showCppDecl expr) ++ " { return " ++
+                 (showCpp expr) ++ "; }"
