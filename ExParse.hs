@@ -8,6 +8,16 @@ import Data.Char
 import Text.Parsec
 import Text.Parsec.Expr
 
+replace a b s@(x:xs) = if isPrefixOf a s
+
+                     -- then, write 'b' and replace jumping 'a' substring
+                     then b++replace a b (drop (length a) s)
+
+                     -- then, write 'x' char and try to replace tail string
+                     else x:replace a b xs
+
+replace _ _ [] = []
+
 showCppBinopNoParens str a b = (showCpp a) ++ " " ++ str ++ " " ++ (showCpp b)
 showCppBinop str a b = "( " ++ (showCppBinopNoParens str a b) ++ " )"
 
@@ -56,9 +66,15 @@ showCpp a = error $ show a
 cppTestString expr = "#include<cmath>\n\n" ++ (showCppDecl expr) ++ " { return " ++
                      (showCpp expr) ++ "; }"
 
+preprocessFormulaString a =
+  replace ". " "" $ replace "**" "^" (filter (\c -> c /= '\n') a)
+
 main :: IO ()
 main = do
-  a <- readFile "circle_sphere_post.txt"-- "val_example_no_newlines_caret.txt"
-  case runParser expr () "expr" a of
-   Left err -> putStrLn $ show err
-   Right expr -> putStrLn $ cppTestString expr
+  --a <- readFile "circle_sphere_post.txt"-- "val_example_no_newlines_caret.txt"
+  a <- readFile "formula_file"
+  putStrLn $ preprocessFormulaString a
+  let fmStr = preprocessFormulaString a in
+   case runParser expr () "expr" fmStr of
+    Left err -> putStrLn $ show err
+    Right expr -> putStrLn $ cppTestString expr
