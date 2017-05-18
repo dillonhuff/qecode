@@ -31,7 +31,8 @@ parens p = do
 reservedOp :: (Monad m) => String -> ParsecT String u m ()
 reservedOp s = do
     string s
-    notFollowedBy letter
+    return ()
+--    notFollowedBy letter
 
 natural = do
   spaces
@@ -62,7 +63,7 @@ binary  name fun assoc = Infix (do{ reservedOp name; return fun }) assoc
 prefix  name fun       = Prefix (do{ reservedOp name; return fun })
 postfix name fun       = Postfix (do{ reservedOp name; return fun })
 
-res = runParser expr () "expr" "(3**1)+a"
+res = runParser expr () "expr" "2+a"
 
 main :: IO ()
 main = do
