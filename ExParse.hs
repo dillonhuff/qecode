@@ -77,7 +77,9 @@ preprocessFormulaString a =
 qePrefix = "load redlog;\nrlset ofsf;\nin \"shape_formulas.red\";\n"
 qeSuffix = "val := rlqe phi;\nin \"output.red\"$\nwriteFormula(val);"
 
-qeString = qePrefix ++ "\nphi := ex( x, ex( y, inCircleFormula(a, b, r) and inSquareFormula(a, b, l) and (l > 0) and (r > 0) ) );\nval := rlqe phi;\n" ++ qeSuffix
+qeFormula = "ex( x, ex( y, inCircleFormula(a, b, r) and inSquareFormula(a, b, l) and (l > 0) and (r > 0) ) )"
+
+qeString = qePrefix ++ "\nphi := " ++ qeFormula ++ ";\nval := rlqe phi;\n" ++ qeSuffix
 
 main :: IO ()
 main = do
