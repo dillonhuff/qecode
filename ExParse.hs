@@ -30,12 +30,22 @@ preprocessFormulaString a =
 qePrefix = "load redlog;\nrlset ofsf;\nin \"shape_formulas.red\";\n"
 qeSuffix = "val := rlqe phi;\nin \"output.red\"$\nwriteFormula(val);"
 
+circleFm a b r = "inCircleFormula( " ++ a ++ ", " ++ b ++ ", " ++ r ++ " )"
+squareFm a b l = "inSquareFormula( " ++ a ++ ", " ++ b ++ ", " ++ l ++ " )"
+onLineFm2D a b = "onLineFormula2D( " ++ a ++ ", " ++ b ++ " )"
 
-qeFormula = "ex( x, ex( y, inCircleFormula(a, b, r) and inSquareFormula(c, d, l) and (l > 0) and (r > 0) ) )"
+circleSquareFm = "ex( x, ex( y, inCircleFormula(a, b, r) and inSquareFormula(c, d, l) and (l > 0) and (r > 0) ) )"
 
---qeFormula = "ex( x, ex( y, ex( z, inSphereFormula(a, b, c, r) and inCubeFormula(f, g, h, l) and (l > 0) and (r > 0) ) ) )"
+circleEllipseFm = "ex( x, ex( y, inCircleFormula(a, b, r) and inEllipseFormula(c, d, h, k) ) )"
 
-qeString = qePrefix ++ "\nphi := " ++ qeFormula ++ ";\n" ++ qeSuffix
+sphereCubeFm = "ex( x, ex( y, ex( z, inSphereFormula(a, b, c, r) and inCubeFormula(f, g, h, l) and (l > 0) and (r > 0) ) ) )"
+
+intersectionFm2D a b =
+  "ex( x, ex( y, " ++ a ++ " and " ++ b ++ " ) )"
+
+qeStringCC = qePrefix ++ "\nphi := " ++ (intersectionFm2D (circleFm "a" "b" "r1") (circleFm "c" "d" "r2")) ++ ";\n" ++ qeSuffix
+
+qeString = qePrefix ++ "\nphi := " ++ (intersectionFm2D (onLineFm2D "a" "b") (onLineFm2D "c" "d")) ++ ";\n" ++ qeSuffix
 
 main :: IO ()
 main = do
