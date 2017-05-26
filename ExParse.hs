@@ -30,9 +30,16 @@ preprocessFormulaString a =
 qePrefix = "load redlog;\nrlset ofsf;\nin \"shape_formulas.red\";\n"
 qeSuffix = "val := rlqe phi;\nin \"output.red\"$\nwriteFormula(val);"
 
+commaList [] = ""
+commaList (a:[]) = a ++ " "
+commaList (a:as) = a ++ ", " ++ (commaList as)
+
+-- Note: Should add triangle, cuboid, ellipsoid, (quadrialateral?)
 circleFm a b r = "inCircleFormula( " ++ a ++ ", " ++ b ++ ", " ++ r ++ " )"
 squareFm a b l = "inSquareFormula( " ++ a ++ ", " ++ b ++ ", " ++ l ++ " )"
+rectangleFm a b c d = "inRectangleFormula( " ++ (commaList [a, b, c, d]) ++ " )"
 onLineFm2D a b = "onLineFormula2D( " ++ a ++ ", " ++ b ++ " )"
+ellipseFm a b h k = "inEllipseFormula( " ++ a ++ ", " ++ b ++ ", " ++ h ++ ", " ++ k ++ " )"
 
 circleSquareFm = "ex( x, ex( y, inCircleFormula(a, b, r) and inSquareFormula(c, d, l) and (l > 0) and (r > 0) ) )"
 
@@ -45,7 +52,7 @@ intersectionFm2D a b =
 
 qeStringCC = qePrefix ++ "\nphi := " ++ (intersectionFm2D (circleFm "a" "b" "r1") (circleFm "c" "d" "r2")) ++ ";\n" ++ qeSuffix
 
-qeString = qePrefix ++ "\nphi := " ++ (intersectionFm2D (onLineFm2D "a" "b") (onLineFm2D "c" "d")) ++ ";\n" ++ qeSuffix
+qeString = qePrefix ++ "\nphi := " ++ (intersectionFm2D (ellipseFm "a" "b" "h" "k") (rectangleFm "c" "d" "j" "f")) ++ ";\n" ++ qeSuffix
 
 main :: IO ()
 main = do
