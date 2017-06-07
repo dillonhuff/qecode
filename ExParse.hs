@@ -45,6 +45,7 @@ sphereFm a b c r = "inSphereFormula( " ++ (commaList [a, b, c, r]) ++ " )"
 onPlaneFm a b c d = "onPlaneFormula( " ++ (commaList [a, b, c, d]) ++ " )"
 belowPlaneFm a b c d = "belowPlaneFormula( " ++ (commaList [a, b, c, d]) ++ " )"
 abovePlaneFm a b c d = "abovePlaneFormula( " ++ (commaList [a, b, c, d]) ++ " )"
+cubeFm a b c l = "inCubeFormula( " ++ (commaList[a, b, c, l]) ++ " )"
 
 circleSquareFm = "ex( x, ex( y, inCircleFormula(a, b, r) and inSquareFormula(c, d, l) and (l > 0) and (r > 0) ) )"
 
@@ -58,15 +59,15 @@ intersectionFm2D a b =
 intersectionFm3D a b =
   "ex( x, ex( y, ex( z, " ++ a ++ " and " ++ b ++ " ) ) )"
 
-qeStringCC = qePrefix ++ "\nphi := " ++ (intersectionFm2D (circleFm "a" "b" "r1") (circleFm "c" "d" "r2")) ++ ";\n" ++ qeSuffix
+qeString3D sa sb =
+  qePrefix ++ "\nphi := " ++ (intersectionFm3D sa sb) ++ ";\n" ++ qeSuffix
 
--- qeString = qePrefix ++ "\nphi := " ++ (intersectionFm2D (sphereFm "a" "b" "c" "r") (onPlaneFm "j" "k" "l" "m")) ++ ";\n" ++ qeSuffix
-
-qeString3D = qePrefix ++ "\nphi := " ++ (intersectionFm3D (sphereFm "a" "b" "c" "r") (belowPlaneFm "j" "k" "l" "m")) ++ ";\n" ++ qeSuffix
+qeString2D sa sb =
+  qePrefix ++ "\nphi := " ++ (intersectionFm2D sa sb) ++ ";\n" ++ qeSuffix
 
 main :: IO ()
 main = do
-  writeFile "qe_input.red" qeString3D
+  writeFile "qe_input.red" $ qeString3D (sphereFm "a" "b" "c" "r") (cubeFm "j" "k" "l" "m")
   pr <- runCommand "/Volumes/x86_64-mac_10.11_elcapitan-darwin15.0.0_svn3258/reduce.app/Contents/Resources/reduce qe_input.red"
   waitForProcess pr
   a <- readFile "formula_file"
