@@ -17,3 +17,6 @@ procedure abovePlaneFormula(a, b, c, d); a*x + b*y + c*z + d > 0;
 procedure inEllipseFormula(a, b, h, k); (b^2)*(x - h)^2 + (a^2)*(y - k)^2 = (a^2) * (b^2);
 
 procedure onLineFormula2D(a, b); a*x + b = y;
+
+procedure onParabolaFormula(a, b, c); a*x^2 + b*x + c - y = 0;
+

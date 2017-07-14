@@ -17,38 +17,6 @@ data Formula =
   Or [Formula] |
   Term Comparator Expr Expr deriving (Eq, Ord, Show)
 
--- parseTerm = do
---   spaces
---   char '('
-  
---   char ')'
---   return (Term EQL Expr Expr)
-
--- parseClause str = return $ Or []
---   -- char '('
---   -- --fms <- sepBy pFormula (symbol str)
---   -- char ')'
---   -- case str of
---   --  "||" -> return $ Or []
---   --  "&&" -> return $ And []
-
--- pFormula = do
---   char '('
---   newline
---   spaces
---   a <- (parseClause "||") <|> (parseClause "&&") <|> parseTerm
---   char ')'
---   return a
-
-  -- do
-  -- char '('
-  -- a <- many1 "abcdefghijklmnopqrstuvwxyz123456789-+=<*"
-  -- char ')'
-  -- return (Or [])
-
--- parseFormula :: String -> Either ParseError Formula
--- parseFormula input = parse pFormula "(unknown)" input
-
 expr    = buildExpressionParser table term
          <?> "expression"
 
