@@ -4,6 +4,8 @@
 using namespace std;
 using namespace ralg;
 
+#define EPSILON 0.0001
+
 bool within_eps(const double a, const double b, const double eps) {
   return fabs(a - b) < eps;
 }
@@ -13,7 +15,7 @@ bool formula(const double a,
 	     const double c,
 	     const double d,
 	     const double x) {
-  return within_eps(a*x + b - c*x - d, 0.0, 0.0001);
+  return within_eps(a*x + b - c*x - d, 0.0, EPSILON);
 }
 
 polynomial line_line_poly() {
@@ -133,7 +135,7 @@ int main() {
   double a = 1.0;
   double b = -3;
 
-  double c = 1.0;
+  double c = 1.2;
   double d = -3.0;
 
   bool it = lines_intersect(a, b, c, d);
