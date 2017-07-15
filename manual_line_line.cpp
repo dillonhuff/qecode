@@ -41,7 +41,7 @@ bool lines_intersect(const double a,
   polynomial p = line_line_poly();
   cout << "Before substitution" << endl;
   cout << p << endl;
-  vector<rational> rs{{d}, {c}, {b}, {a}};
+  vector<rational> rs{{a}, {b}, {c}, {d}};
   polynomial p_univariate = evaluate_at(rs, p);
 
   cout << p_univariate << endl;
