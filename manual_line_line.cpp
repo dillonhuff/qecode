@@ -63,17 +63,11 @@ std::vector<rational> test_points_from_roots(const std::vector<rational>& roots)
   return test_points;
 }
 
-bool lines_intersect(const double a,
-		     const double b,
-		     const double c,
-		     const double d) {
-  //Build the polynomial and evaluate it at (a, b, c, d)
-  polynomial p = line_line_poly();
-  cout << "Before substitution" << endl;
-  cout << p << endl;
-  vector<rational> rs{{a}, {b}, {c}, {d}};
-  polynomial p_univariate = evaluate_at(rs, p);
-
+bool test_formula_at_sample_points(const double a,
+				   const double b,
+				   const double c,
+				   const double d,
+				   const polynomial& p_univariate) {
   cout << p_univariate << endl;
 
   assert(p_univariate.num_vars() == 1);
@@ -116,6 +110,20 @@ bool lines_intersect(const double a,
   }
 
   return false;
+}
+
+bool lines_intersect(const double a,
+		     const double b,
+		     const double c,
+		     const double d) {
+  //Build the polynomial and evaluate it at (a, b, c, d)
+  polynomial p = line_line_poly();
+  cout << "Before substitution" << endl;
+  cout << p << endl;
+  vector<rational> rs{{a}, {b}, {c}, {d}};
+  polynomial p_univariate = evaluate_at(rs, p);
+
+  return test_formula_at_sample_points(a, b, c, d, p_univariate);
 }
 
 // Line line intersection without y:
