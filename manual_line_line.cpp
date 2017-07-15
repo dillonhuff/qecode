@@ -32,6 +32,33 @@ polynomial line_line_poly() {
   return p;
 }
 
+std::vector<rational> test_points_from_roots(const std::vector<rational>& roots) {
+  vector<rational> sorted_roots = roots;
+  sort(begin(sorted_roots), end(sorted_roots));
+  rational one(1);
+  rational two(2);
+  rational neg_inf = sorted_roots.front() - 1;
+  rational pos_inf = sorted_roots.back() + 1;
+
+  vector<rational> test_points;
+
+  test_points.push_back(neg_inf);
+
+  for (int i = 0; i < sorted_roots.size(); i++) {
+    test_points.push_back(sorted_roots[i]);
+
+    if (i < sorted_roots.size() - 1) {
+      rational mid = (sorted_roots[i] + sorted_roots[i + 1]) / two;
+      test_points.push_back(mid);
+    }
+  }
+
+  test_points.push_back(pos_inf);
+  
+  
+  return test_points;
+}
+
 // TODO: Add line polynomial, root queue, and formula evaluation
 bool lines_intersect(const double a,
 		     const double b,
@@ -45,6 +72,32 @@ bool lines_intersect(const double a,
   polynomial p_univariate = evaluate_at(rs, p);
 
   cout << p_univariate << endl;
+
+  assert(p_univariate.num_vars() == 1);
+
+  rational max_width(0.0001);
+  vector<interval> roots = isolate_roots(p_univariate, max_width);
+  cout << "# of roots = " << roots.size() << endl;
+
+  // Approximate roots by midpoints of intervals
+  vector<rational> points;
+
+  rational two(2);
+  for (auto& it : roots) {
+    points.push_back((it.start.value + it.end.value) / two);
+  }
+
+  cout << "Roots" << endl;
+  for (auto& pt : points) {
+    cout << pt.to_double() << endl;
+  }
+
+  cout << "test points" << endl;
+  vector<rational> test_points = test_points_from_roots(points);
+  for (auto& pt : test_points) {
+    cout << pt.to_double() << endl;
+  }
+
   return false;
 }
 
@@ -58,7 +111,8 @@ int main() {
   double c = -1.0;
   double d = 5.0;
 
+  bool it = lines_intersect(a, b, c, d);
   cout << "Intersection?" << endl;
-  cout << lines_intersect(a, b, c, d) << endl;
+  cout << it << endl;
   return 0;
 }
