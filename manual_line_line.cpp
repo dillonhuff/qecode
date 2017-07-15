@@ -33,6 +33,10 @@ polynomial line_line_poly() {
 }
 
 std::vector<rational> test_points_from_roots(const std::vector<rational>& roots) {
+  if (roots.size() == 0) {
+    return {};
+  }
+
   vector<rational> sorted_roots = roots;
   sort(begin(sorted_roots), end(sorted_roots));
   rational one(1);
@@ -98,6 +102,11 @@ bool lines_intersect(const double a,
     cout << pt.to_double() << endl;
   }
 
+  // Is this the correct handling of the zero root case?
+  if (test_points.size() == 0) {
+    return formula(a, b, c, d, 0.0);
+  }
+
   for (auto& pt : test_points) {
     double test_x = pt.to_double();
     bool fm_true = formula(a, b, c, d, test_x);
@@ -118,7 +127,7 @@ int main() {
   double b = -3;
 
   double c = 1.0;
-  double d = 5.0;
+  double d = -3.0;
 
   bool it = lines_intersect(a, b, c, d);
   cout << "Intersection?" << endl;
