@@ -63,7 +63,6 @@ std::vector<rational> test_points_from_roots(const std::vector<rational>& roots)
   return test_points;
 }
 
-// TODO: Add line polynomial, root queue, and formula evaluation
 bool lines_intersect(const double a,
 		     const double b,
 		     const double c,
