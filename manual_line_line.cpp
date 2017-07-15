@@ -98,6 +98,15 @@ bool lines_intersect(const double a,
     cout << pt.to_double() << endl;
   }
 
+  for (auto& pt : test_points) {
+    double test_x = pt.to_double();
+    bool fm_true = formula(a, b, c, d, test_x);
+    cout << "At x = " << test_x << " the formula is " << fm_true << endl;
+    if (fm_true) {
+      return true;
+    }
+  }
+
   return false;
 }
 
@@ -108,7 +117,7 @@ int main() {
   double a = 1.0;
   double b = -3;
 
-  double c = -1.0;
+  double c = 1.0;
   double d = 5.0;
 
   bool it = lines_intersect(a, b, c, d);
