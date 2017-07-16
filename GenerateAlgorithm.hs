@@ -82,8 +82,12 @@ shapesIntersect var@(Var s) vars =
   let varList = vars in
    "bool shapes_intersect( " ++ (commaList $ L.map (\s -> "const double " ++ s) varList) ++ ") {\n" ++ (shapesIntersectBodyCpp vars) ++ "\n}"
 
+testFormulaPointsBody vars = "rational max_width(0.0001);\n\tvector<interval> roots = isolate_roots(p_univariate, max_width);\n\tvector<rational> points;\n\trational two(2);\n\t for (auto& it : roots) {\n\t\t points.push_back((it.start.value + it.end.value) / two);\n\t }\n\n\tif (test_points.size() == 0) {\n\t\treturn formula(" ++ (commaList vars) ++ ", 0.0);\n\t }\n\n\tfor (auto& pt : test_points) { double test_x = pt.to_double();\n\t bool fm_true = formula(" ++ (commaList vars) ++ ", test_x);\n\t cout << \"At x = \" << test_x << \" the formula is \" << fm_true << endl;\n\t if (fm_true) {\n\t\treturn true;\n\t }\n\t}\n\treturn false;\n\t"
+
+testFormulaPoints vars = "bool test_formulas_at_sample_points(" ++ (commaList $ L.map (\s -> "const double " ++ s) vars) ++ ", const polynomial& p_univariate) {" ++ (testFormulaPointsBody vars) ++ "\n}"
+
 evaluationCode var vars fm =
-  (shapesIntersect var vars)
+  (testFormulaPoints vars) ++ "\n\n" ++ (shapesIntersect var vars)
 
 algorithmTextCpp :: Arith -> Arith -> String
 algorithmTextCpp var@(Var s) fm =
