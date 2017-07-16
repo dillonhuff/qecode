@@ -37,12 +37,21 @@ collectPolys (EQL a b) = [a, b]
 isNum (Num _) = True
 isNum _ = False
 
-buildPolynomialCpp var vars p =
-  let x = var in
-   "p"
+declareMonomial nVars varNum s = "\tmonomial " ++ s ++ "(1, {}, " ++ show nVars ++ ");\n"
+
+declareMonomials varList =
+  let varNums = [1..(length varList)] in
+   L.concatMap (\(v, n) -> declareMonomial (length varList) n v) $ L.zip varList varNums
+
+declarePolynomials varList = ""
+
+buildPolynomialCpp :: Arith -> [String] -> Arith -> String
+buildPolynomialCpp var@(Var s) vars p =
+  let varList = vars ++ [s] in
+   (declareMonomials varList) ++ "\n\n" ++ (declarePolynomials varList)
 
 -- TODO: Make these unique
-polynomialFunction var vars p = "polynomial make_polynomial() {\n\t" ++ (buildPolynomialCpp var vars p) ++ ";\n\treturn p;\n}"
+polynomialFunction var vars p = "polynomial make_polynomial() {\n" ++ (buildPolynomialCpp var vars p) ++ ";\n\treturn p;\n}"
 
 algoPolysCpp var vars fm =
   let ps = L.filter (\s -> not $ isNum s) $ collectPolys fm in
