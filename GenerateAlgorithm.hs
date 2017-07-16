@@ -44,21 +44,25 @@ varZeros nVars varNum =
    L.map show $ start ++ [1] ++ end
 
 declareMonomial nVars varNum s =
-  "\tmonomial " ++ s ++ "(1, {" ++ (commaList $ varZeros nVars varNum) ++ "}, " ++ show nVars ++ ");\n"
+  "\tmonomial m_" ++ s ++ "(1, {" ++ (commaList $ varZeros nVars varNum) ++ "}, " ++ show nVars ++ ");\n"
 
 declareMonomials varList =
   let varNums = [1..(length varList)] in
    L.concatMap (\(v, n) -> declareMonomial (length varList) n v) $ L.zip varList varNums
 
-declarePolynomials varList = ""
+declarePolynomial nVars var =
+  "\tpolynomial " ++ var ++ "({m_" ++ var ++ "}, " ++ show nVars ++ ");\n"
+
+declarePolynomials varList p =
+   L.concatMap (declarePolynomial (length varList)) $ varList 
 
 buildPolynomialCpp :: Arith -> [String] -> Arith -> String
 buildPolynomialCpp var@(Var s) vars p =
   let varList = vars ++ [s] in
-   (declareMonomials varList) ++ "\n\n" ++ (declarePolynomials varList)
+   (declareMonomials varList) ++ "\n\n" ++ (declarePolynomials varList p)
 
--- TODO: Make these unique
-polynomialFunction var vars p = "polynomial make_polynomial() {\n" ++ (buildPolynomialCpp var vars p) ++ ";\n\treturn p;\n}"
+-- TODO: Make functions names unique
+polynomialFunction var vars p = "polynomial make_polynomial() {\n" ++ (buildPolynomialCpp var vars p) ++ "\n\treturn p;\n}"
 
 algoPolysCpp var vars fm =
   let ps = L.filter (\s -> not $ isNum s) $ collectPolys fm in
