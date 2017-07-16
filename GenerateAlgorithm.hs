@@ -73,11 +73,23 @@ algoPolysCpp var vars fm =
   let ps = L.filter (\s -> not $ isNum s) $ collectPolys fm in
    L.concatMap (polynomialFunction var vars) ps
 
+varsAsRationals vars = commaList $ L.map (\s -> "{" ++ s ++ "}") vars
+
+shapesIntersectBodyCpp vars =
+  "\tpolynomial p = make_polynomial();\n\tvector<rational> rs{" ++ (varsAsRationals vars) ++ "};\n\tpolynomial p_univariate = evaluate_at(rs, p);\n\treturn test_formula_at_sample_points(" ++ (commaList vars) ++ ", p_univariate);"
+
+shapesIntersect var@(Var s) vars =
+  let varList = vars in
+   "bool shapes_intersect( " ++ (commaList $ L.map (\s -> "const double " ++ s) varList) ++ ") {\n" ++ (shapesIntersectBodyCpp vars) ++ "\n}"
+
+evaluationCode var vars fm =
+  (shapesIntersect var vars)
+
 algorithmTextCpp :: Arith -> Arith -> String
 algorithmTextCpp var@(Var s) fm =
   let eps = 0.0001
       vars = L.delete s $ L.sort $ varStrs fm in
-   (algoPrefixCpp eps var vars fm) ++ "\n\n" ++ (algoPolysCpp var vars fm)
+   (algoPrefixCpp eps var vars fm) ++ "\n\n" ++ (algoPolysCpp var vars fm) ++ "\n\n" ++ (evaluationCode var vars fm)
 
 fm = EQL (Minus (Minus (Plus (Times (Var "a") (Var "x")) (Var "b")) (Times (Var "c") (Var "x"))) (Var "d")) (Num 0.0)
 
