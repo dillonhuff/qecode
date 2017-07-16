@@ -34,15 +34,25 @@ formulaFunctionCpp var@(Var s) vars fm =
 
 collectPolys (EQL a b) = [a, b]
 
+isNum (Num _) = True
+isNum _ = False
+
+buildPolynomialCpp var vars p =
+  let x = var in
+   "p"
+
+-- TODO: Make these unique
+polynomialFunction var vars p = "polynomial make_polynomial() {\n\t" ++ (buildPolynomialCpp var vars p) ++ ";\n\treturn p;\n}"
+
 algoPolysCpp var vars fm =
-  let ps = collectPolys fm in
-   L.concatMap formulaCpp ps
+  let ps = L.filter (\s -> not $ isNum s) $ collectPolys fm in
+   L.concatMap (polynomialFunction var vars) ps
 
 algorithmTextCpp :: Arith -> Arith -> String
 algorithmTextCpp var@(Var s) fm =
   let eps = 0.0001
       vars = L.delete s $ L.sort $ varStrs fm in
-   (algoPrefixCpp eps var vars fm) ++ (algoPolysCpp var vars fm)
+   (algoPrefixCpp eps var vars fm) ++ "\n\n" ++ (algoPolysCpp var vars fm)
 
 fm = EQL (Minus (Minus (Plus (Times (Var "a") (Var "x")) (Var "b")) (Times (Var "c") (Var "x"))) (Var "d")) (Num 0.0)
 
