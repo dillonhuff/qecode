@@ -70,27 +70,6 @@ polynomial make_polynomial_2() {
 	polynomial x({m_x}, 6);
 
 
-	polynomial result_polynomial_21393({}, 1);
-	return result_polynomial_21393;
-}
-
-polynomial make_polynomial_3() {
-	monomial m_a(1, {1, 0, 0, 0, 0, 0 }, 6);
-	monomial m_b(1, {0, 1, 0, 0, 0, 0 }, 6);
-	monomial m_c(1, {0, 0, 1, 0, 0, 0 }, 6);
-	monomial m_d(1, {0, 0, 0, 1, 0, 0 }, 6);
-	monomial m_f(1, {0, 0, 0, 0, 1, 0 }, 6);
-	monomial m_x(1, {0, 0, 0, 0, 0, 1 }, 6);
-
-
-	polynomial a({m_a}, 6);
-	polynomial b({m_b}, 6);
-	polynomial c({m_c}, 6);
-	polynomial d({m_d}, 6);
-	polynomial f({m_f}, 6);
-	polynomial x({m_x}, 6);
-
-
 	polynomial result_polynomial_21393 = ( ( ( ( a * x ) + b ) - ( c * x ) ) - d );
 	return result_polynomial_21393;
 }
@@ -126,7 +105,7 @@ bool test_formula_at_sample_points(const double a, const double b, const double 
 }
 
 bool shapes_intersect( const double a, const double b, const double c, const double d, const double f ) {
-	vector<polynomial> polys{make_polynomial_1(), make_polynomial_2(), make_polynomial_3() };
+	vector<polynomial> polys{make_polynomial_1(), make_polynomial_2() };
 	vector<rational> rs{{a}, {b}, {c}, {d}, {f} };
 	vector<polynomial> upolys;
 	for (auto& p : polys) {
@@ -135,4 +114,8 @@ bool shapes_intersect( const double a, const double b, const double c, const dou
 	}
 	return test_formula_at_sample_points(a, b, c, d, f , upolys);
 
+}
+
+int main() {
+  
 }

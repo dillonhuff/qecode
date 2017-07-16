@@ -49,6 +49,7 @@ collectPolys (And a b) = (collectPolys a) ++ (collectPolys b)
 collectPolynomials fm = L.nub $ collectPolys fm
 
 isNum (Num _) = True
+isNum (Var a) = isNumberStr a
 isNum _ = False
 
 varZeros nVars varNum =
@@ -100,8 +101,6 @@ shapesIntersectBodyCpp vars numPolys =
     "\tupolys.push_back(p_univariate);\n\t" ++
   "}\n\t" ++
   "return test_formula_at_sample_points(a, b, c, d, f , upolys);\n"
-
-  -- "\tpolynomial p = make_polynomial();\n\tvector<rational> rs{" ++ (varsAsRationals vars) ++ "};\n\tpolynomial p_univariate = evaluate_at(rs, p);\n\treturn test_formula_at_sample_points(" ++ (commaList vars) ++ ", upolys);"
 
 shapesIntersect var@(Var s) vars numPolys =
   let varList = vars in
