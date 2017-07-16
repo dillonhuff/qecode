@@ -32,11 +32,17 @@ formulaFunctionCpp var@(Var s) vars fm =
   let varStr = commaList $ L.map (\s -> "const double " ++ s) (vars ++ [s]) in
    "bool formula(" ++ varStr ++ ") {\n" ++ "\treturn " ++ (formulaCpp fm) ++ ";\n}\n"
 
+collectPolys (EQL a b) = [a, b]
+
+algoPolysCpp var vars fm =
+  let ps = collectPolys fm in
+   L.concatMap formulaCpp ps
+
 algorithmTextCpp :: Arith -> Arith -> String
 algorithmTextCpp var@(Var s) fm =
   let eps = 0.0001
       vars = L.delete s $ L.sort $ varStrs fm in
-   algoPrefixCpp eps var vars fm
+   (algoPrefixCpp eps var vars fm) ++ (algoPolysCpp var vars fm)
 
 fm = EQL (Minus (Minus (Plus (Times (Var "a") (Var "x")) (Var "b")) (Times (Var "c") (Var "x"))) (Var "d")) (Num 0.0)
 
