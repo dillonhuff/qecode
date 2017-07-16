@@ -30,10 +30,6 @@ preprocessFormulaString a =
 qePrefix = "load redlog;\nrlset ofsf;\nin \"shape_formulas.red\";\n"
 qeSuffix = "val := rlqe phi$\nin \"output.red\"$\nwriteFormula(val)$"
 
-commaList [] = ""
-commaList (a:[]) = a ++ " "
-commaList (a:as) = a ++ ", " ++ (commaList as)
-
 -- Note: Should add triangle, cuboid, ellipsoid, (quadrialateral?)
 circleFm a b r = "inCircleFormula( " ++ a ++ ", " ++ b ++ ", " ++ r ++ " )"
 squareFm a b l = "inSquareFormula( " ++ a ++ ", " ++ b ++ ", " ++ l ++ " )"

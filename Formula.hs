@@ -15,3 +15,7 @@ data Arith =
   Num Double |
   Var String deriving (Eq, Ord, Show)
 
+commaList [] = ""
+commaList (a:[]) = a ++ " "
+commaList (a:as) = a ++ ", " ++ (commaList as)
+
