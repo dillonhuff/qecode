@@ -4,3 +4,5 @@ circle_sphere.txt
 *.o
 formula_file
 qe_input.red
+auto_test
+test
