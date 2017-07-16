@@ -56,13 +56,18 @@ declarePolynomial nVars var =
 declarePolynomials varList p =
    L.concatMap (declarePolynomial (length varList)) $ varList 
 
+constructPolynomial p = formulaCpp p
+
+constructPolynomialCpp p =
+  "\tpolynomial result_polynomial_21393 = " ++ (constructPolynomial p) ++ ";"
+
 buildPolynomialCpp :: Arith -> [String] -> Arith -> String
 buildPolynomialCpp var@(Var s) vars p =
   let varList = vars ++ [s] in
-   (declareMonomials varList) ++ "\n\n" ++ (declarePolynomials varList p)
+   (declareMonomials varList) ++ "\n\n" ++ (declarePolynomials varList p) ++ "\n\n" ++ (constructPolynomialCpp p)
 
 -- TODO: Make functions names unique
-polynomialFunction var vars p = "polynomial make_polynomial() {\n" ++ (buildPolynomialCpp var vars p) ++ "\n\treturn p;\n}"
+polynomialFunction var vars p = "polynomial make_polynomial() {\n" ++ (buildPolynomialCpp var vars p) ++ "\n\treturn result_polynomial_21393;\n}"
 
 algoPolysCpp var vars fm =
   let ps = L.filter (\s -> not $ isNum s) $ collectPolys fm in
