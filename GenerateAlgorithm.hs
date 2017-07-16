@@ -1,5 +1,7 @@
 module GenerateAlgorithm where
 
+import Data.List as L
+
 import Formula
 
 within_eps_def = "bool within_eps(const double a, const double b, const double eps) {\n\treturn fabs(a - b) < eps;\n}"
@@ -11,13 +13,21 @@ algoPrefixCpp eps fm = "#include <ralg/root_counting.h>\n\nusing namespace std;\
 fmCppBinop op a b = "( " ++ (formulaCpp a) ++ " " ++ op ++ " " ++ (formulaCpp b) ++ " )"
 
 formulaCpp (Var x) = x
-formulaCpp (EQL a b) = "within_eps( " ++ (commaList $ map formulaCpp [a, b]) ++ " )"
+formulaCpp (EQL a b) = "within_eps( " ++ (commaList $ map formulaCpp [a, b]) ++ ", EPSILON )"
 formulaCpp (Plus a b) = fmCppBinop "+" a b
 formulaCpp (Times a b) = fmCppBinop "*" a b
 formulaCpp (Minus a b) = fmCppBinop "-" a b
 
+varStrings (Var x) = [x]
+varStrings (EQL a b) = (varStrings a) ++ (varStrings b)
+varStrings (Plus a b) = (varStrings a) ++ (varStrings b)
+varStrings (Minus a b) = (varStrings a) ++ (varStrings b)
+varStrings (Times a b) = (varStrings a) ++ (varStrings b)
+
+varStrs fm = L.nub $ varStrings fm
+
 formulaFunctionCpp fm =
-  "bool formula() {\n" ++ "\treturn " ++ (formulaCpp fm) ++ ";\n}\n"
+  "bool formula(" ++ commaList (L.map (\s -> "const double " ++ s) $ varStrs fm) ++ ") {\n" ++ "\treturn " ++ (formulaCpp fm) ++ ";\n}\n"
 
 algorithmTextCpp :: Arith -> Arith -> String
 algorithmTextCpp var fm =
