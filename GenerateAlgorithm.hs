@@ -37,7 +37,14 @@ collectPolys (EQL a b) = [a, b]
 isNum (Num _) = True
 isNum _ = False
 
-declareMonomial nVars varNum s = "\tmonomial " ++ s ++ "(1, {}, " ++ show nVars ++ ");\n"
+varZeros nVars varNum =
+  let zeroIndexVarNum = varNum - 1
+      start = L.replicate zeroIndexVarNum 0
+      end = L.replicate (nVars - zeroIndexVarNum - 1) 0 in
+   L.map show $ start ++ [1] ++ end
+
+declareMonomial nVars varNum s =
+  "\tmonomial " ++ s ++ "(1, {" ++ (commaList $ varZeros nVars varNum) ++ "}, " ++ show nVars ++ ");\n"
 
 declareMonomials varList =
   let varNums = [1..(length varList)] in
