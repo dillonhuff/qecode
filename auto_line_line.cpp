@@ -27,32 +27,82 @@ test_points.push_back(sorted_roots[i]);
  return test_points;
  }
 
-bool formula(const double a, const double b, const double c, const double d, const double x ) {
-	return within_eps( ( ( ( ( a * x ) + b ) - ( c * x ) ) - d ), 0.0 , EPSILON );
+bool formula(const double a, const double b, const double c, const double d, const double f, const double x ) {
+	return ( within_eps( ( x * ( a - f ) ), 0.0 , EPSILON ) || within_eps( ( ( ( ( a * x ) + b ) - ( c * x ) ) - d ), 0.0 , EPSILON ) );
 }
 
 
-polynomial make_polynomial() {
-	monomial m_a(1, {1, 0, 0, 0, 0 }, 5);
-	monomial m_b(1, {0, 1, 0, 0, 0 }, 5);
-	monomial m_c(1, {0, 0, 1, 0, 0 }, 5);
-	monomial m_d(1, {0, 0, 0, 1, 0 }, 5);
-	monomial m_x(1, {0, 0, 0, 0, 1 }, 5);
+polynomial make_polynomial_1() {
+	monomial m_a(1, {1, 0, 0, 0, 0, 0 }, 6);
+	monomial m_b(1, {0, 1, 0, 0, 0, 0 }, 6);
+	monomial m_c(1, {0, 0, 1, 0, 0, 0 }, 6);
+	monomial m_d(1, {0, 0, 0, 1, 0, 0 }, 6);
+	monomial m_f(1, {0, 0, 0, 0, 1, 0 }, 6);
+	monomial m_x(1, {0, 0, 0, 0, 0, 1 }, 6);
 
 
-	polynomial a({m_a}, 5);
-	polynomial b({m_b}, 5);
-	polynomial c({m_c}, 5);
-	polynomial d({m_d}, 5);
-	polynomial x({m_x}, 5);
+	polynomial a({m_a}, 6);
+	polynomial b({m_b}, 6);
+	polynomial c({m_c}, 6);
+	polynomial d({m_d}, 6);
+	polynomial f({m_f}, 6);
+	polynomial x({m_x}, 6);
+
+
+	polynomial result_polynomial_21393 = ( x * ( a - f ) );
+	return result_polynomial_21393;
+}
+
+polynomial make_polynomial_2() {
+	monomial m_a(1, {1, 0, 0, 0, 0, 0 }, 6);
+	monomial m_b(1, {0, 1, 0, 0, 0, 0 }, 6);
+	monomial m_c(1, {0, 0, 1, 0, 0, 0 }, 6);
+	monomial m_d(1, {0, 0, 0, 1, 0, 0 }, 6);
+	monomial m_f(1, {0, 0, 0, 0, 1, 0 }, 6);
+	monomial m_x(1, {0, 0, 0, 0, 0, 1 }, 6);
+
+
+	polynomial a({m_a}, 6);
+	polynomial b({m_b}, 6);
+	polynomial c({m_c}, 6);
+	polynomial d({m_d}, 6);
+	polynomial f({m_f}, 6);
+	polynomial x({m_x}, 6);
+
+
+	polynomial result_polynomial_21393({}, 1);
+	return result_polynomial_21393;
+}
+
+polynomial make_polynomial_3() {
+	monomial m_a(1, {1, 0, 0, 0, 0, 0 }, 6);
+	monomial m_b(1, {0, 1, 0, 0, 0, 0 }, 6);
+	monomial m_c(1, {0, 0, 1, 0, 0, 0 }, 6);
+	monomial m_d(1, {0, 0, 0, 1, 0, 0 }, 6);
+	monomial m_f(1, {0, 0, 0, 0, 1, 0 }, 6);
+	monomial m_x(1, {0, 0, 0, 0, 0, 1 }, 6);
+
+
+	polynomial a({m_a}, 6);
+	polynomial b({m_b}, 6);
+	polynomial c({m_c}, 6);
+	polynomial d({m_d}, 6);
+	polynomial f({m_f}, 6);
+	polynomial x({m_x}, 6);
 
 
 	polynomial result_polynomial_21393 = ( ( ( ( a * x ) + b ) - ( c * x ) ) - d );
 	return result_polynomial_21393;
 }
 
-bool test_formula_at_sample_points(const double a, const double b, const double c, const double d , const polynomial& p_univariate) {rational max_width(0.0001);
-	vector<interval> roots = isolate_roots(p_univariate, max_width);
+
+
+bool test_formula_at_sample_points(const double a, const double b, const double c, const double d, const double f , const std::vector<polynomial>& upolys) {
+	rational max_width(0.0001);
+	vector<interval> roots;
+	for (auto& p_univariate : upolys) {
+		concat(roots, isolate_roots(p_univariate));
+	}
 	vector<rational> points;
 	rational two(2);
 	 for (auto& it : roots) {
@@ -61,11 +111,11 @@ bool test_formula_at_sample_points(const double a, const double b, const double 
 
 	 vector<rational> test_points = test_points_from_roots(points);
 	if (test_points.size() == 0) {
-		return formula(a, b, c, d , 0.0);
+		return formula(a, b, c, d, f , 0.0);
 	 }
 
 	for (auto& pt : test_points) { double test_x = pt.to_double();
-	 bool fm_true = formula(a, b, c, d , test_x);
+	 bool fm_true = formula(a, b, c, d, f , test_x);
 	 cout << "At x = " << test_x << " the formula is " << fm_true << endl;
 	 if (fm_true) {
 		return true;
@@ -75,24 +125,14 @@ bool test_formula_at_sample_points(const double a, const double b, const double 
 	
 }
 
-bool shapes_intersect( const double a, const double b, const double c, const double d ) {
-	polynomial p = make_polynomial();
-	vector<rational> rs{{a}, {b}, {c}, {d} };
-	polynomial p_univariate = evaluate_at(rs, p);
-	return test_formula_at_sample_points(a, b, c, d , p_univariate);
+bool shapes_intersect( const double a, const double b, const double c, const double d, const double f ) {
+	vector<polynomial> polys{make_polynomial_1(), make_polynomial_2(), make_polynomial_3() };
+	vector<rational> rs{{a}, {b}, {c}, {d}, {f} };
+	vector<polynomial> upolys;
+	for (auto& p : polys) {
+		polynomial p_univariate = evaluate_at(rs, p);
+		upolys.push_back(p_univariate);
+	}
+	return test_formula_at_sample_points(a, b, c, d, f , upolys);
+
 }
-
-int main() {
-
-  double a = 1.0;
-  double b = -3;
-
-  double c = 1.0;
-  double d = 1.0;
-
-  bool it = shapes_intersect(a, b, c, d);
-  cout << "Intersection?" << endl;
-  cout << it << endl;
-  return 0;
-}
-

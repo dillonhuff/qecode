@@ -46,6 +46,8 @@ collectPolys (EQL a b) = [a, b]
 collectPolys (Or a b) = (collectPolys a) ++ (collectPolys b)
 collectPolys (And a b) = (collectPolys a) ++ (collectPolys b)
 
+collectPolynomials fm = L.nub $ collectPolys fm
+
 isNum (Num _) = True
 isNum _ = False
 
@@ -79,27 +81,43 @@ buildPolynomialCpp var@(Var s) vars p =
    (declareMonomials varList) ++ "\n\n" ++ (declarePolynomials varList p) ++ "\n\n" ++ (constructPolynomialCpp p)
 
 -- TODO: Make functions names unique
-polynomialFunction var vars p = "polynomial make_polynomial() {\n" ++ (buildPolynomialCpp var vars p) ++ "\n\treturn result_polynomial_21393;\n}"
+polynomialFunction polyNum var vars p = "polynomial make_polynomial_" ++ show polyNum ++ "() {\n" ++ (buildPolynomialCpp var vars p) ++ "\n\treturn result_polynomial_21393;\n}"
 
-algoPolysCpp var vars fm =
-  let ps = L.filter (\s -> not $ isNum s) $ collectPolys fm in
-   L.concatMap (polynomialFunction var vars) ps
+algoPolysCpp ps var vars fm =
+   L.concatMap (\(s, polyNum) -> (polynomialFunction polyNum var vars s) ++ "\n\n") $ L.zip ps $ [1..(length ps)]
 
 varsAsRationals vars = commaList $ L.map (\s -> "{" ++ s ++ "}") vars
 
-shapesIntersectBodyCpp vars =
-  "\tpolynomial p = make_polynomial();\n\tvector<rational> rs{" ++ (varsAsRationals vars) ++ "};\n\tpolynomial p_univariate = evaluate_at(rs, p);\n\treturn test_formula_at_sample_points(" ++ (commaList vars) ++ ", p_univariate);"
+polynomialConstructionCalls numPolys =
+  commaList $ L.map (\n -> "make_polynomial_" ++ show n ++ "()") $ [1..numPolys]
 
-shapesIntersect var@(Var s) vars =
+shapesIntersectBodyCpp vars numPolys = 
+  "\tvector<polynomial> polys{" ++ (polynomialConstructionCalls numPolys) ++ "};\n\t" ++
+  "vector<rational> rs{{a}, {b}, {c}, {d}, {f} };\n\t" ++ 
+  "vector<polynomial> upolys;\n\t" ++
+  "for (auto& p : polys) {\n\t" ++
+    "\tpolynomial p_univariate = evaluate_at(rs, p);\n\t" ++
+    "\tupolys.push_back(p_univariate);\n\t" ++
+  "}\n\t" ++
+  "return test_formula_at_sample_points(a, b, c, d, f , upolys);\n"
+
+  -- "\tpolynomial p = make_polynomial();\n\tvector<rational> rs{" ++ (varsAsRationals vars) ++ "};\n\tpolynomial p_univariate = evaluate_at(rs, p);\n\treturn test_formula_at_sample_points(" ++ (commaList vars) ++ ", upolys);"
+
+shapesIntersect var@(Var s) vars numPolys =
   let varList = vars in
-   "bool shapes_intersect( " ++ (commaList $ L.map (\s -> "const double " ++ s) varList) ++ ") {\n" ++ (shapesIntersectBodyCpp vars) ++ "\n}"
+   "bool shapes_intersect( " ++ (commaList $ L.map (\s -> "const double " ++ s) varList) ++ ") {\n" ++ (shapesIntersectBodyCpp vars numPolys) ++ "\n}"
 
-testFormulaPointsBody vars = "rational max_width(0.0001);\n\tvector<interval> roots = isolate_roots(p_univariate, max_width);\n\tvector<rational> points;\n\trational two(2);\n\t for (auto& it : roots) {\n\t\t points.push_back((it.start.value + it.end.value) / two);\n\t }\n\n\t vector<rational> test_points = test_points_from_roots(points);\n\tif (test_points.size() == 0) {\n\t\treturn formula(" ++ (commaList vars) ++ ", 0.0);\n\t }\n\n\tfor (auto& pt : test_points) { double test_x = pt.to_double();\n\t bool fm_true = formula(" ++ (commaList vars) ++ ", test_x);\n\t cout << \"At x = \" << test_x << \" the formula is \" << fm_true << endl;\n\t if (fm_true) {\n\t\treturn true;\n\t }\n\t}\n\treturn false;\n\t"
+testFormulaPointsBody vars =
+  "\n\trational max_width(0.0001);\n\tvector<interval> roots;\n\t" ++
+  "for (auto& p_univariate : upolys) {\n\t" ++
+  "\tconcat(roots, isolate_roots(p_univariate));\n\t" ++
+  "}\n\t" ++
+  "vector<rational> points;\n\trational two(2);\n\t for (auto& it : roots) {\n\t\t points.push_back((it.start.value + it.end.value) / two);\n\t }\n\n\t vector<rational> test_points = test_points_from_roots(points);\n\tif (test_points.size() == 0) {\n\t\treturn formula(" ++ (commaList vars) ++ ", 0.0);\n\t }\n\n\tfor (auto& pt : test_points) { double test_x = pt.to_double();\n\t bool fm_true = formula(" ++ (commaList vars) ++ ", test_x);\n\t cout << \"At x = \" << test_x << \" the formula is \" << fm_true << endl;\n\t if (fm_true) {\n\t\treturn true;\n\t }\n\t}\n\treturn false;\n\t"
 
-testFormulaPoints vars = "bool test_formula_at_sample_points(" ++ (commaList $ L.map (\s -> "const double " ++ s) vars) ++ ", const polynomial& p_univariate) {" ++ (testFormulaPointsBody vars) ++ "\n}"
+testFormulaPoints vars = "bool test_formula_at_sample_points(" ++ (commaList $ L.map (\s -> "const double " ++ s) vars) ++ ", const std::vector<polynomial>& upolys) {" ++ (testFormulaPointsBody vars) ++ "\n}"
 
-evaluationCode var vars fm =
-  (testFormulaPoints vars) ++ "\n\n" ++ (shapesIntersect var vars)
+evaluationCode var vars fm numPolys =
+  (testFormulaPoints vars) ++ "\n\n" ++ (shapesIntersect var vars numPolys)
 
 isNumberStr :: String -> Bool
 isNumberStr f =
@@ -108,8 +126,9 @@ isNumberStr f =
 algorithmTextCpp :: Arith -> Arith -> String
 algorithmTextCpp var@(Var s) fm =
   let eps = 0.0001
-      vars = L.filter (\v -> not $ isNumberStr v) $ L.delete s $ L.sort $ varStrs fm in
-   (algoPrefixCpp eps var vars fm) ++ "\n\n" ++ (algoPolysCpp var vars fm) ++ "\n\n" ++ (evaluationCode var vars fm)
+      vars = L.filter (\v -> not $ isNumberStr v) $ L.delete s $ L.sort $ varStrs fm
+      ps = L.filter (\s -> not $ isNum s) $ collectPolynomials fm in
+   (algoPrefixCpp eps var vars fm) ++ "\n\n" ++ (algoPolysCpp ps var vars fm) ++ "\n\n" ++ (evaluationCode var vars fm (L.length ps))
 
 fm = EQL (Minus (Minus (Plus (Times (Var "a") (Var "x")) (Var "b")) (Times (Var "c") (Var "x"))) (Var "d")) (Num 0.0)
 
