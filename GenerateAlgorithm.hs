@@ -1,8 +1,13 @@
 module GenerateAlgorithm where
 
+import Data.Char
 import Data.List as L
 
+import Text.Parsec
+import Text.Parsec.Expr
+
 import Formula
+import Parser
 
 within_eps_def = "bool within_eps(const double a, const double b, const double eps) {\n\treturn fabs(a - b) < eps;\n}"
 
@@ -17,13 +22,18 @@ formulaCpp (EQL a b) = "within_eps( " ++ (commaList $ map formulaCpp [a, b]) ++ 
 formulaCpp (Plus a b) = fmCppBinop "+" a b
 formulaCpp (Times a b) = fmCppBinop "*" a b
 formulaCpp (Minus a b) = fmCppBinop "-" a b
+formulaCpp (Or a b) = fmCppBinop "||" a b
+formulaCpp (And a b) = fmCppBinop "&&" a b
 formulaCpp (Num x) = show x
+formulaCpp e = error $ show e
 
 varStrings (Var x) = [x]
 varStrings (EQL a b) = (varStrings a) ++ (varStrings b)
 varStrings (Plus a b) = (varStrings a) ++ (varStrings b)
 varStrings (Minus a b) = (varStrings a) ++ (varStrings b)
 varStrings (Times a b) = (varStrings a) ++ (varStrings b)
+varStrings (Or a b) = (varStrings a) ++ (varStrings b)
+varStrings (And a b) = (varStrings a) ++ (varStrings b)
 varStrings (Num _) = []
 
 varStrs fm = L.nub $ varStrings fm
@@ -33,6 +43,8 @@ formulaFunctionCpp var@(Var s) vars fm =
    "bool formula(" ++ varStr ++ ") {\n" ++ "\treturn " ++ (formulaCpp fm) ++ ";\n}\n"
 
 collectPolys (EQL a b) = [a, b]
+collectPolys (Or a b) = (collectPolys a) ++ (collectPolys b)
+collectPolys (And a b) = (collectPolys a) ++ (collectPolys b)
 
 isNum (Num _) = True
 isNum _ = False
@@ -89,13 +101,23 @@ testFormulaPoints vars = "bool test_formula_at_sample_points(" ++ (commaList $ L
 evaluationCode var vars fm =
   (testFormulaPoints vars) ++ "\n\n" ++ (shapesIntersect var vars)
 
+isNumberStr :: String -> Bool
+isNumberStr f =
+  isNumber $ f !! 0
+
 algorithmTextCpp :: Arith -> Arith -> String
 algorithmTextCpp var@(Var s) fm =
   let eps = 0.0001
-      vars = L.delete s $ L.sort $ varStrs fm in
+      vars = L.filter (\v -> not $ isNumberStr v) $ L.delete s $ L.sort $ varStrs fm in
    (algoPrefixCpp eps var vars fm) ++ "\n\n" ++ (algoPolysCpp var vars fm) ++ "\n\n" ++ (evaluationCode var vars fm)
 
 fm = EQL (Minus (Minus (Plus (Times (Var "a") (Var "x")) (Var "b")) (Times (Var "c") (Var "x"))) (Var "d")) (Num 0.0)
 
 main :: IO ()
-main = putStrLn $ algorithmTextCpp (Var "x") fm
+main = do
+  a <- readFile "formula_file"
+  putStrLn a
+  let fmStr = preprocessFormulaString a in
+   case runParser expr () "expr" fmStr of
+    Left err -> putStrLn $ show err
+    Right expr -> putStrLn $ algorithmTextCpp (Var "x") expr

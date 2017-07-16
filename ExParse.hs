@@ -9,20 +9,6 @@ import System.Process
 import Text.Parsec
 import Text.Parsec.Expr
 
-replace a b s@(x:xs) = if isPrefixOf a s
-
-                     -- then, write 'b' and replace jumping 'a' substring
-                     then b++replace a b (drop (length a) s)
-
-                     -- then, write 'x' char and try to replace tail string
-                     else x:replace a b xs
-
-replace _ _ [] = []
-
-
-preprocessFormulaString a =
-  replace ". " "" $ replace "**" "^" (filter (\c -> c /= '\n') a)
-
 --qeString = "load redlog;\nrlset ofsf;\nin \"shape_formulas.red\";\nphi := ex( x, ex( y, inCircleFormula(a, b, r) and inSquareFormula(c, d, l) and (l > 0) and (r > 0) ) );\nval := rlqe phi;\nin \"output.red\"$\nwriteFormula(val);"
 
 --qeString = "load redlog;\nrlset ofsf;\nin \"shape_formulas.red\";\nphi := ex( x, ex( y, inCircleFormula(a, b, r) and inSquareFormula(a, b, l) and (l > 0) and (r > 0) ) );\nval := rlqe phi;\nin \"output.red\"$\nwriteFormula(val);"
