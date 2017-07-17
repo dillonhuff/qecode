@@ -118,7 +118,7 @@ shapesIntersect var@(Var s) vars numPolys =
 testFormulaPointsBody vars =
   "\n\trational max_width(0.0001);\n\tvector<interval> roots;\n\t" ++
   "for (auto& p_univariate : upolys) {\n\t" ++
-  "\tconcat(roots, isolate_roots(p_univariate));\n\t" ++
+  "\tconcat(roots, isolate_roots(p_univariate, max_width));\n\t" ++
   "}\n\t" ++
   "vector<rational> points;\n\trational two(2);\n\t for (auto& it : roots) {\n\t\t points.push_back((it.start.value + it.end.value) / two);\n\t }\n\n\t vector<rational> test_points = test_points_from_roots(points);\n\tif (test_points.size() == 0) {\n\t\treturn formula(" ++ (commaList vars) ++ ", 0.0);\n\t }\n\n\tfor (auto& pt : test_points) { double test_x = pt.to_double();\n\t bool fm_true = formula(" ++ (commaList vars) ++ ", test_x);\n\t cout << \"At x = \" << test_x << \" the formula is \" << fm_true << endl;\n\t if (fm_true) {\n\t\treturn true;\n\t }\n\t}\n\treturn false;\n\t"
 
