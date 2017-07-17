@@ -21,6 +21,8 @@ fmCppBinop op a b = "( " ++ (formulaCpp a) ++ " " ++ op ++ " " ++ (formulaCpp b)
 
 formulaCpp (Var x) = x
 formulaCpp (EQL a b) = "within_eps( " ++ (commaList $ map formulaCpp [a, b]) ++ ", EPSILON )"
+formulaCpp (LEQ a b) = fmCppBinop "<=" a b
+formulaCpp (GEQ a b) = fmCppBinop ">=" a b
 formulaCpp (Plus a b) = fmCppBinop "+" a b
 formulaCpp (Times a b) = fmCppBinop "*" a b
 formulaCpp (Minus a b) = fmCppBinop "-" a b
@@ -33,6 +35,8 @@ formulaCpp e = error $ "formulaCpp = " ++ show e
 
 varStrings (Var x) = [x]
 varStrings (EQL a b) = (varStrings a) ++ (varStrings b)
+varStrings (LEQ a b) = (varStrings a) ++ (varStrings b)
+varStrings (GEQ a b) = (varStrings a) ++ (varStrings b)
 varStrings (Plus a b) = (varStrings a) ++ (varStrings b)
 varStrings (Minus a b) = (varStrings a) ++ (varStrings b)
 varStrings (Times a b) = (varStrings a) ++ (varStrings b)
@@ -50,6 +54,8 @@ formulaFunctionCpp var@(Var s) vars fm =
    "bool formula(" ++ varStr ++ ") {\n" ++ "\treturn " ++ (formulaCpp fm) ++ ";\n}\n"
 
 collectPolys (EQL a b) = [a, b]
+collectPolys (LEQ a b) = [a, b]
+collectPolys (GEQ a b) = [a, b]
 collectPolys (Formula.NEQ a b) = [a, b]
 collectPolys (Or a b) = (collectPolys a) ++ (collectPolys b)
 collectPolys (And a b) = (collectPolys a) ++ (collectPolys b)
@@ -179,6 +185,8 @@ aExprToFm (IntConst s) = (Num $ fromInteger s)
 aExprToFm a = error $ "aExprToFm = " ++ show a
 
 bExprToFm (RBinary Equal a b) = EQL (aExprToFm a) (aExprToFm b)
+bExprToFm (RBinary GreaterEqual a b) = GEQ (aExprToFm a) (aExprToFm b)
+bExprToFm (RBinary LessEqual a b) = LEQ (aExprToFm a) (aExprToFm b)
 bExprToFm (RBinary ReduceParser.NEQ a b) = Formula.NEQ (aExprToFm a) (aExprToFm b)
 bExprToFm (BBinary RAnd a b) = And (bExprToFm a) (bExprToFm b)
 bExprToFm (BBinary ROr a b) = Or (bExprToFm a) (bExprToFm b)

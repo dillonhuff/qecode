@@ -15,7 +15,7 @@ data BExpr = BoolConst Bool
 
 data BBinOp = RAnd | ROr deriving (Show)
 
-data RBinOp = Greater | Less | NEQ | Equal deriving (Show)
+data RBinOp = Greater | GreaterEqual | LessEqual | Less | NEQ | Equal deriving (Show)
 
 data AExpr = RVar String
             | IntConst Integer
@@ -106,8 +106,8 @@ rExpression =
       return $ RBinary op a1 a2
  
 relation =   (reservedOp ">" >> return Greater)
-             <|> (reservedOp ">=" >> return Equal)
-             <|> (reservedOp "<=" >> return Equal)
+             <|> (reservedOp ">=" >> return GreaterEqual)
+             <|> (reservedOp "<=" >> return LessEqual)
              <|> (reservedOp "<" >> return Less)
              <|> (reservedOp "<>" >> return NEQ)
              <|> (reservedOp "=" >> return Equal)

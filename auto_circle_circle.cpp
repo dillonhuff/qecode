@@ -236,7 +236,7 @@ int main() {
   int r = 20;
 
   int c = 3;
-  int d = 1;
+  int d = 2;
   int l = 1;
 
   bool i = shapes_intersect(a, b, c, d, l, r);
