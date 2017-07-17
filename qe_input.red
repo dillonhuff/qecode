@@ -16,7 +16,9 @@ COMMENT and inEllipseFormula( c, d, h, k ) );
 
 phi := ex( y, inCircleFormula( a, b, r ) and inEllipseFormula( c, d, h, k ) );
 
+out formula_file$
 val := rlqe phi;
+shut formula_file$
 
 COMMENT in "output.red"$
 COMMENT writeFormula(val)$

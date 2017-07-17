@@ -2,6 +2,7 @@ module GenerateAlgorithm where
 
 import Data.Char
 import Data.List as L
+import Data.List.Split
 
 import Text.Parsec
 import Text.Parsec.Expr
@@ -131,11 +132,33 @@ algorithmTextCpp var@(Var s) fm =
 
 fm = EQL (Minus (Minus (Plus (Times (Var "a") (Var "x")) (Var "b")) (Times (Var "c") (Var "x"))) (Var "d")) (Num 0.0)
 
+extractExpLocations [] = []
+extractExpLocations expLine =
+  let nextExpLoc = L.findIndex (\c -> not $ isSpace c) expLine in
+   case nextExpLoc of
+    Nothing -> []
+    Just loc ->
+      let power = expLine !! loc
+          rest = L.drop (loc + 1) expLine in
+       (loc, power):(extractExpLocations rest)
+
+mergeExps a [] = []
+
+mergeExpAndArithLines a b =
+  let expLocations = extractExpLocations a in
+   mergeExps a expLocations
+
+groupExpsAndArith [] = ""
+groupExpsAndArith (a:b:as) = (mergeExpAndArithLines a b) ++ " " ++ (groupExpsAndArith as)
+
+preprocessedReduceString a =
+  groupExpsAndArith $ L.filter (\s -> s /= "") $ splitOn "\n" a
+
 main :: IO ()
 main = do
   a <- readFile "formula_file"
-  putStrLn a
-  let fmStr = preprocessFormulaString a in
+  putStrLn $ preprocessedReduceString a
+  let fmStr = preprocessedReduceString a in
    case runParser expr () "expr" fmStr of
     Left err -> putStrLn $ show err
     Right expr -> putStrLn $ algorithmTextCpp (Var "x") expr
