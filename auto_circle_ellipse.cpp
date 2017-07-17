@@ -1,5 +1,4 @@
 #include <ralg/root_counting.h>
-#include <cmath>
 
 using namespace std;
 using namespace ralg;
@@ -265,12 +264,12 @@ bool test_formula_at_sample_points(const double a, const double b, const double 
 
 bool shapes_intersect( const double a, const double b, const double c, const double d, const double h, const double k, const double r ) {
 	vector<polynomial> polys{make_polynomial_1(), make_polynomial_2(), make_polynomial_3(), make_polynomial_4(), make_polynomial_5(), make_polynomial_6(), make_polynomial_7(), make_polynomial_8() };
-	vector<rational> rs{{a}, {b}, {c}, {d}, {f} };
+	vector<rational> rs{{a}, {b}, {c}, {d}, {h}, {k}, {r} };
 	vector<polynomial> upolys;
 	for (auto& p : polys) {
 		polynomial p_univariate = evaluate_at(rs, p);
 		upolys.push_back(p_univariate);
 	}
-	return test_formula_at_sample_points(a, b, c, d, f , upolys);
+	return test_formula_at_sample_points(a, b, c, d, h, k, r , upolys);
 
 }

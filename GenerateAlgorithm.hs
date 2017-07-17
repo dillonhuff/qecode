@@ -103,13 +103,13 @@ polynomialConstructionCalls numPolys =
 
 shapesIntersectBodyCpp vars numPolys = 
   "\tvector<polynomial> polys{" ++ (polynomialConstructionCalls numPolys) ++ "};\n\t" ++
-  "vector<rational> rs{{a}, {b}, {c}, {d}, {f} };\n\t" ++ 
+  "vector<rational> rs{" ++ varsAsRationals vars ++ "};\n\t" ++ --{a}, {b}, {c}, {d}, {f} };\n\t" ++ 
   "vector<polynomial> upolys;\n\t" ++
   "for (auto& p : polys) {\n\t" ++
     "\tpolynomial p_univariate = evaluate_at(rs, p);\n\t" ++
     "\tupolys.push_back(p_univariate);\n\t" ++
   "}\n\t" ++
-  "return test_formula_at_sample_points(a, b, c, d, f , upolys);\n"
+  "return test_formula_at_sample_points(" ++ commaList vars ++ ", upolys);\n" --a, b, c, d, f , upolys);\n"
 
 shapesIntersect var@(Var s) vars numPolys =
   let varList = vars in
