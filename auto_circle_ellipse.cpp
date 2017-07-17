@@ -3,7 +3,7 @@
 using namespace std;
 using namespace ralg;
 
-#define EPSILON 1.0e-4
+#define EPSILON 0.0001
 
 bool within_eps(const double a, const double b, const double eps) {
 	return fabs(a - b) < eps;
@@ -104,6 +104,8 @@ polynomial make_polynomial_3() {
 
 
 	polynomial result_polynomial_21393 = ( ( ( pow( c, 2.0 ) - pow( h, 2.0 ) ) + ( ( 2.0 * h ) * x ) ) - pow( x, 2.0 ) );
+
+	cout << result_polynomial_21393 << endl;
 	return result_polynomial_21393;
 }
 
@@ -277,13 +279,13 @@ bool shapes_intersect( const double a, const double b, const double c, const dou
 int main() {
   int a = -1;
   int b = -1;
-  int r = 1000;
+  int r = 1000000;
 
-  int c = 1;
+  int c = 3;
   int d = 1;
 
-  int h = 3;
-  int k = 2;
+  int h = 2;
+  int k = 4;
 
   bool i = shapes_intersect(a, b, c, d, h, k, r);
   cout << "Intersect ? " << i << endl;
