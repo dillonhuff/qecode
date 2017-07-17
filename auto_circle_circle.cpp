@@ -172,31 +172,46 @@ polynomial make_polynomial_6() {
 
 
 
-bool test_formula_at_sample_points(const double a, const double b, const double c, const double d, const double l, const double r , const std::vector<polynomial>& upolys) {
-	rational max_width(0.0001);
-	vector<interval> roots;
-	for (auto& p_univariate : upolys) {
-		concat(roots, isolate_roots(p_univariate));
-	}
-	vector<rational> points;
-	rational two(2);
-	 for (auto& it : roots) {
-		 points.push_back((it.start.value + it.end.value) / two);
-	 }
+bool test_formula_at_sample_points(const double a, const double b, const double c,
+				   const double d, const double l, const double r ,
+				   const std::vector<polynomial>& upolys) {
+  rational max_width(0.0000001);
+  vector<interval> roots;
+  rational two(2);
 
-	 vector<rational> test_points = test_points_from_roots(points);
-	if (test_points.size() == 0) {
-		return formula(a, b, c, d, l, r , 0.0);
-	 }
+  for (auto& p_univariate : upolys) {
+    auto root_intervals = isolate_roots(p_univariate);
+    cout << "***** ROOTS of " << p_univariate << " ************" << endl;
+    for (auto& i : root_intervals) {
+      cout << ((i.start.value + i.end.value) / two).to_double() << endl;
+    }
+    cout <<"***************************************************" << endl;
+    concat(roots, root_intervals);
 
-	for (auto& pt : test_points) { double test_x = pt.to_double();
-	 bool fm_true = formula(a, b, c, d, l, r , test_x);
-	 cout << "At x = " << test_x << " the formula is " << fm_true << endl;
-	 if (fm_true) {
-		return true;
-	 }
-	}
-	return false;
+  }
+
+  vector<rational> points;
+  for (auto& it : roots) {
+    points.push_back((it.start.value + it.end.value) / two);
+  }
+
+  vector<rational> test_points = test_points_from_roots(points);
+  if (test_points.size() == 0) {
+    return formula(a, b, c, d, l, r , 0.0);
+  }
+
+  for (auto& pt : test_points) { double test_x = pt.to_double();
+    cout << "At x = " << pt.to_double() << " the polynomial values are: " << endl;
+    for (auto& p : upolys) {
+      cout << p << " = " << evaluate_at(pt, p).to_double() << endl;
+    }
+    bool fm_true = formula(a, b, c, d, l, r , test_x);
+    cout << "At x = " << test_x << " the formula is " << fm_true << endl;
+    if (fm_true) {
+      return true;
+    }
+  }
+  return false;
 	
 }
 
