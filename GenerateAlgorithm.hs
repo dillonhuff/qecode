@@ -9,6 +9,7 @@ import Text.Parsec.Expr
 
 import Formula
 import Parser
+import ReduceParser
 
 within_eps_def = "bool within_eps(const double a, const double b, const double eps) {\n\treturn fabs(a - b) < eps;\n}"
 
@@ -167,9 +168,9 @@ main = do
   a <- readFile "formula_file"
   putStrLn $ preprocessedReduceString a
   let fmStr = preprocessedReduceString a in
-   case runParser expr () "expr" fmStr of
+   case runParser bExpression () "expr" fmStr of
     Left err -> putStrLn $ show err
-    Right expr -> putStrLn $ algorithmTextCpp (Var "x") expr
+    Right expr -> putStrLn $ show expr --algorithmTextCpp (Var "x") expr
 
 l1 = "                       2    2            2"
 l2 = "(c <> 0 and (d = 0 or c  - h  + 2*h*x - x  >= 0) and ((b - k <= 0 and "
