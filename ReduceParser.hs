@@ -32,13 +32,6 @@ data ABinOp = Add
              | Exp
                deriving (Show)
 
-data Stmt = Seq [Stmt]
-           | Assign String AExpr
-           | If BExpr Stmt Stmt
-           | While BExpr Stmt
-           | Skip
-             deriving (Show)
-
 languageDef =
    emptyDef { Token.commentStart    = "/*"
             , Token.commentEnd      = "*/"

@@ -25,18 +25,23 @@ formulaCpp (Plus a b) = fmCppBinop "+" a b
 formulaCpp (Times a b) = fmCppBinop "*" a b
 formulaCpp (Minus a b) = fmCppBinop "-" a b
 formulaCpp (Or a b) = fmCppBinop "||" a b
+formulaCpp (Pow a b) = "pow( " ++(formulaCpp a) ++ ", " ++ formulaCpp b ++ " )"
 formulaCpp (And a b) = fmCppBinop "&&" a b
+formulaCpp (Formula.NEQ a b) = "!within_eps( " ++ (commaList $ map formulaCpp [a, b]) ++ ", EPSILON )"
 formulaCpp (Num x) = show x
-formulaCpp e = error $ show e
+formulaCpp e = error $ "formulaCpp = " ++ show e
 
 varStrings (Var x) = [x]
 varStrings (EQL a b) = (varStrings a) ++ (varStrings b)
 varStrings (Plus a b) = (varStrings a) ++ (varStrings b)
 varStrings (Minus a b) = (varStrings a) ++ (varStrings b)
 varStrings (Times a b) = (varStrings a) ++ (varStrings b)
+varStrings (Formula.NEQ a b) = (varStrings a) ++ (varStrings b)
 varStrings (Or a b) = (varStrings a) ++ (varStrings b)
 varStrings (And a b) = (varStrings a) ++ (varStrings b)
 varStrings (Num _) = []
+varStrings (Pow a b) = (varStrings a) ++ (varStrings b)
+varStrings fm = error $ "varStrings cannot process = " ++ (show fm)
 
 varStrs fm = L.nub $ varStrings fm
 
@@ -45,8 +50,10 @@ formulaFunctionCpp var@(Var s) vars fm =
    "bool formula(" ++ varStr ++ ") {\n" ++ "\treturn " ++ (formulaCpp fm) ++ ";\n}\n"
 
 collectPolys (EQL a b) = [a, b]
+collectPolys (Formula.NEQ a b) = [a, b]
 collectPolys (Or a b) = (collectPolys a) ++ (collectPolys b)
 collectPolys (And a b) = (collectPolys a) ++ (collectPolys b)
+collectPolys fm = error $ "collectPolys = " ++ show fm
 
 collectPolynomials fm = L.nub $ collectPolys fm
 
@@ -163,14 +170,28 @@ groupExpsAndArith (a:b:as) = (mergeExpAndArithLines a b) ++ " " ++ (groupExpsAnd
 preprocessedReduceString a =
   groupExpsAndArith $ L.filter (\s -> s /= "") $ splitOn "\n" a
 
+aExprToFm (RVar s) = (Var s)
+aExprToFm (ABinary Multiply a b) = Times (aExprToFm a) (aExprToFm b)
+aExprToFm (ABinary Subtract a b) = Minus (aExprToFm a) (aExprToFm b)
+aExprToFm (ABinary Add a b) = Plus (aExprToFm a) (aExprToFm b)
+aExprToFm (ABinary Exp a b) = Pow (aExprToFm a) (aExprToFm b)
+aExprToFm (IntConst s) = (Num $ fromInteger s)
+aExprToFm a = error $ "aExprToFm = " ++ show a
+
+bExprToFm (RBinary Equal a b) = EQL (aExprToFm a) (aExprToFm b)
+bExprToFm (RBinary ReduceParser.NEQ a b) = Formula.NEQ (aExprToFm a) (aExprToFm b)
+bExprToFm (BBinary RAnd a b) = And (bExprToFm a) (bExprToFm b)
+bExprToFm (BBinary ROr a b) = Or (bExprToFm a) (bExprToFm b)
+bExprToFm fm = error $ show fm
+
 main :: IO ()
 main = do
   a <- readFile "formula_file"
-  putStrLn $ preprocessedReduceString a
+  --putStrLn $ preprocessedReduceString a
   let fmStr = preprocessedReduceString a in
    case runParser bExpression () "expr" fmStr of
     Left err -> putStrLn $ show err
-    Right expr -> putStrLn $ show expr --algorithmTextCpp (Var "x") expr
+    Right expr -> putStrLn $ algorithmTextCpp (Var "x") $ bExprToFm expr
 
 l1 = "                       2    2            2"
 l2 = "(c <> 0 and (d = 0 or c  - h  + 2*h*x - x  >= 0) and ((b - k <= 0 and "
