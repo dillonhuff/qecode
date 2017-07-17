@@ -176,7 +176,9 @@ bool test_formula_at_sample_points(const double a, const double b, const double 
 	rational max_width(0.0001);
 	vector<interval> roots;
 	for (auto& p_univariate : upolys) {
-		concat(roots, isolate_roots(p_univariate, max_width));
+	  cout << "Isolating roots for " << p_univariate << endl;
+	  concat(roots, isolate_roots(p_univariate, max_width));
+	  cout << "Done roots for " << p_univariate << endl;
 	}
 	vector<rational> points;
 	rational two(2);
@@ -215,10 +217,10 @@ bool shapes_intersect( const double a, const double b, const double c, const dou
 int main() {
   int a = 3;
   int b = 1;
-  int r = 20;
+  int r = 1;
 
-  int c = 3;
-  int d = 2;
+  int c = -3;
+  int d = 5;
   int l = 1;
 
   bool i = shapes_intersect(a, b, c, d, l, r);
