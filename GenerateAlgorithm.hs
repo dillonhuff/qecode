@@ -132,6 +132,7 @@ algorithmTextCpp var@(Var s) fm =
 
 fm = EQL (Minus (Minus (Plus (Times (Var "a") (Var "x")) (Var "b")) (Times (Var "c") (Var "x"))) (Var "d")) (Num 0.0)
 
+extractExpLocations :: String -> [(Int, Char)]
 extractExpLocations [] = []
 extractExpLocations expLine =
   let nextExpLoc = L.findIndex (\c -> not $ isSpace c) expLine in
@@ -142,11 +143,18 @@ extractExpLocations expLine =
           rest = L.drop (loc + 1) expLine in
        (loc, power):(extractExpLocations rest)
 
-mergeExps a [] = []
+truncateExps expLoc locs =
+  L.map (\(loc, power) -> (loc - expLoc, power)) locs
+
+mergeExps a [] = a
+mergeExps a ((expLoc, power):locs) =
+  let aBefore = L.take (expLoc + 1) a
+      aAfter = L.drop (expLoc + 1) a in
+   aBefore ++ "^" ++ [power] ++ (mergeExps aAfter locs)
 
 mergeExpAndArithLines a b =
   let expLocations = extractExpLocations a in
-   mergeExps a expLocations
+   mergeExps b expLocations
 
 groupExpsAndArith [] = ""
 groupExpsAndArith (a:b:as) = (mergeExpAndArithLines a b) ++ " " ++ (groupExpsAndArith as)
@@ -162,3 +170,7 @@ main = do
    case runParser expr () "expr" fmStr of
     Left err -> putStrLn $ show err
     Right expr -> putStrLn $ algorithmTextCpp (Var "x") expr
+
+l1 = "                       2    2            2"
+l2 = "(c <> 0 and (d = 0 or c  - h  + 2*h*x - x  >= 0) and ((b - k <= 0 and "
+  
