@@ -11,6 +11,8 @@ data Arith =
   GEQ Arith Arith |
   LEQ Arith Arith |
   EQL Arith Arith |
+  GREATER Arith Arith |
+  LESS Arith Arith |
   And Arith Arith |
   Or Arith Arith |
   Neg Arith |
