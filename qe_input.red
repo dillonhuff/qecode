@@ -14,7 +14,9 @@ COMMENT ex( y, (onLineFormula2D( a, b ) and onLineFormula2D( c, d)) or (onLineFo
 
 COMMENT and inEllipseFormula( c, d, h, k ) );
 
-phi := ex( y, inCircleFormula( a, b, r ) and inCircleFormula( c, d, l) );
+phi := ex( y, inCircleFormula( a, b, r ) and inEllipseFormula( c, d, h, k ) );
+
+COMMENT ex( y, inCircleFormula( a, b, r ) and inCircleFormula( c, d, l) );
 
 COMMENT inEllipseFormula( c, d, h, k ) );
 
