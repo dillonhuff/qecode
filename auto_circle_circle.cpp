@@ -3,7 +3,7 @@
 using namespace std;
 using namespace ralg;
 
-#define EPSILON 1.0e-4
+#define EPSILON 1.0e-3
 
 bool within_eps(const double a, const double b, const double eps) {
 	return fabs(a - b) < eps;
