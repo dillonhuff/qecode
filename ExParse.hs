@@ -47,8 +47,8 @@ qeString3D sa sb =
 qeString2D sa sb =
   qePrefix ++ "\nphi := " ++ (intersectionFm2D sa sb) ++ ";\n" ++ qeSuffix
 
-main :: IO ()
-main = do
+mainR :: IO ()
+mainR = do
   writeFile "qe_input.red" $ qeString3D (sphereFm "a" "b" "c" "r") (cubeFm "j" "k" "l" "m")
   pr <- runCommand "/Volumes/x86_64-mac_10.11_elcapitan-darwin15.0.0_svn3258/reduce.app/Contents/Resources/reduce qe_input.red"
   waitForProcess pr

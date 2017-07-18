@@ -4,9 +4,12 @@ import Data.Char
 import Data.List as L
 import Data.List.Split
 
+import System.Process
+
 import Text.Parsec
 import Text.Parsec.Expr
 
+import ExParse
 import Formula
 import Parser
 import ReduceParser
@@ -195,9 +198,10 @@ bExprToFm fm = error $ show fm
 main :: IO ()
 main = do
   writeFile "qe_input.red" $ qeString3D (sphereFm "a" "b" "c" "r") (cubeFm "j" "k" "l" "m")
-  pr <- runCommand "/Volumes/x86_64-mac_10.11_elcapitan-darwin15.0.0_svn3258/reduce.app/Contents/Resources/reduce qe_input.red"
+  pr <- runCommand "./run_reduce.txt qe_input.red"
   waitForProcess pr
   a <- readFile "formula_file"
+  putStrLn a
   --putStrLn $ preprocessedReduceString a
   let fmStr = preprocessedReduceString a in
    case runParser bExpression () "expr" fmStr of
