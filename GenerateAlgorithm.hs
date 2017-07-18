@@ -173,8 +173,14 @@ mergeExpAndArithLines a b =
   let expLocations = extractExpLocations a in
    mergeExps b expLocations
 
+isExponentLine a =
+  L.all (\c -> isSpace c || isDigit c) a
+  
 groupExpsAndArith [] = ""
-groupExpsAndArith (a:b:as) = (mergeExpAndArithLines a b) ++ " " ++ (groupExpsAndArith as)
+groupExpsAndArith (a:b:as) =
+  if isExponentLine a then
+    (mergeExpAndArithLines a b) ++ " " ++ (groupExpsAndArith as)
+  else a ++ " " ++ (groupExpsAndArith (b:as))
 
 preprocessedReduceString a =
   groupExpsAndArith $ L.filter (\s -> s /= "") $ splitOn "\n" a
