@@ -14,7 +14,8 @@ import Text.Parsec.Expr
 --qeString = "load redlog;\nrlset ofsf;\nin \"shape_formulas.red\";\nphi := ex( x, ex( y, inCircleFormula(a, b, r) and inSquareFormula(a, b, l) and (l > 0) and (r > 0) ) );\nval := rlqe phi;\nin \"output.red\"$\nwriteFormula(val);"
 
 qePrefix = "load redlog;\nrlset ofsf;\nin \"shape_formulas.red\";\n"
-qeSuffix = "val := rlqe phi$\nin \"output.red\"$\nwriteFormula(val)$"
+--qeSuffix = "val := rlqe phi$\nin \"output.red\"$\nwriteFormula(val)$"
+qeSuffix = "out fresh_file$\nrlqe phi;\nshut fresh_file$"
 
 -- Note: Should add triangle, cuboid, ellipsoid, (quadrialateral?)
 circleFm a b r = "inCircleFormula( " ++ a ++ ", " ++ b ++ ", " ++ r ++ " )"
@@ -47,14 +48,14 @@ qeString3D sa sb =
 qeString2D sa sb =
   qePrefix ++ "\nphi := " ++ (intersectionFm2D sa sb) ++ ";\n" ++ qeSuffix
 
-mainR :: IO ()
-mainR = do
-  writeFile "qe_input.red" $ qeString3D (sphereFm "a" "b" "c" "r") (cubeFm "j" "k" "l" "m")
-  pr <- runCommand "/Volumes/x86_64-mac_10.11_elcapitan-darwin15.0.0_svn3258/reduce.app/Contents/Resources/reduce qe_input.red"
-  waitForProcess pr
-  a <- readFile "formula_file"
-  putStrLn $ preprocessFormulaString a
-  let fmStr = preprocessFormulaString a in
-   case runParser expr () "expr" fmStr of
-    Left err -> putStrLn $ show err
-    Right expr -> putStrLn $ cppTestString expr
+-- mainR :: IO ()
+-- mainR = do
+--   writeFile "qe_input.red" $ qeString3D (sphereFm "a" "b" "c" "r") (cubeFm "j" "k" "l" "m")
+--   pr <- runCommand "/Volumes/x86_64-mac_10.11_elcapitan-darwin15.0.0_svn3258/reduce.app/Contents/Resources/reduce qe_input.red"
+--   waitForProcess pr
+--   a <- readFile "formula_file"
+--   putStrLn $ preprocessFormulaString a
+--   let fmStr = preprocessFormulaString a in
+--    case runParser expr () "expr" fmStr of
+--     Left err -> putStrLn $ show err
+--     Right expr -> putStrLn $ cppTestString expr

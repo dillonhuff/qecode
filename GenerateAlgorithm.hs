@@ -200,9 +200,8 @@ main = do
   writeFile "qe_input.red" $ qeString3D (sphereFm "a" "b" "c" "r") (cubeFm "j" "k" "l" "m")
   pr <- runCommand "./run_reduce.txt qe_input.red"
   waitForProcess pr
-  a <- readFile "formula_file"
-  putStrLn a
-  --putStrLn $ preprocessedReduceString a
+  a <- readFile "fresh_file"
+  putStrLn $ preprocessedReduceString a
   let fmStr = preprocessedReduceString a in
    case runParser bExpression () "expr" fmStr of
     Left err -> putStrLn $ show err
