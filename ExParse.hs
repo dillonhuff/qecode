@@ -28,11 +28,14 @@ cubeFm a b c l = "inCubeFormula( " ++ (commaList[a, b, c, l]) ++ " )"
 
 intersectionFm2D a b = intersectionString ["x", "y"] a b
 
-intersectionFm3D a b = intersectionString ["x", "y", "z"] a b
+intersectionFm3D a b = intersectionString ["x", "y", "z"] a b 
 
-intersectionString [] a b = a ++ " and " ++ b
-intersectionString(v:vs) a b =
-  "ex( " ++ v ++ ", " ++ (intersectionString vs a b) ++ " )"
+intersectionString vars a b =
+  qePrefix ++ "\nphi := " ++ intersectionFmString vars a b ++ "$\n" ++ qeSuffix
+
+intersectionFmString [] a b = a ++ " and " ++ b
+intersectionFmString(v:vs) a b =
+  "ex( " ++ v ++ ", " ++ (intersectionFmString vs a b) ++ " )"
 
 qeString3D sa sb =
   qePrefix ++ "\nphi := " ++ (intersectionFm3D sa sb) ++ ";\n" ++ qeSuffix
