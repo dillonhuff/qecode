@@ -222,15 +222,42 @@ bool point_in_circle(const double x,
   return pow(x - a, 2) + pow(y - b, 2) <= r*r;
 }
 
-int main() {
-  int a = 3;
-  int b = 1;
-  int r = 1;
+void fuzz_test_circles(const double a,
+		       const double b,
+		       const double r,
+		       const double c,
+		       const double d,
+		       const double l) {
+  double min_x = min(a, c) - 10;
+  double max_x = max(a, c) + 10;
 
-  int c = -3;
-  int d = 5;
-  int l = 1;
+  double min_y = min(b, d) - 10;
+  double max_y = max(b, d) + 10;
+
+  for (double x = min_x; x <= max_x; x += 0.1) {
+    for (double y = min_y; y <= max_y; y += 1) {
+      bool in_c1 = point_in_circle(x, y, a, b, r);
+      bool in_c2 = point_in_circle(x, y, c, d, l);
+      if (in_c1 && in_c2) {
+	cout << "Circles overlap" << endl;
+      }
+    }
+  }
+
+}
+
+int main() {
+
+  double a = 0;
+  double b = 0;
+  double r = 1;
+
+  double c = 2;
+  double d = 0;
+  double l = 1.00001;
 
   bool i = shapes_intersect(a, b, c, d, l, r);
   cout << "Intersect ? " << i << endl;
+
+  fuzz_test_circles(a, b, r, c, d, l);
 }
