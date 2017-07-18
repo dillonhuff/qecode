@@ -214,6 +214,14 @@ bool shapes_intersect( const double a, const double b, const double c, const dou
 
 }
 
+bool point_in_circle(const double x,
+		     const double y,
+		     const double a,
+		     const double b,
+		     const double r) {
+  return pow(x - a, 2) + pow(y - b, 2) <= r*r;
+}
+
 int main() {
   int a = 3;
   int b = 1;
