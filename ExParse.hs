@@ -9,10 +9,6 @@ import System.Process
 import Text.Parsec
 import Text.Parsec.Expr
 
---qeString = "load redlog;\nrlset ofsf;\nin \"shape_formulas.red\";\nphi := ex( x, ex( y, inCircleFormula(a, b, r) and inSquareFormula(c, d, l) and (l > 0) and (r > 0) ) );\nval := rlqe phi;\nin \"output.red\"$\nwriteFormula(val);"
-
---qeString = "load redlog;\nrlset ofsf;\nin \"shape_formulas.red\";\nphi := ex( x, ex( y, inCircleFormula(a, b, r) and inSquareFormula(a, b, l) and (l > 0) and (r > 0) ) );\nval := rlqe phi;\nin \"output.red\"$\nwriteFormula(val);"
-
 qePrefix = "load redlog;\nrlset ofsf;\nin \"shape_formulas.red\";\n"
 --qeSuffix = "val := rlqe phi$\nin \"output.red\"$\nwriteFormula(val)$"
 qeSuffix = "out fresh_file$\nrlqe phi;\nshut fresh_file$"
@@ -30,23 +26,22 @@ belowPlaneFm a b c d = "belowPlaneFormula( " ++ (commaList [a, b, c, d]) ++ " )"
 abovePlaneFm a b c d = "abovePlaneFormula( " ++ (commaList [a, b, c, d]) ++ " )"
 cubeFm a b c l = "inCubeFormula( " ++ (commaList[a, b, c, l]) ++ " )"
 
-circleSquareFm = "ex( x, ex( y, inCircleFormula(a, b, r) and inSquareFormula(c, d, l) and (l > 0) and (r > 0) ) )"
+intersectionFm2D a b = intersectionString ["x", "y"] a b
 
-circleEllipseFm = "ex( x, ex( y, inCircleFormula(a, b, r) and inEllipseFormula(c, d, h, k) ) )"
+intersectionFm3D a b = intersectionString ["x", "y", "z"] a b
 
-sphereCubeFm = "ex( x, ex( y, ex( z, inSphereFormula(a, b, c, r) and inCubeFormula(f, g, h, l) and (l > 0) and (r > 0) ) ) )"
-
-intersectionFm2D a b =
-  "ex( x, ex( y, " ++ a ++ " and " ++ b ++ " ) )"
-
-intersectionFm3D a b =
-  "ex( x, ex( y, ex( z, " ++ a ++ " and " ++ b ++ " ) ) )"
+intersectionString [] a b = a ++ " and " ++ b
+intersectionString(v:vs) a b =
+  "ex( " ++ v ++ ", " ++ (intersectionString vs a b) ++ " )"
 
 qeString3D sa sb =
   qePrefix ++ "\nphi := " ++ (intersectionFm3D sa sb) ++ ";\n" ++ qeSuffix
 
 qeString2D sa sb =
   qePrefix ++ "\nphi := " ++ (intersectionFm2D sa sb) ++ ";\n" ++ qeSuffix
+
+qeString varsToEliminate sa sb =
+  qePrefix ++ "\nphi := " ++ (intersectionString varsToEliminate sa sb) ++ ";\n" ++ qeSuffix
 
 -- mainR :: IO ()
 -- mainR = do
