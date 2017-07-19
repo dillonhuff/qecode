@@ -37,8 +37,22 @@ bool formula(const double a, const double b, const double c, const double d, con
 	double p_7 = ( ( ( pow( a, 2.0 ) - ( ( 2.0 * a ) * x ) ) - pow( l, 2.0 ) ) + pow( x, 2.0 ) );
 	double p_8 = ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( pow( a, 2.0 ) * b ) * pow( c, 2.0 ) ) - ( ( pow( a, 2.0 ) * pow( c, 2.0 ) ) * k ) ) - ( ( ( ( 2.0 * a ) * b ) * pow( c, 2.0 ) ) * x ) ) + ( ( ( ( 2.0 * a ) * pow( c, 2.0 ) ) * k ) * x ) ) - ( pow( b, 3.0 ) * pow( c, 2.0 ) ) ) + ( ( ( 3.0 * pow( b, 2.0 ) ) * pow( c, 2.0 ) ) * k ) ) + ( ( b * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) ) - ( ( ( 3.0 * b ) * pow( c, 2.0 ) ) * pow( k, 2.0 ) ) ) - ( ( b * pow( c, 2.0 ) ) * pow( l, 2.0 ) ) ) + ( ( b * pow( c, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( b * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) ) + ( ( ( ( 2.0 * b ) * pow( d, 2.0 ) ) * h ) * x ) ) - ( ( b * pow( d, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( pow( c, 2.0 ) * pow( d, 2.0 ) ) * k ) ) + ( pow( c, 2.0 ) * pow( k, 3.0 ) ) ) + ( ( pow( c, 2.0 ) * k ) * pow( l, 2.0 ) ) ) - ( ( pow( c, 2.0 ) * k ) * pow( x, 2.0 ) ) ) + ( ( pow( d, 2.0 ) * pow( h, 2.0 ) ) * k ) ) - ( ( ( ( 2.0 * pow( d, 2.0 ) ) * h ) * k ) * x ) ) + ( ( pow( d, 2.0 ) * k ) * pow( x, 2.0 ) ) );
 
+	cout << "p_1 = " << p_1 << endl;
+	cout << "p_2 = " << p_2 << endl;
+	cout << "p_3 = " << p_3 << endl;
+	cout << "p_4 = " << p_4 << endl;
+	cout << "p_5 = " << p_5 << endl;
+	cout << "p_6 = " << p_6 << endl;
+	cout << "p_7 = " << p_7 << endl;
+	cout << "p_8 = " << p_8 << endl;
 
-	return ( ( ( !within_eps( p_1, 0.0 , EPSILON ) && ( within_eps( p_2, 0.0 , EPSILON ) || ( p_3 >= 0.0 ) ) ) && ( ( ( ( p_4 <= 0.0 ) && ( p_5 <= 0.0 ) ) || ( ( p_4 >= 0.0 ) && ( p_5 <= 0.0 ) ) ) || ( ( p_6 <= 0.0 ) && ( p_5 >= 0.0 ) ) ) ) || ( ( p_7 <= 0.0 ) && ( ( within_eps( p_5, 0.0 , EPSILON ) && ( within_eps( p_1, 0.0 , EPSILON ) || ( p_8 <= 0.0 ) ) ) || ( within_eps( p_5, 0.0 , EPSILON ) && ( within_eps( p_1, 0.0 , EPSILON ) || ( p_8 >= 0.0 ) ) ) ) ) );
+	bool c1 = ( ( ( !within_eps( p_1, 0.0 , EPSILON ) && ( within_eps( p_2, 0.0 , EPSILON ) || ( p_3 >= 0.0 ) ) ) && ( ( ( ( p_4 <= 0.0 ) && ( p_5 <= 0.0 ) ) || ( ( p_4 >= 0.0 ) && ( p_5 <= 0.0 ) ) ) || ( ( p_6 <= 0.0 ) && ( p_5 >= 0.0 ) ) ) ) );
+
+	bool c2 = ( ( p_7 <= 0.0 ) && ( ( within_eps( p_5, 0.0 , EPSILON ) && ( within_eps( p_1, 0.0 , EPSILON ) || ( p_8 <= 0.0 ) ) ) || ( within_eps( p_5, 0.0 , EPSILON ) && ( within_eps( p_1, 0.0 , EPSILON ) || ( p_8 >= 0.0 ) ) ) ) );
+
+	return c1 || c2;
+	// return ( ( ( !within_eps( p_1, 0.0 , EPSILON ) && ( within_eps( p_2, 0.0 , EPSILON ) || ( p_3 >= 0.0 ) ) ) && ( ( ( ( p_4 <= 0.0 ) && ( p_5 <= 0.0 ) ) || ( ( p_4 >= 0.0 ) && ( p_5 <= 0.0 ) ) ) || ( ( p_6 <= 0.0 ) && ( p_5 >= 0.0 ) ) ) ) ||
+	// 	 ( ( p_7 <= 0.0 ) && ( ( within_eps( p_5, 0.0 , EPSILON ) && ( within_eps( p_1, 0.0 , EPSILON ) || ( p_8 <= 0.0 ) ) ) || ( within_eps( p_5, 0.0 , EPSILON ) && ( within_eps( p_1, 0.0 , EPSILON ) || ( p_8 >= 0.0 ) ) ) ) ) );
 }
 
 
