@@ -77,7 +77,9 @@ varSub name toReplace fm =
 
 varSubs :: [(String, Arith)] -> Arith -> Arith
 varSubs [] fm = fm
-varSubs ((name, toSub):as) fm = varSubs as $ varSub name toSub fm
+varSubs ((name, toSub):as) fm =
+  let freshSubs = L.map (\(n, toRep) -> (n, varSub name toSub toRep)) as in
+   varSubs freshSubs $ varSub name toSub fm
 
 formulaFunctionCpp var@(Var s) vars fm =
   let varStr = commaList $ L.map (\s -> "const double " ++ s) (vars ++ [s])
