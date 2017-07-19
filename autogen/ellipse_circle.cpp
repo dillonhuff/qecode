@@ -326,8 +326,27 @@ void no_overlap_case_2() {
   assert(!i);
 }
 
+// (x - 3.5)^2 + (y + 4.5)^2 = sqrt(5)^2 and (x - 7)^2 / 3 + (y + 4)^2 / 2 = 1
+void overlap_case_2() {
+  double a = 3.5;
+  double b = -4.5;
+  double r = sqrt(5);
+
+  double c = 3;
+  double d = 2;
+
+  double h = 7;
+  double k = -4;
+
+  bool i = shapes_intersect(a, b, c, d, h, k, r);
+  cout << "Intersect ? " << i << endl;
+  assert(i);
+
+}
+
 int main() {
   overlap_case_1();
   no_overlap_case_1();
   no_overlap_case_2();
+  overlap_case_2();
 }
