@@ -309,7 +309,25 @@ void no_overlap_case_1() {
 
 }
 
+// (x - 3)^2 + (y + 4)^2 = 5 and (x - 7)^2 / 3 + y^2 / 2 = 1
+void no_overlap_case_2() {
+  double a = 3;
+  double b = -4;
+  double r = 5;
+
+  double c = 3;
+  double d = 2;
+
+  double h = 7;
+  double k = 0;
+
+  bool i = shapes_intersect(a, b, c, d, h, k, r);
+  cout << "Intersect ? " << i << endl;
+  assert(!i);
+}
+
 int main() {
   overlap_case_1();
   no_overlap_case_1();
+  no_overlap_case_2();
 }
