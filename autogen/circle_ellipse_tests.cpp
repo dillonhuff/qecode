@@ -1,5 +1,9 @@
 #include "ellipse_circle.h"
 
+#define CATCH_CONFIG_MAIN
+
+#include "catch.hpp"
+
 #include <cassert>
 #include <cmath>
 #include <iostream>
@@ -20,7 +24,7 @@ void overlap_case_1() {
 
   bool i = shapes_intersect(a, b, c, d, h, k, r);
   cout << "Intersect ? " << i << endl;
-  assert(i);
+  REQUIRE(i);
 
 }
 
@@ -38,7 +42,7 @@ void no_overlap_case_1() {
 
   bool i = shapes_intersect(a, b, c, d, h, k, r);
   cout << "Intersect ? " << i << endl;
-  assert(!i);
+  REQUIRE(!i);
 
 }
 
@@ -56,7 +60,7 @@ void no_overlap_case_2() {
 
   bool i = shapes_intersect(a, b, c, d, h, k, r);
   cout << "Intersect ? " << i << endl;
-  assert(!i);
+  REQUIRE(!i);
 }
 
 // (x - 3.5)^2 + (y + 4.5)^2 = sqrt(5)^2 and (x - 7)^2 / 3 + (y + 4)^2 / 2 = 1
@@ -73,7 +77,7 @@ void overlap_case_2() {
 
   bool i = shapes_intersect(a, b, c, d, h, k, r);
   cout << "Intersect ? " << i << endl;
-  assert(i);
+  REQUIRE(i);
 
 }
 
@@ -92,7 +96,7 @@ void overlap_case_3() {
 
   bool i = shapes_intersect(a, b, c, d, h, k, r);
   cout << "Intersect ? " << i << endl;
-  assert(i);
+  REQUIRE(i);
 }
 
 // Horizontal major ellipse contains circle
@@ -110,7 +114,7 @@ void overlap_case_5() {
 
   bool i = shapes_intersect(a, b, c, d, h, k, r);
   cout << "Intersect ? " << i << endl;
-  assert(i);
+  REQUIRE(i);
 
 }
 
@@ -129,11 +133,11 @@ void overlap_case_4() {
 
   bool i = shapes_intersect(a, b, c, d, h, k, r);
   cout << "Intersect ? " << i << endl;
-  assert(i);
+  REQUIRE(i);
 
 }
 
-int main() {
+TEST_CASE() {
   overlap_case_1();
   overlap_case_2();
   overlap_case_3();
@@ -142,4 +146,6 @@ int main() {
 
   no_overlap_case_1();
   no_overlap_case_2();
+  
 }
+
