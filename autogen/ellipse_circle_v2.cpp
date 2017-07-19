@@ -3,7 +3,7 @@
 using namespace std;
 using namespace ralg;
 
-#define EPSILON 1.0e-4
+#define EPSILON 1.0e-3
 
 bool within_eps(const double a, const double b, const double eps) {
 	return fabs(a - b) < eps;
@@ -46,9 +46,20 @@ bool formula(const double a, const double b, const double c, const double d, con
 	cout << "p_7 = " << p_7 << endl;
 	cout << "p_8 = " << p_8 << endl;
 
-	bool c1 = ( ( ( !within_eps( p_1, 0.0 , EPSILON ) && ( within_eps( p_2, 0.0 , EPSILON ) || ( p_3 >= 0.0 ) ) ) && ( ( ( ( p_4 <= 0.0 ) && ( p_5 <= 0.0 ) ) || ( ( p_4 >= 0.0 ) && ( p_5 <= 0.0 ) ) ) || ( ( p_6 <= 0.0 ) && ( p_5 >= 0.0 ) ) ) ) );
+	bool c11 =  ( !within_eps( p_1, 0.0 , EPSILON ) && ( within_eps( p_2, 0.0 , EPSILON ) || ( p_3 >= 0.0 ) ) );
+	bool c12 = ( ( ( ( p_4 <= 0.0 ) && ( p_5 <= 0.0 ) ) || ( ( p_4 >= 0.0 ) && ( p_5 <= 0.0 ) ) ) || ( ( p_6 <= 0.0 ) && ( p_5 >= 0.0 ) ) );
 
-	bool c2 = ( ( p_7 <= 0.0 ) && ( ( within_eps( p_5, 0.0 , EPSILON ) && ( within_eps( p_1, 0.0 , EPSILON ) || ( p_8 <= 0.0 ) ) ) || ( within_eps( p_5, 0.0 , EPSILON ) && ( within_eps( p_1, 0.0 , EPSILON ) || ( p_8 >= 0.0 ) ) ) ) );
+	cout << "c11 = " << c11 << endl;
+	cout << "c12 = " << c12 << endl;
+
+	bool c1 = c11 && c12;
+
+	cout << "c1 = " << c1 << endl;
+
+	bool c2 = ( p_7 <= 0.0 ) &&
+	  ( ( within_eps( p_5, 0.0 , EPSILON ) && ( within_eps( p_1, 0.0 , EPSILON ) || ( p_8 <= 0.0 ) ) ) || ( within_eps( p_5, 0.0 , EPSILON ) && ( within_eps( p_1, 0.0 , EPSILON ) || ( p_8 >= 0.0 ) ) ) );
+
+	cout << "c2 = " << c2 << endl;
 
 	return c1 || c2;
 	// return ( ( ( !within_eps( p_1, 0.0 , EPSILON ) && ( within_eps( p_2, 0.0 , EPSILON ) || ( p_3 >= 0.0 ) ) ) && ( ( ( ( p_4 <= 0.0 ) && ( p_5 <= 0.0 ) ) || ( ( p_4 >= 0.0 ) && ( p_5 <= 0.0 ) ) ) || ( ( p_6 <= 0.0 ) && ( p_5 >= 0.0 ) ) ) ) ||
@@ -259,30 +270,38 @@ polynomial make_polynomial_8() {
 
 
 bool test_formula_at_sample_points(const double a, const double b, const double c, const double d, const double h, const double k, const double l , const std::vector<polynomial>& upolys) {
-	rational max_width(0.0001);
-	vector<interval> roots;
-	for (auto& p_univariate : upolys) {
-		concat(roots, isolate_roots(p_univariate, max_width));
-	}
-	vector<rational> points;
-	rational two(2);
-	 for (auto& it : roots) {
-		 points.push_back((it.start.value + it.end.value) / two);
-	 }
+  rational max_width(0.0001);
+  vector<interval> roots;
+  for (auto& p_univariate : upolys) {
 
-	 vector<rational> test_points = test_points_from_roots(points);
-	if (test_points.size() == 0) {
-		return formula(a, b, c, d, h, k, l , 0.0);
-	 }
+    cout << "Polynomial" << endl;
+    for (int i = 0; i < p_univariate.num_monos(); i++) {
+      cout << p_univariate.monomial(i).coeff().to_double() << " x^" << p_univariate.monomial(i).power(0) << " + " ;
+    }
+    cout << endl;
+    auto its = isolate_roots(p_univariate, max_width);
+    cout << "# of roots of p = " << its.size() << endl;
+    concat(roots, its);
+  }
+  vector<rational> points;
+  rational two(2);
+  for (auto& it : roots) {
+    points.push_back((it.start.value + it.end.value) / two);
+  }
 
-	for (auto& pt : test_points) { double test_x = pt.to_double();
-	 bool fm_true = formula(a, b, c, d, h, k, l , test_x);
-	 cout << "At x = " << test_x << " the formula is " << fm_true << endl;
-	 if (fm_true) {
-		return true;
-	 }
-	}
-	return false;
+  vector<rational> test_points = test_points_from_roots(points);
+  if (test_points.size() == 0) {
+    return formula(a, b, c, d, h, k, l , 0.0);
+  }
+
+  for (auto& pt : test_points) { double test_x = pt.to_double();
+    bool fm_true = formula(a, b, c, d, h, k, l , test_x);
+    cout << "At x = " << test_x << " the formula is " << fm_true << endl;
+    if (fm_true) {
+      return true;
+    }
+  }
+  return false;
 	
 }
 

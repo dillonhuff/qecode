@@ -26,6 +26,8 @@ formulaCpp (Var x) = x
 formulaCpp (EQL a b) = "within_eps( " ++ (commaList $ map formulaCpp [a, b]) ++ ", EPSILON )"
 formulaCpp (LEQ a b) = fmCppBinop "<=" a b
 formulaCpp (GEQ a b) = fmCppBinop ">=" a b
+formulaCpp (LESS a b) = fmCppBinop "<" a b
+formulaCpp (GREATER a b) = fmCppBinop ">" a b
 formulaCpp (Plus a b) = fmCppBinop "+" a b
 formulaCpp (Times a b) = fmCppBinop "*" a b
 formulaCpp (Minus a b) = fmCppBinop "-" a b
@@ -46,6 +48,8 @@ varStrings (Times a b) = (varStrings a) ++ (varStrings b)
 varStrings (Formula.NEQ a b) = (varStrings a) ++ (varStrings b)
 varStrings (Or a b) = (varStrings a) ++ (varStrings b)
 varStrings (And a b) = (varStrings a) ++ (varStrings b)
+varStrings (LESS a b) = (varStrings a) ++ (varStrings b)
+varStrings (GREATER a b) = (varStrings a) ++ (varStrings b)
 varStrings (Num _) = []
 varStrings (Pow a b) = (varStrings a) ++ (varStrings b)
 varStrings fm = error $ "varStrings cannot process = " ++ (show fm)
@@ -55,6 +59,8 @@ varStrs fm = L.nub $ varStrings fm
 declarePolyVals polyVarSubs =
   (L.concatMap (\(name, fm) -> "\tdouble " ++ name ++ " = " ++ formulaCpp fm ++ ";\n") polyVarSubs) ++ "\n\n"
 
+varSubCont name toReplace (LESS a b) = LESS (varSub name toReplace a) (varSub name toReplace b)
+varSubCont name toReplace (GREATER a b) = GREATER (varSub name toReplace a) (varSub name toReplace b)
 varSubCont name toReplace (Or a b) = Or (varSub name toReplace a) (varSub name toReplace b)
 varSubCont name toReplace (And a b) = And (varSub name toReplace a) (varSub name toReplace b)
 varSubCont name toReplace (Formula.NEQ a b) = Formula.NEQ (varSub name toReplace a) (varSub name toReplace b)
@@ -89,6 +95,8 @@ formulaFunctionCpp var@(Var s) vars fm =
 
 collectPolys (EQL a b) = [a, b]
 collectPolys (LEQ a b) = [a, b]
+collectPolys (LESS a b) = [a, b]
+collectPolys (GREATER a b) = [a, b]
 collectPolys (GEQ a b) = [a, b]
 collectPolys (Formula.NEQ a b) = [a, b]
 collectPolys (Or a b) = (collectPolys a) ++ (collectPolys b)
@@ -232,7 +240,9 @@ bExprToFm (RBinary LessEqual a b) = LEQ (aExprToFm a) (aExprToFm b)
 bExprToFm (RBinary ReduceParser.NEQ a b) = Formula.NEQ (aExprToFm a) (aExprToFm b)
 bExprToFm (BBinary RAnd a b) = And (bExprToFm a) (bExprToFm b)
 bExprToFm (BBinary ROr a b) = Or (bExprToFm a) (bExprToFm b)
-bExprToFm fm = error $ show fm
+bExprToFm (RBinary Less a b) = LESS (aExprToFm a) (aExprToFm b)
+bExprToFm (RBinary Greater a b) = GREATER (aExprToFm a) (aExprToFm b)
+bExprToFm fm = error $ "bExprToFm cannot handle = " ++ show fm
 
 main :: IO ()
 main = do
@@ -244,7 +254,7 @@ main = do
   let fmStr = preprocessedReduceString a in
    case runParser bExpression () "expr" fmStr of
     Left err -> putStrLn $ show err
-    Right expr -> writeFile "autogen/ellipse_circle_v2.cpp" $ algorithmTextCpp (Var "x") $ bExprToFm expr
+    Right expr -> writeFile "autogen/ellipse_circle_v3.cpp" $ algorithmTextCpp (Var "x") $ bExprToFm expr
 
 l1 = "                       2    2            2"
 l2 = "(c <> 0 and (d = 0 or c  - h  + 2*h*x - x  >= 0) and ((b - k <= 0 and "
