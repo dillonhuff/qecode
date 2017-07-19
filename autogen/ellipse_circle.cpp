@@ -309,11 +309,11 @@ void no_overlap_case_1() {
 
 }
 
-// (x - 3)^2 + (y + 4)^2 = 5 and (x - 7)^2 / 3 + y^2 / 2 = 1
+// (x - 3)^2 + (y + 4)^2 = root(5)^2 and (x - 7)^2 / 3 + y^2 / 2 = 1
 void no_overlap_case_2() {
   double a = 3;
   double b = -4;
-  double r = 5;
+  double r = sqrt(5);
 
   double c = 3;
   double d = 2;
