@@ -268,6 +268,8 @@ bool shapes_intersect( const double a, const double b, const double c, const dou
 	vector<polynomial> upolys;
 	for (auto& p : polys) {
 		polynomial p_univariate = evaluate_at(rs, p);
+
+		cout << "Poly = " << p_univariate << endl;
 		upolys.push_back(p_univariate);
 	}
 	return test_formula_at_sample_points(a, b, c, d, h, k, l , upolys);
