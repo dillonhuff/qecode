@@ -163,6 +163,10 @@ shapesIntersect var@(Var s) vars numPolys =
   let varList = vars in
    "bool shapes_intersect( " ++ (commaList $ L.map (\s -> "const double " ++ s) varList) ++ ") {\n" ++ (shapesIntersectBodyCpp vars numPolys) ++ "\n}"
 
+algorithmDeclCpp var@(Var s) fm =
+  let varList = L.filter (\v -> not $ isNumberStr v) $ L.delete s $ L.sort $ varStrs fm in
+  "bool shapes_intersect( " ++ (commaList $ L.map (\s -> "const double " ++ s) varList) ++ ");"
+
 testFormulaPointsBody vars =
   "\n\trational max_width(0.0001);\n\tvector<interval> roots;\n\t" ++
   "for (auto& p_univariate : upolys) {\n\t" ++
@@ -244,9 +248,15 @@ bExprToFm (RBinary Less a b) = LESS (aExprToFm a) (aExprToFm b)
 bExprToFm (RBinary Greater a b) = GREATER (aExprToFm a) (aExprToFm b)
 bExprToFm fm = error $ "bExprToFm cannot handle = " ++ show fm
 
+writeOutput name1 name2 var expr =
+  let fileName = "autogen/" ++ name1 ++ "_" ++ name2 in
+   do 
+     writeFile (fileName ++ ".h") $ algorithmDeclCpp var expr
+     writeFile (fileName ++ ".cpp") $ algorithmTextCpp var expr
+
 main :: IO ()
 main = do
-  writeFile "qe_input.red" $ intersectionString ["y"] (circleFm "a" "b" "l") (ellipseFm "c" "d" "h" "k")
+  writeFile "qe_input.red" $ intersectionString ["y"] (onLineFm2D "a" "b") (rectangleFm "c" "d" "h" "k")
   pr <- runCommand "./run_reduce.txt qe_input.red"
   waitForProcess pr
   a <- readFile "fresh_file"
@@ -254,7 +264,7 @@ main = do
   let fmStr = preprocessedReduceString a in
    case runParser bExpression () "expr" fmStr of
     Left err -> putStrLn $ show err
-    Right expr -> writeFile "autogen/ellipse_circle_v3.cpp" $ algorithmTextCpp (Var "x") $ bExprToFm expr
+    Right expr -> writeOutput "line" "rectangle" (Var "x") (bExprToFm expr) -- $ algorithmTextCpp (Var "x") $ bExprToFm expr
 
 l1 = "                       2    2            2"
 l2 = "(c <> 0 and (d = 0 or c  - h  + 2*h*x - x  >= 0) and ((b - k <= 0 and "
