@@ -1,24 +1,204 @@
 
-             2                    2            2            2    2    2
-(l >= 0 and b  - 2*b*d + 2*b*l + c  - 2*c*x + d  - 2*d*l + l  - r  + x  <= 0
+                       2    2            2                             4  4
+(c <> 0 and (d = 0 or c  - h  + 2*h*x - x  >= 0) and ((b - k <= 0 and a *c
 
-                                         2            2    2
- and a - x <= 0 and a + l - x >= 0) or (c  - 2*c*x - r  + x  <= 0 and ((
+      3  4        2  2  4      2    4        2  4  2      2  4  2      2  4  2
+ - 4*a *c *x + 2*a *b *c  - 4*a *b*c *k + 2*a *c *d  + 2*a *c *k  - 2*a *c *l
 
-                2            2            2    2    2
-b - d <= 0 and b  - 2*b*d + c  - 2*c*x + d  - r  + x  >= 0 and a - x <= 0
+      2  4  2      2  2  2  2      2  2  2          2  2  2  2        2  4
+ + 6*a *c *x  - 2*a *c *d *h  + 4*a *c *d *h*x - 2*a *c *d *x  - 4*a*b *c *x
 
- and a + l - x >= 0 and (b - d + l >= 0
+          4            4  2          4  2          4  2          4  3
+ + 8*a*b*c *k*x - 4*a*c *d *x - 4*a*c *k *x + 4*a*c *l *x - 4*a*c *x
 
-     2                    2            2            2    2    2
- or b  - 2*b*d + 2*b*l + c  - 2*c*x + d  - 2*d*l + l  - r  + x  <= 0)) or (
+        2  2  2          2  2    2        2  2  3    4  4      3  4
+ + 4*a*c *d *h *x - 8*a*c *d *h*x  + 4*a*c *d *x  + b *c  - 4*b *c *k
 
-b - d + l >= 0
+      2  4  2      2  4  2      2  4  2      2  4  2      2  2  2  2
+ - 2*b *c *d  + 6*b *c *k  - 2*b *c *l  + 2*b *c *x  + 2*b *c *d *h
 
-      2                    2            2            2    2    2
- and b  - 2*b*d + 2*b*l + c  - 2*c*x + d  - 2*d*l + l  - r  + x  >= 0
+      2  2  2          2  2  2  2        4  2          4  3        4    2
+ - 4*b *c *d *h*x + 2*b *c *d *x  + 4*b*c *d *k - 4*b*c *k  + 4*b*c *k*l
 
- and a - x <= 0 and a + l - x >= 0
+        4    2        2  2  2          2  2              2  2    2    4  4
+ - 4*b*c *k*x  - 4*b*c *d *h *k + 8*b*c *d *h*k*x - 4*b*c *d *k*x  + c *d
 
-                     2            2            2    2    2
- and (b - d <= 0 or b  - 2*b*d + c  - 2*c*x + d  - r  + x  <= 0))))
+      4  2  2      4  2  2      4  2  2    4  4      4  2  2      4  2  2
+ - 2*c *d *k  - 2*c *d *l  + 2*c *d *x  + c *k  - 2*c *k *l  + 2*c *k *x
+
+    4  4      4  2  2    4  4      2  4  2      2  4          2  4  2
+ + c *l  - 2*c *l *x  + c *x  - 2*c *d *h  + 4*c *d *h*x - 2*c *d *x
+
+      2  2  2  2      2  2  2  2      2  2  2  2      2  2    2
+ + 2*c *d *h *k  + 2*c *d *h *l  - 2*c *d *h *x  - 4*c *d *h*k *x
+
+      2  2    2        2  2    3      2  2  2  2      2  2  2  2      2  2  4
+ - 4*c *d *h*l *x + 4*c *d *h*x  + 2*c *d *k *x  + 2*c *d *l *x  - 2*c *d *x
+
+    4  4      4  3        4  2  2      4    3    4  4
+ + d *h  - 4*d *h *x + 6*d *h *x  - 4*d *h*x  + d *x  <= 0) or (b - k >= 0 and 
+
+ 4  4      3  4        2  2  4      2    4        2  4  2      2  4  2
+a *c  - 4*a *c *x + 2*a *b *c  - 4*a *b*c *k + 2*a *c *d  + 2*a *c *k
+
+      2  4  2      2  4  2      2  2  2  2      2  2  2          2  2  2  2
+ - 2*a *c *l  + 6*a *c *x  - 2*a *c *d *h  + 4*a *c *d *h*x - 2*a *c *d *x
+
+        2  4            4            4  2          4  2          4  2
+ - 4*a*b *c *x + 8*a*b*c *k*x - 4*a*c *d *x - 4*a*c *k *x + 4*a*c *l *x
+
+        4  3        2  2  2          2  2    2        2  2  3    4  4
+ - 4*a*c *x  + 4*a*c *d *h *x - 8*a*c *d *h*x  + 4*a*c *d *x  + b *c
+
+      3  4        2  4  2      2  4  2      2  4  2      2  4  2      2  2  2  2
+ - 4*b *c *k - 2*b *c *d  + 6*b *c *k  - 2*b *c *l  + 2*b *c *x  + 2*b *c *d *h
+
+      2  2  2          2  2  2  2        4  2          4  3        4    2
+ - 4*b *c *d *h*x + 2*b *c *d *x  + 4*b*c *d *k - 4*b*c *k  + 4*b*c *k*l
+
+        4    2        2  2  2          2  2              2  2    2    4  4
+ - 4*b*c *k*x  - 4*b*c *d *h *k + 8*b*c *d *h*k*x - 4*b*c *d *k*x  + c *d
+
+      4  2  2      4  2  2      4  2  2    4  4      4  2  2      4  2  2
+ - 2*c *d *k  - 2*c *d *l  + 2*c *d *x  + c *k  - 2*c *k *l  + 2*c *k *x
+
+    4  4      4  2  2    4  4      2  4  2      2  4          2  4  2
+ + c *l  - 2*c *l *x  + c *x  - 2*c *d *h  + 4*c *d *h*x - 2*c *d *x
+
+      2  2  2  2      2  2  2  2      2  2  2  2      2  2    2
+ + 2*c *d *h *k  + 2*c *d *h *l  - 2*c *d *h *x  - 4*c *d *h*k *x
+
+      2  2    2        2  2    3      2  2  2  2      2  2  2  2      2  2  4
+ - 4*c *d *h*l *x + 4*c *d *h*x  + 2*c *d *k *x  + 2*c *d *l *x  - 2*c *d *x
+
+    4  4      4  3        4  2  2      4    3    4  4            2  2        2
+ + d *h  - 4*d *h *x + 6*d *h *x  - 4*d *h*x  + d *x  <= 0) or (a *c  - 2*a*c *x
+
+    2  2        2      2  2    2  2    2  2    2  2    2  2      2        2  2
+ + b *c  - 2*b*c *k + c *d  + c *k  - c *l  + c *x  - d *h  + 2*d *h*x - d *x
+
+           4  4      3  4        2  2  4      2    4        2  4  2      2  4  2
+ <= 0 and a *c  - 4*a *c *x + 2*a *b *c  - 4*a *b*c *k + 2*a *c *d  + 2*a *c *k
+
+      2  4  2      2  4  2      2  2  2  2      2  2  2          2  2  2  2
+ - 2*a *c *l  + 6*a *c *x  - 2*a *c *d *h  + 4*a *c *d *h*x - 2*a *c *d *x
+
+        2  4            4            4  2          4  2          4  2
+ - 4*a*b *c *x + 8*a*b*c *k*x - 4*a*c *d *x - 4*a*c *k *x + 4*a*c *l *x
+
+        4  3        2  2  2          2  2    2        2  2  3    4  4
+ - 4*a*c *x  + 4*a*c *d *h *x - 8*a*c *d *h*x  + 4*a*c *d *x  + b *c
+
+      3  4        2  4  2      2  4  2      2  4  2      2  4  2      2  2  2  2
+ - 4*b *c *k - 2*b *c *d  + 6*b *c *k  - 2*b *c *l  + 2*b *c *x  + 2*b *c *d *h
+
+      2  2  2          2  2  2  2        4  2          4  3        4    2
+ - 4*b *c *d *h*x + 2*b *c *d *x  + 4*b*c *d *k - 4*b*c *k  + 4*b*c *k*l
+
+        4    2        2  2  2          2  2              2  2    2    4  4
+ - 4*b*c *k*x  - 4*b*c *d *h *k + 8*b*c *d *h*k*x - 4*b*c *d *k*x  + c *d
+
+      4  2  2      4  2  2      4  2  2    4  4      4  2  2      4  2  2
+ - 2*c *d *k  - 2*c *d *l  + 2*c *d *x  + c *k  - 2*c *k *l  + 2*c *k *x
+
+    4  4      4  2  2    4  4      2  4  2      2  4          2  4  2
+ + c *l  - 2*c *l *x  + c *x  - 2*c *d *h  + 4*c *d *h*x - 2*c *d *x
+
+      2  2  2  2      2  2  2  2      2  2  2  2      2  2    2
+ + 2*c *d *h *k  + 2*c *d *h *l  - 2*c *d *h *x  - 4*c *d *h*k *x
+
+      2  2    2        2  2    3      2  2  2  2      2  2  2  2      2  2  4
+ - 4*c *d *h*l *x + 4*c *d *h*x  + 2*c *d *k *x  + 2*c *d *l *x  - 2*c *d *x
+
+    4  4      4  3        4  2  2      4    3    4  4
+ + d *h  - 4*d *h *x + 6*d *h *x  - 4*d *h*x  + d *x  >= 0))) or (
+
+ 2            2    2             4  4      3  4        2  2  4      2    4
+a  - 2*a*x - l  + x  <= 0 and ((a *c  - 4*a *c *x + 2*a *b *c  - 4*a *b*c *k
+
+      2  4  2      2  4  2      2  4  2      2  4  2      2  2  2  2
+ + 2*a *c *d  + 2*a *c *k  - 2*a *c *l  + 6*a *c *x  - 2*a *c *d *h
+
+      2  2  2          2  2  2  2        2  4            4            4  2
+ + 4*a *c *d *h*x - 2*a *c *d *x  - 4*a*b *c *x + 8*a*b*c *k*x - 4*a*c *d *x
+
+        4  2          4  2          4  3        2  2  2          2  2    2
+ - 4*a*c *k *x + 4*a*c *l *x - 4*a*c *x  + 4*a*c *d *h *x - 8*a*c *d *h*x
+
+        2  2  3    4  4      3  4        2  4  2      2  4  2      2  4  2
+ + 4*a*c *d *x  + b *c  - 4*b *c *k - 2*b *c *d  + 6*b *c *k  - 2*b *c *l
+
+      2  4  2      2  2  2  2      2  2  2          2  2  2  2        4  2
+ + 2*b *c *x  + 2*b *c *d *h  - 4*b *c *d *h*x + 2*b *c *d *x  + 4*b*c *d *k
+
+        4  3        4    2        4    2        2  2  2          2  2
+ - 4*b*c *k  + 4*b*c *k*l  - 4*b*c *k*x  - 4*b*c *d *h *k + 8*b*c *d *h*k*x
+
+        2  2    2    4  4      4  2  2      4  2  2      4  2  2    4  4
+ - 4*b*c *d *k*x  + c *d  - 2*c *d *k  - 2*c *d *l  + 2*c *d *x  + c *k
+
+      4  2  2      4  2  2    4  4      4  2  2    4  4      2  4  2
+ - 2*c *k *l  + 2*c *k *x  + c *l  - 2*c *l *x  + c *x  - 2*c *d *h
+
+      2  4          2  4  2      2  2  2  2      2  2  2  2      2  2  2  2
+ + 4*c *d *h*x - 2*c *d *x  + 2*c *d *h *k  + 2*c *d *h *l  - 2*c *d *h *x
+
+      2  2    2        2  2    2        2  2    3      2  2  2  2
+ - 4*c *d *h*k *x - 4*c *d *h*l *x + 4*c *d *h*x  + 2*c *d *k *x
+
+      2  2  2  2      2  2  4    4  4      4  3        4  2  2      4    3
+ + 2*c *d *l *x  - 2*c *d *x  + d *h  - 4*d *h *x + 6*d *h *x  - 4*d *h*x
+
+    4  4                    2    2    2  2            2          2        3  2
+ + d *x  = 0 and (c = 0 or a *b*c  - a *c *k - 2*a*b*c *x + 2*a*c *k*x - b *c
+
+      2  2        2  2        2  2      2  2      2  2      2  2        2
+ + 3*b *c *k + b*c *d  - 3*b*c *k  - b*c *l  + b*c *x  - b*d *h  + 2*b*d *h*x
+
+      2  2    2  2      2  3    2    2    2    2    2  2        2
+ - b*d *x  - c *d *k + c *k  + c *k*l  - c *k*x  + d *h *k - 2*d *h*k*x
+
+    2    2             4  4      3  4        2  2  4      2    4        2  4  2
+ + d *k*x  <= 0)) or (a *c  - 4*a *c *x + 2*a *b *c  - 4*a *b*c *k + 2*a *c *d
+
+      2  4  2      2  4  2      2  4  2      2  2  2  2      2  2  2
+ + 2*a *c *k  - 2*a *c *l  + 6*a *c *x  - 2*a *c *d *h  + 4*a *c *d *h*x
+
+      2  2  2  2        2  4            4            4  2          4  2
+ - 2*a *c *d *x  - 4*a*b *c *x + 8*a*b*c *k*x - 4*a*c *d *x - 4*a*c *k *x
+
+        4  2          4  3        2  2  2          2  2    2        2  2  3
+ + 4*a*c *l *x - 4*a*c *x  + 4*a*c *d *h *x - 8*a*c *d *h*x  + 4*a*c *d *x
+
+    4  4      3  4        2  4  2      2  4  2      2  4  2      2  4  2
+ + b *c  - 4*b *c *k - 2*b *c *d  + 6*b *c *k  - 2*b *c *l  + 2*b *c *x
+
+      2  2  2  2      2  2  2          2  2  2  2        4  2          4  3
+ + 2*b *c *d *h  - 4*b *c *d *h*x + 2*b *c *d *x  + 4*b*c *d *k - 4*b*c *k
+
+        4    2        4    2        2  2  2          2  2              2  2    2
+ + 4*b*c *k*l  - 4*b*c *k*x  - 4*b*c *d *h *k + 8*b*c *d *h*k*x - 4*b*c *d *k*x
+
+    4  4      4  2  2      4  2  2      4  2  2    4  4      4  2  2
+ + c *d  - 2*c *d *k  - 2*c *d *l  + 2*c *d *x  + c *k  - 2*c *k *l
+
+      4  2  2    4  4      4  2  2    4  4      2  4  2      2  4
+ + 2*c *k *x  + c *l  - 2*c *l *x  + c *x  - 2*c *d *h  + 4*c *d *h*x
+
+      2  4  2      2  2  2  2      2  2  2  2      2  2  2  2      2  2    2
+ - 2*c *d *x  + 2*c *d *h *k  + 2*c *d *h *l  - 2*c *d *h *x  - 4*c *d *h*k *x
+
+      2  2    2        2  2    3      2  2  2  2      2  2  2  2      2  2  4
+ - 4*c *d *h*l *x + 4*c *d *h*x  + 2*c *d *k *x  + 2*c *d *l *x  - 2*c *d *x
+
+    4  4      4  3        4  2  2      4    3    4  4                    2    2
+ + d *h  - 4*d *h *x + 6*d *h *x  - 4*d *h*x  + d *x  = 0 and (c = 0 or a *b*c
+
+    2  2            2          2        3  2      2  2        2  2        2  2
+ - a *c *k - 2*a*b*c *x + 2*a*c *k*x - b *c  + 3*b *c *k + b*c *d  - 3*b*c *k
+
+      2  2      2  2      2  2        2          2  2    2  2      2  3
+ - b*c *l  + b*c *x  - b*d *h  + 2*b*d *h*x - b*d *x  - c *d *k + c *k
+
+    2    2    2    2    2  2        2          2    2
+ + c *k*l  - c *k*x  + d *h *k - 2*d *h*k*x + d *k*x  >= 0))))
