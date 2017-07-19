@@ -159,13 +159,13 @@ shapesIntersectBodyCpp vars numPolys =
   "}\n\t" ++
   "return test_formula_at_sample_points(" ++ commaList vars ++ ", upolys);\n" --a, b, c, d, f , upolys);\n"
 
-shapesIntersect var@(Var s) vars numPolys =
+shapesIntersect name var@(Var s) vars numPolys =
   let varList = vars in
-   "bool shapes_intersect( " ++ (commaList $ L.map (\s -> "const double " ++ s) varList) ++ ") {\n" ++ (shapesIntersectBodyCpp vars numPolys) ++ "\n}"
+   "bool " ++ name ++ "( " ++ (commaList $ L.map (\s -> "const double " ++ s) varList) ++ ") {\n" ++ (shapesIntersectBodyCpp vars numPolys) ++ "\n}"
 
-algorithmDeclCpp var@(Var s) fm =
+algorithmDeclCpp name var@(Var s) fm =
   let varList = L.filter (\v -> not $ isNumberStr v) $ L.delete s $ L.sort $ varStrs fm in
-  "bool shapes_intersect( " ++ (commaList $ L.map (\s -> "const double " ++ s) varList) ++ ");"
+  "bool " ++ name ++ "( " ++ (commaList $ L.map (\s -> "const double " ++ s) varList) ++ ");"
 
 testFormulaPointsBody vars =
   "\n\trational max_width(0.0001);\n\tvector<interval> roots;\n\t" ++
@@ -176,19 +176,19 @@ testFormulaPointsBody vars =
 
 testFormulaPoints vars = "bool test_formula_at_sample_points(" ++ (commaList $ L.map (\s -> "const double " ++ s) vars) ++ ", const std::vector<polynomial>& upolys) {" ++ (testFormulaPointsBody vars) ++ "\n}"
 
-evaluationCode var vars fm numPolys =
-  (testFormulaPoints vars) ++ "\n\n" ++ (shapesIntersect var vars numPolys)
+evaluationCode name var vars fm numPolys =
+  (testFormulaPoints vars) ++ "\n\n" ++ (shapesIntersect name var vars numPolys)
 
 isNumberStr :: String -> Bool
 isNumberStr f =
   isNumber $ f !! 0
 
-algorithmTextCpp :: Arith -> Arith -> String
-algorithmTextCpp var@(Var s) fm =
+algorithmTextCpp :: String -> Arith -> Arith -> String
+algorithmTextCpp name var@(Var s) fm =
   let eps = 0.0001
       vars = L.filter (\v -> not $ isNumberStr v) $ L.delete s $ L.sort $ varStrs fm
       ps = L.filter (\s -> not $ isNum s) $ collectPolynomials fm in
-   (algoPrefixCpp eps var vars fm) ++ "\n\n" ++ (algoPolysCpp ps var vars fm) ++ "\n\n" ++ (evaluationCode var vars fm (L.length ps))
+   (algoPrefixCpp eps var vars fm) ++ "\n\n" ++ (algoPolysCpp ps var vars fm) ++ "\n\n" ++ (evaluationCode name var vars fm (L.length ps))
 
 fm = EQL (Minus (Minus (Plus (Times (Var "a") (Var "x")) (Var "b")) (Times (Var "c") (Var "x"))) (Var "d")) (Num 0.0)
 
@@ -249,14 +249,15 @@ bExprToFm (RBinary Greater a b) = GREATER (aExprToFm a) (aExprToFm b)
 bExprToFm fm = error $ "bExprToFm cannot handle = " ++ show fm
 
 writeOutput name1 name2 var expr =
-  let fileName = "autogen/" ++ name1 ++ "_" ++ name2 in
+  let testName = name1 ++ "_" ++ name2
+      fileName = "autogen/" ++ testName in
    do 
-     writeFile (fileName ++ ".h") $ algorithmDeclCpp var expr
-     writeFile (fileName ++ ".cpp") $ algorithmTextCpp var expr
+     writeFile (fileName ++ ".h") $ algorithmDeclCpp testName var expr
+     writeFile (fileName ++ ".cpp") $ algorithmTextCpp testName var expr
 
 main :: IO ()
 main = do
-  writeFile "qe_input.red" $ intersectionString ["y"] (onLineFm2D "a" "b") (rectangleFm "c" "d" "h" "k")
+  writeFile "qe_input.red" $ intersectionString ["x", "y"] (onLineFm2D "a" "b") (rectangleFm "c" "d" "h" "k")
   pr <- runCommand "./run_reduce.txt qe_input.red"
   waitForProcess pr
   a <- readFile "fresh_file"
@@ -264,7 +265,7 @@ main = do
   let fmStr = preprocessedReduceString a in
    case runParser bExpression () "expr" fmStr of
     Left err -> putStrLn $ show err
-    Right expr -> writeOutput "line" "rectangle" (Var "x") (bExprToFm expr) -- $ algorithmTextCpp (Var "x") $ bExprToFm expr
+    Right expr -> writeOutput "line_x" "rectangle" (Var "x") (bExprToFm expr) -- $ algorithmTextCpp (Var "x") $ bExprToFm expr
 
 l1 = "                       2    2            2"
 l2 = "(c <> 0 and (d = 0 or c  - h  + 2*h*x - x  >= 0) and ((b - k <= 0 and "
