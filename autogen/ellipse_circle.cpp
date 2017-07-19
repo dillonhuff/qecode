@@ -362,10 +362,50 @@ void overlap_case_3() {
   assert(i);
 }
 
+// Horizontal major ellipse contains circle
+// (x - 3.5)^2 + (y + 4.5)^2 = sqrt(5)^2 and (x - 3.3)^2 / 23 + (y + 4.15)^2 /7 = 1
+void overlap_case_5() {
+  double a = 3.5;
+  double b = -4.5;
+  double r = sqrt(5);
+
+  double c = 23;
+  double d = 7;
+
+  double h = 3.3;
+  double k = -4.15;
+
+  bool i = shapes_intersect(a, b, c, d, h, k, r);
+  cout << "Intersect ? " << i << endl;
+  assert(i);
+
+}
+
+// Ellipse completely contains circle
+// (x - 3.5)^2 + (y + 4.5)^2 = sqrt(5)^2 and (x - 3.3)^2 / 7 + (y + 4)^2 / 23 = 1
+void overlap_case_4() {
+  double a = 3.5;
+  double b = -4.5;
+  double r = sqrt(5);
+
+  double c = 7;
+  double d = 23;
+
+  double h = 3.3;
+  double k = -4;
+
+  bool i = shapes_intersect(a, b, c, d, h, k, r);
+  cout << "Intersect ? " << i << endl;
+  assert(i);
+
+}
+
 int main() {
   overlap_case_1();
   overlap_case_2();
   overlap_case_3();
+  overlap_case_5();
+  overlap_case_4();
 
   no_overlap_case_1();
   no_overlap_case_2();
