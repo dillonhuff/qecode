@@ -205,7 +205,7 @@ bExprToFm fm = error $ show fm
 
 main :: IO ()
 main = do
-  writeFile "qe_input.red" $ intersectionString ["y", "z"] (sphereFm "a" "b" "c" "r") (cubeFm "j" "k" "l" "m")
+  writeFile "qe_input.red" $ intersectionString ["y"] (squareFm "a" "b" "l") (circleFm "c" "d" "r")
   pr <- runCommand "./run_reduce.txt qe_input.red"
   waitForProcess pr
   a <- readFile "fresh_file"
@@ -213,7 +213,7 @@ main = do
   let fmStr = preprocessedReduceString a in
    case runParser bExpression () "expr" fmStr of
     Left err -> putStrLn $ show err
-    Right expr -> writeFile "auto_test.cpp" $ algorithmTextCpp (Var "x") $ bExprToFm expr
+    Right expr -> writeFile "autogen/auto_test.cpp" $ algorithmTextCpp (Var "x") $ bExprToFm expr
 
 l1 = "                       2    2            2"
 l2 = "(c <> 0 and (d = 0 or c  - h  + 2*h*x - x  >= 0) and ((b - k <= 0 and "

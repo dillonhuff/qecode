@@ -1,185 +1,24 @@
 
-                                               2            2
-(m >= 0 and j - x <= 0 and j + m - x >= 0 and a  - 2*a*x + b  - 2*b*k - 2*b*m
+             2                    2            2            2    2    2
+(l >= 0 and b  - 2*b*d + 2*b*l + c  - 2*c*x + d  - 2*d*l + l  - r  + x  <= 0
 
-    2                    2            2              2    2    2
- + c  - 2*c*l - 2*c*m + k  + 2*k*m + l  + 2*l*m + 2*m  - r  + x  <= 0) or (
+                                         2            2    2
+ and a - x <= 0 and a + l - x >= 0) or (c  - 2*c*x - r  + x  <= 0 and ((
 
- 2            2    2
-a  - 2*a*x - r  + x  <= 0 and ((j - x <= 0 and j + m - x >= 0 and c - l >= 0
+                2            2            2    2    2
+b - d <= 0 and b  - 2*b*d + c  - 2*c*x + d  - r  + x  >= 0 and a - x <= 0
 
- and c - l - m <= 0 and b - k >= 0
+ and a + l - x >= 0 and (b - d + l >= 0
 
-      2            2            2    2    2
- and a  - 2*a*x + b  - 2*b*k + k  - r  + x  >= 0 and (b - k - m <= 0
+     2                    2            2            2    2    2
+ or b  - 2*b*d + 2*b*l + c  - 2*c*x + d  - 2*d*l + l  - r  + x  <= 0)) or (
 
-     2            2                    2            2    2    2
- or a  - 2*a*x + b  - 2*b*k - 2*b*m + k  + 2*k*m + m  - r  + x  <= 0)) or (
+b - d + l >= 0
 
-j - x <= 0 and j + m - x >= 0 and c - l >= 0 and c - l - m <= 0
+      2                    2            2            2    2    2
+ and b  - 2*b*d + 2*b*l + c  - 2*c*x + d  - 2*d*l + l  - r  + x  >= 0
 
- and b - k - m <= 0
-
-      2            2                    2            2    2    2
- and a  - 2*a*x + b  - 2*b*k - 2*b*m + k  + 2*k*m + m  - r  + x  >= 0
+ and a - x <= 0 and a + l - x >= 0
 
                      2            2            2    2    2
- and (b - k >= 0 or a  - 2*a*x + b  - 2*b*k + k  - r  + x  <= 0)))) or (
-
- 2            2            2    2    2
-a  - 2*a*x + c  - 2*c*l + l  - r  + x  <= 0 and ((j - x <= 0 and j + m - x >= 0
-
- and c - l >= 0 and b - k >= 0
-
-      2            2            2            2    2    2    2
- and a  - 2*a*x + b  - 2*b*k + c  - 2*c*l + k  + l  - r  + x  >= 0
-
-                                         2
- and (c - l - m <= 0 or 2*c*m - 2*l*m - m  >= 0) and (b - k - m <= 0 or 
-
- 2            2                    2            2            2    2    2    2
-a  - 2*a*x + b  - 2*b*k - 2*b*m + c  - 2*c*l + k  + 2*k*m + l  + m  - r  + x
-
- <= 0)) or (j - x <= 0 and j + m - x >= 0 and c - l >= 0 and b - k - m <= 0 and 
-
- 2            2                    2            2            2    2    2    2
-a  - 2*a*x + b  - 2*b*k - 2*b*m + c  - 2*c*l + k  + 2*k*m + l  + m  - r  + x
-
-                                              2
- >= 0 and (c - l - m <= 0 or 2*c*m - 2*l*m - m  >= 0) and (b - k >= 0
-
-     2            2            2            2    2    2    2
- or a  - 2*a*x + b  - 2*b*k + c  - 2*c*l + k  + l  - r  + x  <= 0)) or (
-
-                                                                      2
-j - x <= 0 and j + m - x >= 0 and c - l - m <= 0 and 2*c*m - 2*l*m - m  <= 0
-
- and b - k >= 0
-
-      2            2            2            2    2    2    2
- and a  - 2*a*x + b  - 2*b*k + c  - 2*c*l + k  + l  - r  + x  >= 0 and (
-
-b - k - m <= 0 or 
-
- 2            2                    2            2            2    2    2    2
-a  - 2*a*x + b  - 2*b*k - 2*b*m + c  - 2*c*l + k  + 2*k*m + l  + m  - r  + x
-
- <= 0)) or (j - x <= 0 and j + m - x >= 0 and c - l - m <= 0
-
-                      2
- and 2*c*m - 2*l*m - m  <= 0 and b - k - m <= 0 and 
-
- 2            2                    2            2            2    2    2    2
-a  - 2*a*x + b  - 2*b*k - 2*b*m + c  - 2*c*l + k  + 2*k*m + l  + m  - r  + x
-
- >= 0 and (b - k >= 0
-
-     2            2            2            2    2    2    2
- or a  - 2*a*x + b  - 2*b*k + c  - 2*c*l + k  + l  - r  + x  <= 0)))) or (
-
- 2            2                    2            2    2    2
-a  - 2*a*x + c  - 2*c*l - 2*c*m + l  + 2*l*m + m  - r  + x  <= 0 and ((m >= 0
-
- and j - x <= 0 and j + m - x >= 0 and b - k >= 0 and 
-
- 2            2            2                    2    2            2    2    2
-a  - 2*a*x + b  - 2*b*k + c  - 2*c*l - 2*c*m + k  + l  + 2*l*m + m  - r  + x
-
-                              2            2                    2
- >= 0 and (b - k - m <= 0 or a  - 2*a*x + b  - 2*b*k - 2*b*m + c  - 2*c*l
-
-            2            2              2    2    2
- - 2*c*m + k  + 2*k*m + l  + 2*l*m + 2*m  - r  + x  <= 0)) or (m >= 0
-
-                                                           2            2
- and j - x <= 0 and j + m - x >= 0 and b - k - m <= 0 and a  - 2*a*x + b
-
-                    2                    2            2              2    2    2
- - 2*b*k - 2*b*m + c  - 2*c*l - 2*c*m + k  + 2*k*m + l  + 2*l*m + 2*m  - r  + x
-
- >= 0 and (b - k >= 0 or 
-
- 2            2            2                    2    2            2    2    2
-a  - 2*a*x + b  - 2*b*k + c  - 2*c*l - 2*c*m + k  + l  + 2*l*m + m  - r  + x
-
-               2            2                    2            2    2    2
- <= 0)))) or (a  - 2*a*x + c  - 2*c*l - 2*c*m + l  + 2*l*m + m  - r  + x  <= 0 
-
-                                                                        2
-and ((j - x <= 0 and j + m - x >= 0 and c - l >= 0 and 2*c*m - 2*l*m - m  >= 0
-
- and b - k >= 0 and 
-
- 2            2            2                    2    2            2    2    2
-a  - 2*a*x + b  - 2*b*k + c  - 2*c*l - 2*c*m + k  + l  + 2*l*m + m  - r  + x
-
-                              2            2                    2
- >= 0 and (b - k - m <= 0 or a  - 2*a*x + b  - 2*b*k - 2*b*m + c  - 2*c*l
-
-            2            2              2    2    2
- - 2*c*m + k  + 2*k*m + l  + 2*l*m + 2*m  - r  + x  <= 0)) or (j - x <= 0
-
-                                                        2
- and j + m - x >= 0 and c - l >= 0 and 2*c*m - 2*l*m - m  >= 0
-
-                         2            2                    2
- and b - k - m <= 0 and a  - 2*a*x + b  - 2*b*k - 2*b*m + c  - 2*c*l - 2*c*m
-
-    2            2              2    2    2
- + k  + 2*k*m + l  + 2*l*m + 2*m  - r  + x  >= 0 and (b - k >= 0 or 
-
- 2            2            2                    2    2            2    2    2
-a  - 2*a*x + b  - 2*b*k + c  - 2*c*l - 2*c*m + k  + l  + 2*l*m + m  - r  + x
-
- <= 0)) or (j - x <= 0 and j + m - x >= 0 and c - l - m <= 0 and b - k >= 0 and 
-
- 2            2            2                    2    2            2    2    2
-a  - 2*a*x + b  - 2*b*k + c  - 2*c*l - 2*c*m + k  + l  + 2*l*m + m  - r  + x
-
-                                          2                               2
- >= 0 and (c - l >= 0 or 2*c*m - 2*l*m - m  <= 0) and (b - k - m <= 0 or a
-
-            2                    2                    2            2
- - 2*a*x + b  - 2*b*k - 2*b*m + c  - 2*c*l - 2*c*m + k  + 2*k*m + l  + 2*l*m
-
-      2    2    2
- + 2*m  - r  + x  <= 0)) or (j - x <= 0 and j + m - x >= 0 and c - l - m <= 0
-
-                         2            2                    2
- and b - k - m <= 0 and a  - 2*a*x + b  - 2*b*k - 2*b*m + c  - 2*c*l - 2*c*m
-
-    2            2              2    2    2
- + k  + 2*k*m + l  + 2*l*m + 2*m  - r  + x  >= 0
-
-                                     2
- and (c - l >= 0 or 2*c*m - 2*l*m - m  <= 0) and (b - k >= 0 or 
-
- 2            2            2                    2    2            2    2    2
-a  - 2*a*x + b  - 2*b*k + c  - 2*c*l - 2*c*m + k  + l  + 2*l*m + m  - r  + x
-
-               2            2                    2            2    2    2
- <= 0)))) or (a  - 2*a*x + b  - 2*b*k - 2*b*m + k  + 2*k*m + m  - r  + x  <= 0 
-
-and ((m >= 0 and j - x <= 0 and j + m - x >= 0 and c - l >= 0 and 
-
- 2            2                    2            2            2    2    2    2
-a  - 2*a*x + b  - 2*b*k - 2*b*m + c  - 2*c*l + k  + 2*k*m + l  + m  - r  + x
-
-                              2            2                    2
- >= 0 and (c - l - m <= 0 or a  - 2*a*x + b  - 2*b*k - 2*b*m + c  - 2*c*l
-
-            2            2              2    2    2
- - 2*c*m + k  + 2*k*m + l  + 2*l*m + 2*m  - r  + x  <= 0)) or (m >= 0
-
-                                                           2            2
- and j - x <= 0 and j + m - x >= 0 and c - l - m <= 0 and a  - 2*a*x + b
-
-                    2                    2            2              2    2    2
- - 2*b*k - 2*b*m + c  - 2*c*l - 2*c*m + k  + 2*k*m + l  + 2*l*m + 2*m  - r  + x
-
- >= 0 and (c - l >= 0 or 
-
- 2            2                    2            2            2    2    2    2
-a  - 2*a*x + b  - 2*b*k - 2*b*m + c  - 2*c*l + k  + 2*k*m + l  + m  - r  + x
-
- <= 0))))
+ and (b - d <= 0 or b  - 2*b*d + c  - 2*c*x + d  - r  + x  <= 0))))
