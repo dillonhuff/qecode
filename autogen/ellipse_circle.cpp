@@ -273,3 +273,43 @@ bool shapes_intersect( const double a, const double b, const double c, const dou
 	return test_formula_at_sample_points(a, b, c, d, h, k, l , upolys);
 
 }
+
+void overlap_case_1() {
+  double a = -1;
+  double b = -1;
+  double r = 1000000;
+
+  double c = 3;
+  double d = 1;
+
+  double h = 2;
+  double k = 4;
+
+  bool i = shapes_intersect(a, b, c, d, h, k, r);
+  cout << "Intersect ? " << i << endl;
+  assert(i);
+
+}
+
+
+void no_overlap_case_1() {
+  double a = -100;
+  double b = -100;
+  double r = 0.1;
+
+  double c = 3;
+  double d = 1;
+
+  double h = 2;
+  double k = 4;
+
+  bool i = shapes_intersect(a, b, c, d, h, k, r);
+  cout << "Intersect ? " << i << endl;
+  assert(!i);
+
+}
+
+int main() {
+  overlap_case_1();
+  no_overlap_case_1();
+}

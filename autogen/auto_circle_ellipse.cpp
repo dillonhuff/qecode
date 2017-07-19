@@ -273,17 +273,4 @@ bool shapes_intersect( const double a, const double b, const double c, const dou
 	return test_formula_at_sample_points(a, b, c, d, h, k, r , upolys);
 
 }
-int main() {
-  int a = -1;
-  int b = -1;
-  int r = 1000000;
 
-  int c = 3;
-  int d = 1;
-
-  int h = 2;
-  int k = 4;
-
-  bool i = shapes_intersect(a, b, c, d, h, k, r);
-  cout << "Intersect ? " << i << endl;
-}
