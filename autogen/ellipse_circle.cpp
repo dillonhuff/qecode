@@ -3,29 +3,29 @@
 using namespace std;
 using namespace ralg;
 
-#define EPSILON 1.0e-4
+#define EPSILON 1.0e-5
 
 bool within_eps(const double a, const double b, const double eps) {
 	return fabs(a - b) < eps;
 }
 
 std::vector<rational> test_points_from_roots(const std::vector<rational>& roots) {
-if (roots.size() == 0) { return {};
- } vector<rational> sorted_roots = roots;
- sort(begin(sorted_roots), end(sorted_roots));
- rational one(1);
- rational two(2);
- rational neg_inf = sorted_roots.front() - 1;
- rational pos_inf = sorted_roots.back() + 1;
- vector<rational> test_points;
- test_points.push_back(neg_inf);
- for (int i = 0; i < sorted_roots.size(); i++) {
-test_points.push_back(sorted_roots[i]);
- if (i < sorted_roots.size() - 1) { rational mid = (sorted_roots[i] + sorted_roots[i + 1]) / two;
- test_points.push_back(mid);
- } } test_points.push_back(pos_inf);
- return test_points;
- }
+  if (roots.size() == 0) { return {};
+  } vector<rational> sorted_roots = roots;
+  sort(begin(sorted_roots), end(sorted_roots));
+  rational one(1);
+  rational two(2);
+  rational neg_inf = sorted_roots.front() - 1;
+  rational pos_inf = sorted_roots.back() + 1;
+  vector<rational> test_points;
+  test_points.push_back(neg_inf);
+  for (int i = 0; i < sorted_roots.size(); i++) {
+    test_points.push_back(sorted_roots[i]);
+    if (i < sorted_roots.size() - 1) { rational mid = (sorted_roots[i] + sorted_roots[i + 1]) / two;
+      test_points.push_back(mid);
+    } } test_points.push_back(pos_inf);
+  return test_points;
+}
 
 bool formula(const double a, const double b, const double c, const double d, const double h, const double k, const double l, const double x ) {
 	return ( ( ( !within_eps( c, 0.0 , EPSILON ) && ( within_eps( d, 0.0 , EPSILON ) || ( ( ( ( pow( c, 2.0 ) - pow( h, 2.0 ) ) + ( ( 2.0 * h ) * x ) ) - pow( x, 2.0 ) ) >= 0.0 ) ) ) && ( ( ( ( ( b - k ) <= 0.0 ) && ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( pow( a, 4.0 ) * pow( c, 4.0 ) ) - ( ( ( 4.0 * pow( a, 3.0 ) ) * pow( c, 4.0 ) ) * x ) ) + ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) ) - ( ( ( ( 4.0 * pow( a, 2.0 ) ) * b ) * pow( c, 4.0 ) ) * k ) ) + ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) ) + ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) ) - ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 4.0 ) ) * pow( l, 2.0 ) ) ) + ( ( ( 6.0 * pow( a, 2.0 ) ) * pow( c, 4.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) ) + ( ( ( ( ( 4.0 * pow( a, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * x ) ) - ( ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( ( 4.0 * a ) * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * x ) ) + ( ( ( ( ( 8.0 * a ) * b ) * pow( c, 4.0 ) ) * k ) * x ) ) - ( ( ( ( 4.0 * a ) * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * x ) ) - ( ( ( ( 4.0 * a ) * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) * x ) ) + ( ( ( ( 4.0 * a ) * pow( c, 4.0 ) ) * pow( l, 2.0 ) ) * x ) ) - ( ( ( 4.0 * a ) * pow( c, 4.0 ) ) * pow( x, 3.0 ) ) ) + ( ( ( ( ( 4.0 * a ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * x ) ) - ( ( ( ( ( 8.0 * a ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * pow( x, 2.0 ) ) ) + ( ( ( ( 4.0 * a ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( x, 3.0 ) ) ) + ( pow( b, 4.0 ) * pow( c, 4.0 ) ) ) - ( ( ( 4.0 * pow( b, 3.0 ) ) * pow( c, 4.0 ) ) * k ) ) - ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) ) + ( ( ( 6.0 * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) ) - ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * pow( l, 2.0 ) ) ) + ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * pow( x, 2.0 ) ) ) + ( ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) ) - ( ( ( ( ( 4.0 * pow( b, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * x ) ) + ( ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( ( ( ( 4.0 * b ) * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * k ) ) - ( ( ( 4.0 * b ) * pow( c, 4.0 ) ) * pow( k, 3.0 ) ) ) + ( ( ( ( 4.0 * b ) * pow( c, 4.0 ) ) * k ) * pow( l, 2.0 ) ) ) - ( ( ( ( 4.0 * b ) * pow( c, 4.0 ) ) * k ) * pow( x, 2.0 ) ) ) - ( ( ( ( ( 4.0 * b ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * k ) ) + ( ( ( ( ( ( 8.0 * b ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * k ) * x ) ) - ( ( ( ( ( 4.0 * b ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * k ) * pow( x, 2.0 ) ) ) + ( pow( c, 4.0 ) * pow( d, 4.0 ) ) ) - ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * pow( k, 2.0 ) ) ) - ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * pow( l, 2.0 ) ) ) + ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( pow( c, 4.0 ) * pow( k, 4.0 ) ) ) - ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) * pow( l, 2.0 ) ) ) + ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( pow( c, 4.0 ) * pow( l, 4.0 ) ) ) - ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( l, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( pow( c, 4.0 ) * pow( x, 4.0 ) ) ) - ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 4.0 ) ) * pow( h, 2.0 ) ) ) + ( ( ( ( 4.0 * pow( c, 2.0 ) ) * pow( d, 4.0 ) ) * h ) * x ) ) - ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 4.0 ) ) * pow( x, 2.0 ) ) ) + ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * pow( k, 2.0 ) ) ) + ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * pow( l, 2.0 ) ) ) - ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( ( ( 4.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * pow( k, 2.0 ) ) * x ) ) - ( ( ( ( ( 4.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * pow( l, 2.0 ) ) * x ) ) + ( ( ( ( 4.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * pow( x, 3.0 ) ) ) + ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( k, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( l, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( x, 4.0 ) ) ) + ( pow( d, 4.0 ) * pow( h, 4.0 ) ) ) - ( ( ( 4.0 * pow( d, 4.0 ) ) * pow( h, 3.0 ) ) * x ) ) + ( ( ( 6.0 * pow( d, 4.0 ) ) * pow( h, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( 4.0 * pow( d, 4.0 ) ) * h ) * pow( x, 3.0 ) ) ) + ( pow( d, 4.0 ) * pow( x, 4.0 ) ) ) <= 0.0 ) ) || ( ( ( b - k ) >= 0.0 ) && ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( pow( a, 4.0 ) * pow( c, 4.0 ) ) - ( ( ( 4.0 * pow( a, 3.0 ) ) * pow( c, 4.0 ) ) * x ) ) + ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) ) - ( ( ( ( 4.0 * pow( a, 2.0 ) ) * b ) * pow( c, 4.0 ) ) * k ) ) + ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) ) + ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) ) - ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 4.0 ) ) * pow( l, 2.0 ) ) ) + ( ( ( 6.0 * pow( a, 2.0 ) ) * pow( c, 4.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) ) + ( ( ( ( ( 4.0 * pow( a, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * x ) ) - ( ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( ( 4.0 * a ) * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * x ) ) + ( ( ( ( ( 8.0 * a ) * b ) * pow( c, 4.0 ) ) * k ) * x ) ) - ( ( ( ( 4.0 * a ) * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * x ) ) - ( ( ( ( 4.0 * a ) * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) * x ) ) + ( ( ( ( 4.0 * a ) * pow( c, 4.0 ) ) * pow( l, 2.0 ) ) * x ) ) - ( ( ( 4.0 * a ) * pow( c, 4.0 ) ) * pow( x, 3.0 ) ) ) + ( ( ( ( ( 4.0 * a ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * x ) ) - ( ( ( ( ( 8.0 * a ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * pow( x, 2.0 ) ) ) + ( ( ( ( 4.0 * a ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( x, 3.0 ) ) ) + ( pow( b, 4.0 ) * pow( c, 4.0 ) ) ) - ( ( ( 4.0 * pow( b, 3.0 ) ) * pow( c, 4.0 ) ) * k ) ) - ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) ) + ( ( ( 6.0 * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) ) - ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * pow( l, 2.0 ) ) ) + ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * pow( x, 2.0 ) ) ) + ( ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) ) - ( ( ( ( ( 4.0 * pow( b, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * x ) ) + ( ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( ( ( ( 4.0 * b ) * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * k ) ) - ( ( ( 4.0 * b ) * pow( c, 4.0 ) ) * pow( k, 3.0 ) ) ) + ( ( ( ( 4.0 * b ) * pow( c, 4.0 ) ) * k ) * pow( l, 2.0 ) ) ) - ( ( ( ( 4.0 * b ) * pow( c, 4.0 ) ) * k ) * pow( x, 2.0 ) ) ) - ( ( ( ( ( 4.0 * b ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * k ) ) + ( ( ( ( ( ( 8.0 * b ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * k ) * x ) ) - ( ( ( ( ( 4.0 * b ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * k ) * pow( x, 2.0 ) ) ) + ( pow( c, 4.0 ) * pow( d, 4.0 ) ) ) - ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * pow( k, 2.0 ) ) ) - ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * pow( l, 2.0 ) ) ) + ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( pow( c, 4.0 ) * pow( k, 4.0 ) ) ) - ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) * pow( l, 2.0 ) ) ) + ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( pow( c, 4.0 ) * pow( l, 4.0 ) ) ) - ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( l, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( pow( c, 4.0 ) * pow( x, 4.0 ) ) ) - ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 4.0 ) ) * pow( h, 2.0 ) ) ) + ( ( ( ( 4.0 * pow( c, 2.0 ) ) * pow( d, 4.0 ) ) * h ) * x ) ) - ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 4.0 ) ) * pow( x, 2.0 ) ) ) + ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * pow( k, 2.0 ) ) ) + ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * pow( l, 2.0 ) ) ) - ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( ( ( 4.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * pow( k, 2.0 ) ) * x ) ) - ( ( ( ( ( 4.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * pow( l, 2.0 ) ) * x ) ) + ( ( ( ( 4.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * pow( x, 3.0 ) ) ) + ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( k, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( l, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( x, 4.0 ) ) ) + ( pow( d, 4.0 ) * pow( h, 4.0 ) ) ) - ( ( ( 4.0 * pow( d, 4.0 ) ) * pow( h, 3.0 ) ) * x ) ) + ( ( ( 6.0 * pow( d, 4.0 ) ) * pow( h, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( 4.0 * pow( d, 4.0 ) ) * h ) * pow( x, 3.0 ) ) ) + ( pow( d, 4.0 ) * pow( x, 4.0 ) ) ) <= 0.0 ) ) ) || ( ( ( ( ( ( ( ( ( ( ( ( ( pow( a, 2.0 ) * pow( c, 2.0 ) ) - ( ( ( 2.0 * a ) * pow( c, 2.0 ) ) * x ) ) + ( pow( b, 2.0 ) * pow( c, 2.0 ) ) ) - ( ( ( 2.0 * b ) * pow( c, 2.0 ) ) * k ) ) + ( pow( c, 2.0 ) * pow( d, 2.0 ) ) ) + ( pow( c, 2.0 ) * pow( k, 2.0 ) ) ) - ( pow( c, 2.0 ) * pow( l, 2.0 ) ) ) + ( pow( c, 2.0 ) * pow( x, 2.0 ) ) ) - ( pow( d, 2.0 ) * pow( h, 2.0 ) ) ) + ( ( ( 2.0 * pow( d, 2.0 ) ) * h ) * x ) ) - ( pow( d, 2.0 ) * pow( x, 2.0 ) ) ) <= 0.0 ) && ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( pow( a, 4.0 ) * pow( c, 4.0 ) ) - ( ( ( 4.0 * pow( a, 3.0 ) ) * pow( c, 4.0 ) ) * x ) ) + ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) ) - ( ( ( ( 4.0 * pow( a, 2.0 ) ) * b ) * pow( c, 4.0 ) ) * k ) ) + ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) ) + ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) ) - ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 4.0 ) ) * pow( l, 2.0 ) ) ) + ( ( ( 6.0 * pow( a, 2.0 ) ) * pow( c, 4.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) ) + ( ( ( ( ( 4.0 * pow( a, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * x ) ) - ( ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( ( 4.0 * a ) * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * x ) ) + ( ( ( ( ( 8.0 * a ) * b ) * pow( c, 4.0 ) ) * k ) * x ) ) - ( ( ( ( 4.0 * a ) * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * x ) ) - ( ( ( ( 4.0 * a ) * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) * x ) ) + ( ( ( ( 4.0 * a ) * pow( c, 4.0 ) ) * pow( l, 2.0 ) ) * x ) ) - ( ( ( 4.0 * a ) * pow( c, 4.0 ) ) * pow( x, 3.0 ) ) ) + ( ( ( ( ( 4.0 * a ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * x ) ) - ( ( ( ( ( 8.0 * a ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * pow( x, 2.0 ) ) ) + ( ( ( ( 4.0 * a ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( x, 3.0 ) ) ) + ( pow( b, 4.0 ) * pow( c, 4.0 ) ) ) - ( ( ( 4.0 * pow( b, 3.0 ) ) * pow( c, 4.0 ) ) * k ) ) - ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) ) + ( ( ( 6.0 * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) ) - ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * pow( l, 2.0 ) ) ) + ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * pow( x, 2.0 ) ) ) + ( ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) ) - ( ( ( ( ( 4.0 * pow( b, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * x ) ) + ( ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( ( ( ( 4.0 * b ) * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * k ) ) - ( ( ( 4.0 * b ) * pow( c, 4.0 ) ) * pow( k, 3.0 ) ) ) + ( ( ( ( 4.0 * b ) * pow( c, 4.0 ) ) * k ) * pow( l, 2.0 ) ) ) - ( ( ( ( 4.0 * b ) * pow( c, 4.0 ) ) * k ) * pow( x, 2.0 ) ) ) - ( ( ( ( ( 4.0 * b ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * k ) ) + ( ( ( ( ( ( 8.0 * b ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * k ) * x ) ) - ( ( ( ( ( 4.0 * b ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * k ) * pow( x, 2.0 ) ) ) + ( pow( c, 4.0 ) * pow( d, 4.0 ) ) ) - ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * pow( k, 2.0 ) ) ) - ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * pow( l, 2.0 ) ) ) + ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( pow( c, 4.0 ) * pow( k, 4.0 ) ) ) - ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) * pow( l, 2.0 ) ) ) + ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( pow( c, 4.0 ) * pow( l, 4.0 ) ) ) - ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( l, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( pow( c, 4.0 ) * pow( x, 4.0 ) ) ) - ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 4.0 ) ) * pow( h, 2.0 ) ) ) + ( ( ( ( 4.0 * pow( c, 2.0 ) ) * pow( d, 4.0 ) ) * h ) * x ) ) - ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 4.0 ) ) * pow( x, 2.0 ) ) ) + ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * pow( k, 2.0 ) ) ) + ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * pow( l, 2.0 ) ) ) - ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( ( ( 4.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * pow( k, 2.0 ) ) * x ) ) - ( ( ( ( ( 4.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * pow( l, 2.0 ) ) * x ) ) + ( ( ( ( 4.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * pow( x, 3.0 ) ) ) + ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( k, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( l, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( x, 4.0 ) ) ) + ( pow( d, 4.0 ) * pow( h, 4.0 ) ) ) - ( ( ( 4.0 * pow( d, 4.0 ) ) * pow( h, 3.0 ) ) * x ) ) + ( ( ( 6.0 * pow( d, 4.0 ) ) * pow( h, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( 4.0 * pow( d, 4.0 ) ) * h ) * pow( x, 3.0 ) ) ) + ( pow( d, 4.0 ) * pow( x, 4.0 ) ) ) >= 0.0 ) ) ) ) || ( ( ( ( ( pow( a, 2.0 ) - ( ( 2.0 * a ) * x ) ) - pow( l, 2.0 ) ) + pow( x, 2.0 ) ) <= 0.0 ) && ( ( within_eps( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( pow( a, 4.0 ) * pow( c, 4.0 ) ) - ( ( ( 4.0 * pow( a, 3.0 ) ) * pow( c, 4.0 ) ) * x ) ) + ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) ) - ( ( ( ( 4.0 * pow( a, 2.0 ) ) * b ) * pow( c, 4.0 ) ) * k ) ) + ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) ) + ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) ) - ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 4.0 ) ) * pow( l, 2.0 ) ) ) + ( ( ( 6.0 * pow( a, 2.0 ) ) * pow( c, 4.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) ) + ( ( ( ( ( 4.0 * pow( a, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * x ) ) - ( ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( ( 4.0 * a ) * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * x ) ) + ( ( ( ( ( 8.0 * a ) * b ) * pow( c, 4.0 ) ) * k ) * x ) ) - ( ( ( ( 4.0 * a ) * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * x ) ) - ( ( ( ( 4.0 * a ) * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) * x ) ) + ( ( ( ( 4.0 * a ) * pow( c, 4.0 ) ) * pow( l, 2.0 ) ) * x ) ) - ( ( ( 4.0 * a ) * pow( c, 4.0 ) ) * pow( x, 3.0 ) ) ) + ( ( ( ( ( 4.0 * a ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * x ) ) - ( ( ( ( ( 8.0 * a ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * pow( x, 2.0 ) ) ) + ( ( ( ( 4.0 * a ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( x, 3.0 ) ) ) + ( pow( b, 4.0 ) * pow( c, 4.0 ) ) ) - ( ( ( 4.0 * pow( b, 3.0 ) ) * pow( c, 4.0 ) ) * k ) ) - ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) ) + ( ( ( 6.0 * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) ) - ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * pow( l, 2.0 ) ) ) + ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * pow( x, 2.0 ) ) ) + ( ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) ) - ( ( ( ( ( 4.0 * pow( b, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * x ) ) + ( ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( ( ( ( 4.0 * b ) * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * k ) ) - ( ( ( 4.0 * b ) * pow( c, 4.0 ) ) * pow( k, 3.0 ) ) ) + ( ( ( ( 4.0 * b ) * pow( c, 4.0 ) ) * k ) * pow( l, 2.0 ) ) ) - ( ( ( ( 4.0 * b ) * pow( c, 4.0 ) ) * k ) * pow( x, 2.0 ) ) ) - ( ( ( ( ( 4.0 * b ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * k ) ) + ( ( ( ( ( ( 8.0 * b ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * k ) * x ) ) - ( ( ( ( ( 4.0 * b ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * k ) * pow( x, 2.0 ) ) ) + ( pow( c, 4.0 ) * pow( d, 4.0 ) ) ) - ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * pow( k, 2.0 ) ) ) - ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * pow( l, 2.0 ) ) ) + ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( pow( c, 4.0 ) * pow( k, 4.0 ) ) ) - ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) * pow( l, 2.0 ) ) ) + ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( pow( c, 4.0 ) * pow( l, 4.0 ) ) ) - ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( l, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( pow( c, 4.0 ) * pow( x, 4.0 ) ) ) - ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 4.0 ) ) * pow( h, 2.0 ) ) ) + ( ( ( ( 4.0 * pow( c, 2.0 ) ) * pow( d, 4.0 ) ) * h ) * x ) ) - ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 4.0 ) ) * pow( x, 2.0 ) ) ) + ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * pow( k, 2.0 ) ) ) + ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * pow( l, 2.0 ) ) ) - ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( ( ( 4.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * pow( k, 2.0 ) ) * x ) ) - ( ( ( ( ( 4.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * pow( l, 2.0 ) ) * x ) ) + ( ( ( ( 4.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * pow( x, 3.0 ) ) ) + ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( k, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( l, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( x, 4.0 ) ) ) + ( pow( d, 4.0 ) * pow( h, 4.0 ) ) ) - ( ( ( 4.0 * pow( d, 4.0 ) ) * pow( h, 3.0 ) ) * x ) ) + ( ( ( 6.0 * pow( d, 4.0 ) ) * pow( h, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( 4.0 * pow( d, 4.0 ) ) * h ) * pow( x, 3.0 ) ) ) + ( pow( d, 4.0 ) * pow( x, 4.0 ) ) ), 0.0 , EPSILON ) && ( within_eps( c, 0.0 , EPSILON ) || ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( pow( a, 2.0 ) * b ) * pow( c, 2.0 ) ) - ( ( pow( a, 2.0 ) * pow( c, 2.0 ) ) * k ) ) - ( ( ( ( 2.0 * a ) * b ) * pow( c, 2.0 ) ) * x ) ) + ( ( ( ( 2.0 * a ) * pow( c, 2.0 ) ) * k ) * x ) ) - ( pow( b, 3.0 ) * pow( c, 2.0 ) ) ) + ( ( ( 3.0 * pow( b, 2.0 ) ) * pow( c, 2.0 ) ) * k ) ) + ( ( b * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) ) - ( ( ( 3.0 * b ) * pow( c, 2.0 ) ) * pow( k, 2.0 ) ) ) - ( ( b * pow( c, 2.0 ) ) * pow( l, 2.0 ) ) ) + ( ( b * pow( c, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( b * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) ) + ( ( ( ( 2.0 * b ) * pow( d, 2.0 ) ) * h ) * x ) ) - ( ( b * pow( d, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( pow( c, 2.0 ) * pow( d, 2.0 ) ) * k ) ) + ( pow( c, 2.0 ) * pow( k, 3.0 ) ) ) + ( ( pow( c, 2.0 ) * k ) * pow( l, 2.0 ) ) ) - ( ( pow( c, 2.0 ) * k ) * pow( x, 2.0 ) ) ) + ( ( pow( d, 2.0 ) * pow( h, 2.0 ) ) * k ) ) - ( ( ( ( 2.0 * pow( d, 2.0 ) ) * h ) * k ) * x ) ) + ( ( pow( d, 2.0 ) * k ) * pow( x, 2.0 ) ) ) <= 0.0 ) ) ) || ( within_eps( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( pow( a, 4.0 ) * pow( c, 4.0 ) ) - ( ( ( 4.0 * pow( a, 3.0 ) ) * pow( c, 4.0 ) ) * x ) ) + ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) ) - ( ( ( ( 4.0 * pow( a, 2.0 ) ) * b ) * pow( c, 4.0 ) ) * k ) ) + ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) ) + ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) ) - ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 4.0 ) ) * pow( l, 2.0 ) ) ) + ( ( ( 6.0 * pow( a, 2.0 ) ) * pow( c, 4.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) ) + ( ( ( ( ( 4.0 * pow( a, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * x ) ) - ( ( ( ( 2.0 * pow( a, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( ( 4.0 * a ) * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * x ) ) + ( ( ( ( ( 8.0 * a ) * b ) * pow( c, 4.0 ) ) * k ) * x ) ) - ( ( ( ( 4.0 * a ) * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * x ) ) - ( ( ( ( 4.0 * a ) * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) * x ) ) + ( ( ( ( 4.0 * a ) * pow( c, 4.0 ) ) * pow( l, 2.0 ) ) * x ) ) - ( ( ( 4.0 * a ) * pow( c, 4.0 ) ) * pow( x, 3.0 ) ) ) + ( ( ( ( ( 4.0 * a ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * x ) ) - ( ( ( ( ( 8.0 * a ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * pow( x, 2.0 ) ) ) + ( ( ( ( 4.0 * a ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( x, 3.0 ) ) ) + ( pow( b, 4.0 ) * pow( c, 4.0 ) ) ) - ( ( ( 4.0 * pow( b, 3.0 ) ) * pow( c, 4.0 ) ) * k ) ) - ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) ) + ( ( ( 6.0 * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) ) - ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * pow( l, 2.0 ) ) ) + ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 4.0 ) ) * pow( x, 2.0 ) ) ) + ( ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) ) - ( ( ( ( ( 4.0 * pow( b, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * x ) ) + ( ( ( ( 2.0 * pow( b, 2.0 ) ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( ( ( ( 4.0 * b ) * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * k ) ) - ( ( ( 4.0 * b ) * pow( c, 4.0 ) ) * pow( k, 3.0 ) ) ) + ( ( ( ( 4.0 * b ) * pow( c, 4.0 ) ) * k ) * pow( l, 2.0 ) ) ) - ( ( ( ( 4.0 * b ) * pow( c, 4.0 ) ) * k ) * pow( x, 2.0 ) ) ) - ( ( ( ( ( 4.0 * b ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * k ) ) + ( ( ( ( ( ( 8.0 * b ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * k ) * x ) ) - ( ( ( ( ( 4.0 * b ) * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * k ) * pow( x, 2.0 ) ) ) + ( pow( c, 4.0 ) * pow( d, 4.0 ) ) ) - ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * pow( k, 2.0 ) ) ) - ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * pow( l, 2.0 ) ) ) + ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( d, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( pow( c, 4.0 ) * pow( k, 4.0 ) ) ) - ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) * pow( l, 2.0 ) ) ) + ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( k, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( pow( c, 4.0 ) * pow( l, 4.0 ) ) ) - ( ( ( 2.0 * pow( c, 4.0 ) ) * pow( l, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( pow( c, 4.0 ) * pow( x, 4.0 ) ) ) - ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 4.0 ) ) * pow( h, 2.0 ) ) ) + ( ( ( ( 4.0 * pow( c, 2.0 ) ) * pow( d, 4.0 ) ) * h ) * x ) ) - ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 4.0 ) ) * pow( x, 2.0 ) ) ) + ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * pow( k, 2.0 ) ) ) + ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * pow( l, 2.0 ) ) ) - ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( ( ( 4.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * pow( k, 2.0 ) ) * x ) ) - ( ( ( ( ( 4.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * pow( l, 2.0 ) ) * x ) ) + ( ( ( ( 4.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * h ) * pow( x, 3.0 ) ) ) + ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( k, 2.0 ) ) * pow( x, 2.0 ) ) ) + ( ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( l, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( 2.0 * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) * pow( x, 4.0 ) ) ) + ( pow( d, 4.0 ) * pow( h, 4.0 ) ) ) - ( ( ( 4.0 * pow( d, 4.0 ) ) * pow( h, 3.0 ) ) * x ) ) + ( ( ( 6.0 * pow( d, 4.0 ) ) * pow( h, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( ( 4.0 * pow( d, 4.0 ) ) * h ) * pow( x, 3.0 ) ) ) + ( pow( d, 4.0 ) * pow( x, 4.0 ) ) ), 0.0 , EPSILON ) && ( within_eps( c, 0.0 , EPSILON ) || ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( pow( a, 2.0 ) * b ) * pow( c, 2.0 ) ) - ( ( pow( a, 2.0 ) * pow( c, 2.0 ) ) * k ) ) - ( ( ( ( 2.0 * a ) * b ) * pow( c, 2.0 ) ) * x ) ) + ( ( ( ( 2.0 * a ) * pow( c, 2.0 ) ) * k ) * x ) ) - ( pow( b, 3.0 ) * pow( c, 2.0 ) ) ) + ( ( ( 3.0 * pow( b, 2.0 ) ) * pow( c, 2.0 ) ) * k ) ) + ( ( b * pow( c, 2.0 ) ) * pow( d, 2.0 ) ) ) - ( ( ( 3.0 * b ) * pow( c, 2.0 ) ) * pow( k, 2.0 ) ) ) - ( ( b * pow( c, 2.0 ) ) * pow( l, 2.0 ) ) ) + ( ( b * pow( c, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( b * pow( d, 2.0 ) ) * pow( h, 2.0 ) ) ) + ( ( ( ( 2.0 * b ) * pow( d, 2.0 ) ) * h ) * x ) ) - ( ( b * pow( d, 2.0 ) ) * pow( x, 2.0 ) ) ) - ( ( pow( c, 2.0 ) * pow( d, 2.0 ) ) * k ) ) + ( pow( c, 2.0 ) * pow( k, 3.0 ) ) ) + ( ( pow( c, 2.0 ) * k ) * pow( l, 2.0 ) ) ) - ( ( pow( c, 2.0 ) * k ) * pow( x, 2.0 ) ) ) + ( ( pow( d, 2.0 ) * pow( h, 2.0 ) ) * k ) ) - ( ( ( ( 2.0 * pow( d, 2.0 ) ) * h ) * k ) * x ) ) + ( ( pow( d, 2.0 ) * k ) * pow( x, 2.0 ) ) ) >= 0.0 ) ) ) ) ) );
@@ -235,7 +235,7 @@ polynomial make_polynomial_8() {
 
 
 bool test_formula_at_sample_points(const double a, const double b, const double c, const double d, const double h, const double k, const double l , const std::vector<polynomial>& upolys) {
-	rational max_width(0.0001);
+	rational max_width(0.000001);
 	vector<interval> roots;
 	for (auto& p_univariate : upolys) {
 		concat(roots, isolate_roots(p_univariate, max_width));
@@ -243,7 +243,12 @@ bool test_formula_at_sample_points(const double a, const double b, const double 
 	vector<rational> points;
 	rational two(2);
 	 for (auto& it : roots) {
-		 points.push_back((it.start.value + it.end.value) / two);
+	   rational pt = (it.start.value + it.end.value) / two;
+	   cout << "&&&&&& values at " << pt.to_double() << endl;
+	   for (auto& up : upolys) {
+	     cout << evaluate_at(pt, up).to_double() << endl;
+	   }
+	   points.push_back(pt);
 	 }
 
 	 vector<rational> test_points = test_points_from_roots(points);
@@ -276,139 +281,3 @@ bool shapes_intersect( const double a, const double b, const double c, const dou
 
 }
 
-void overlap_case_1() {
-  double a = -1;
-  double b = -1;
-  double r = 1000000;
-
-  double c = 3;
-  double d = 1;
-
-  double h = 2;
-  double k = 4;
-
-  bool i = shapes_intersect(a, b, c, d, h, k, r);
-  cout << "Intersect ? " << i << endl;
-  assert(i);
-
-}
-
-
-void no_overlap_case_1() {
-  double a = -100;
-  double b = -100;
-  double r = 0.1;
-
-  double c = 3;
-  double d = 1;
-
-  double h = 2;
-  double k = 4;
-
-  bool i = shapes_intersect(a, b, c, d, h, k, r);
-  cout << "Intersect ? " << i << endl;
-  assert(!i);
-
-}
-
-// (x - 3)^2 + (y + 4)^2 = root(5)^2 and (x - 7)^2 / 3 + y^2 / 2 = 1
-void no_overlap_case_2() {
-  double a = 3;
-  double b = -4;
-  double r = sqrt(5);
-
-  double c = 3;
-  double d = 2;
-
-  double h = 7;
-  double k = 0;
-
-  bool i = shapes_intersect(a, b, c, d, h, k, r);
-  cout << "Intersect ? " << i << endl;
-  assert(!i);
-}
-
-// (x - 3.5)^2 + (y + 4.5)^2 = sqrt(5)^2 and (x - 7)^2 / 3 + (y + 4)^2 / 2 = 1
-void overlap_case_2() {
-  double a = 3.5;
-  double b = -4.5;
-  double r = sqrt(5);
-
-  double c = 3;
-  double d = 2;
-
-  double h = 7;
-  double k = -4;
-
-  bool i = shapes_intersect(a, b, c, d, h, k, r);
-  cout << "Intersect ? " << i << endl;
-  assert(i);
-
-}
-
-// Circle contains the ellipse
-// (x - 3.5)^2 + (y + 4.5)^2 = sqrt(5)^2 and (x - 3.3)^2 / 3 + (y + 4)^2 / 2 = 1
-void overlap_case_3() {
-  double a = 3.5;
-  double b = -4.5;
-  double r = sqrt(5);
-
-  double c = 3;
-  double d = 2;
-
-  double h = 3.3;
-  double k = -4;
-
-  bool i = shapes_intersect(a, b, c, d, h, k, r);
-  cout << "Intersect ? " << i << endl;
-  assert(i);
-}
-
-// Horizontal major ellipse contains circle
-// (x - 3.5)^2 + (y + 4.5)^2 = sqrt(5)^2 and (x - 3.3)^2 / 23 + (y + 4.15)^2 /7 = 1
-void overlap_case_5() {
-  double a = 3.5;
-  double b = -4.5;
-  double r = sqrt(5);
-
-  double c = 23;
-  double d = 7;
-
-  double h = 3.3;
-  double k = -4.15;
-
-  bool i = shapes_intersect(a, b, c, d, h, k, r);
-  cout << "Intersect ? " << i << endl;
-  assert(i);
-
-}
-
-// Ellipse completely contains circle
-// (x - 3.5)^2 + (y + 4.5)^2 = sqrt(5)^2 and (x - 3.3)^2 / 7 + (y + 4)^2 / 23 = 1
-void overlap_case_4() {
-  double a = 3.5;
-  double b = -4.5;
-  double r = sqrt(5);
-
-  double c = 7;
-  double d = 23;
-
-  double h = 3.3;
-  double k = -4;
-
-  bool i = shapes_intersect(a, b, c, d, h, k, r);
-  cout << "Intersect ? " << i << endl;
-  assert(i);
-
-}
-
-int main() {
-  overlap_case_1();
-  overlap_case_2();
-  overlap_case_3();
-  overlap_case_5();
-  overlap_case_4();
-
-  no_overlap_case_1();
-  no_overlap_case_2();
-}

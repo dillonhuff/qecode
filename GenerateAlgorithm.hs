@@ -52,9 +52,38 @@ varStrings fm = error $ "varStrings cannot process = " ++ (show fm)
 
 varStrs fm = L.nub $ varStrings fm
 
+declarePolyVals polyVarSubs =
+  (L.concatMap (\(name, fm) -> "\tdouble " ++ name ++ " = " ++ formulaCpp fm ++ ";\n") polyVarSubs) ++ "\n\n"
+
+varSubCont name toReplace (Or a b) = Or (varSub name toReplace a) (varSub name toReplace b)
+varSubCont name toReplace (And a b) = And (varSub name toReplace a) (varSub name toReplace b)
+varSubCont name toReplace (Formula.NEQ a b) = Formula.NEQ (varSub name toReplace a) (varSub name toReplace b)
+varSubCont name toReplace (EQL a b) = EQL (varSub name toReplace a) (varSub name toReplace b)
+varSubCont name toReplace (GEQ a b) = GEQ (varSub name toReplace a) (varSub name toReplace b)
+varSubCont name toReplace (LEQ a b) = LEQ (varSub name toReplace a) (varSub name toReplace b)
+varSubCont name toReplace (Minus a b) = Minus (varSub name toReplace a) (varSub name toReplace b)
+varSubCont name toReplace (Plus a b) = Plus (varSub name toReplace a) (varSub name toReplace b)
+varSubCont name toReplace (Pow a b) = Pow (varSub name toReplace a) (varSub name toReplace b)
+varSubCont name toReplace (Times a b) = Times (varSub name toReplace a) (varSub name toReplace b)
+varSubCont name toReplace (Var s) = Var s
+varSubCont name toReplace (Num s) = Num s
+varSubCont name toReplace fm =
+  error $ "varSub unsuported formula = " ++ show fm
+
+varSub name toReplace fm =
+  if toReplace == fm then
+    Var name
+  else varSubCont name toReplace fm
+
+varSubs :: [(String, Arith)] -> Arith -> Arith
+varSubs [] fm = fm
+varSubs ((name, toSub):as) fm = varSubs as $ varSub name toSub fm
+
 formulaFunctionCpp var@(Var s) vars fm =
-  let varStr = commaList $ L.map (\s -> "const double " ++ s) (vars ++ [s]) in
-   "bool formula(" ++ varStr ++ ") {\n" ++ "\treturn " ++ (formulaCpp fm) ++ ";\n}\n"
+  let varStr = commaList $ L.map (\s -> "const double " ++ s) (vars ++ [s])
+      polys = L.filter (\s -> not $ isNum s) $ collectPolynomials fm
+      polyVarSubs = L.zip (L.map (\n -> "p_" ++ show n) [1..(length polys)]) polys in
+   "bool formula(" ++ varStr ++ ") {\n" ++ (declarePolyVals polyVarSubs) ++ "\treturn " ++ (formulaCpp $ varSubs polyVarSubs fm) ++ ";\n}\n"
 
 collectPolys (EQL a b) = [a, b]
 collectPolys (LEQ a b) = [a, b]
@@ -209,11 +238,11 @@ main = do
   pr <- runCommand "./run_reduce.txt qe_input.red"
   waitForProcess pr
   a <- readFile "fresh_file"
-  putStrLn $ preprocessedReduceString a
+  --putStrLn $ preprocessedReduceString a
   let fmStr = preprocessedReduceString a in
    case runParser bExpression () "expr" fmStr of
     Left err -> putStrLn $ show err
-    Right expr -> writeFile "autogen/auto_test.cpp" $ algorithmTextCpp (Var "x") $ bExprToFm expr
+    Right expr -> writeFile "autogen/ellipse_circle_v2.cpp" $ algorithmTextCpp (Var "x") $ bExprToFm expr
 
 l1 = "                       2    2            2"
 l2 = "(c <> 0 and (d = 0 or c  - h  + 2*h*x - x  >= 0) and ((b - k <= 0 and "
