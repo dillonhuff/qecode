@@ -182,12 +182,12 @@ testFormulaPointsBody vars =
 
 testFormulaPoints vars = "bool test_formula_at_sample_points(" ++ (commaList $ L.map (\s -> "const double " ++ s) vars) ++ ", const std::vector<polynomial>& upolys) {" ++ (testFormulaPointsBody vars) ++ "\n}"
 
-findRootsCode = "double extract_double_from_coeff(const polynomial& x_coeff) {\nassert(x_coeff.num_monos() == 1);\nmonomial xc = x_coeff.monomial(0);\nassert(is_constant(xc));\ndouble xcd = xc.coeff().to_double();\nreturn xcd;\n}" ++
+findRootsCode = "double extract_double_from_coeff(const polynomial& x_coeff) {\nassert(x_coeff.num_monos() == 1);\nmonomial xc = x_coeff.monomial(0);\nassert(is_constant(xc));\ndouble xcd = xc.coeff().to_double();\nreturn xcd;\n}\n" ++
                 "std::vector<interval> linear_roots(const polynomial& p) {\ncout << p << endl;\nauto ps = coefficients_wrt(p, 0);\nassert(ps.size() == 2);\n" ++
                 "polynomial x_coeff = ps[1];\ndouble xcd = extract_double_from_coeff(x_coeff);\nif (within_eps(xcd, 0.0, EPSILON)) {\nreturn {};\n}" ++
-                "polynomial c = ps[0];double ccd = extract_double_from_coeff(c);\n" ++
+                "polynomial c = ps[0];\ndouble ccd = extract_double_from_coeff(c);\n" ++
                 "double root_loc = -ccd / xcd;\nrational r(root_loc);\nreturn {{ipt(r), ipt(r)}};\n}\n" ++
-                "std::vector<interval> find_roots(const polynomial& p, const rational& max_width) {\nif (degree_wrt(0, p) == 1) {\nreturn linear_roots(p);\n}\nreturn isolate_roots(p, max_width);}\n\n"
+                "std::vector<interval> find_roots(const polynomial& p, const rational& max_width) {\nif (degree_wrt(0, p) == 1) {\nreturn linear_roots(p);\n}\nreturn isolate_roots(p, max_width);\n}\n\n"
 
 -- findRootsCode = "std::vector<interval> find_roots(const polynomial& p, const rational& max_width) {\n\t" ++
 --                 "if (degree_wrt(0, p) == 1) {\n\t assert(false); }\n\t" ++
