@@ -267,7 +267,7 @@ std::vector<interval> quadratic_roots(const polynomial& p) {  auto ps = coeffici
 	  return {{ipt(r1), ipt(r1)}, {ipt(r2), ipt(r2)}};
 	}
 std::vector<interval> linear_roots(const polynomial& p) {
-cout << p << endl;
+  //cout << p << endl;
 auto ps = coefficients_wrt(p, 0);
 assert(ps.size() == 2);
 polynomial x_coeff = ps[1];
@@ -310,7 +310,7 @@ bool test_formula_at_sample_points(const double a, const double b, const double 
 
 	for (auto& pt : test_points) { double test_x = pt.to_double();
 	 bool fm_true = formula(a, b, c, d, h, k, r , test_x);
-	 cout << "At x = " << test_x << " the formula is " << fm_true << endl;
+	 //cout << "At x = " << test_x << " the formula is " << fm_true << endl;
 	 if (fm_true) {
 		return true;
 	 }
