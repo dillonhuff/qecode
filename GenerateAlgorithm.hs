@@ -182,12 +182,46 @@ testFormulaPointsBody vars =
 
 testFormulaPoints vars = "bool test_formula_at_sample_points(" ++ (commaList $ L.map (\s -> "const double " ++ s) vars) ++ ", const std::vector<polynomial>& upolys) {" ++ (testFormulaPointsBody vars) ++ "\n}"
 
+quadraticRoots = "std::vector<interval> quadratic_roots(const polynomial& p) {" ++
+                 "  auto ps = coefficients_wrt(p, 0);" ++
+
+                 "  double a = extract_double_from_coeff(ps[2]);" ++
+                 "  double b = extract_double_from_coeff(ps[1]);" ++
+                 "  double c = extract_double_from_coeff(ps[0]);" ++
+
+                 "  double disc = b*b - 4*a*c;" ++
+                 "  double rld = -b / (2*a);" ++
+
+                 "  if (within_eps(disc, 0.0, EPSILON)) {" ++
+                 "    rational rl(rld);" ++
+                 "    return {{ipt(rl), ipt(rl)}};" ++
+                 "  }" ++
+
+                 "  if (disc < 0) {" ++
+                 "    return {};" ++
+                 "  }" ++
+
+                 "  double r1d = rld - (sqrt(disc) / (2*a));" ++
+                 "  double r2d = rld + (sqrt(disc) / (2*a));" ++
+
+                 "  rational r1(r1d);" ++
+                 "  rational r2(r2d);" ++
+
+                 "  return {{ipt(r1), ipt(r1)}, {ipt(r2), ipt(r2)}};" ++
+                 "}"
+
 findRootsCode = "double extract_double_from_coeff(const polynomial& x_coeff) {\nassert(x_coeff.num_monos() == 1);\nmonomial xc = x_coeff.monomial(0);\nassert(is_constant(xc));\ndouble xcd = xc.coeff().to_double();\nreturn xcd;\n}\n" ++
+                quadraticRoots ++
                 "std::vector<interval> linear_roots(const polynomial& p) {\ncout << p << endl;\nauto ps = coefficients_wrt(p, 0);\nassert(ps.size() == 2);\n" ++
                 "polynomial x_coeff = ps[1];\ndouble xcd = extract_double_from_coeff(x_coeff);\nif (within_eps(xcd, 0.0, EPSILON)) {\nreturn {};\n}" ++
                 "polynomial c = ps[0];\ndouble ccd = extract_double_from_coeff(c);\n" ++
                 "double root_loc = -ccd / xcd;\nrational r(root_loc);\nreturn {{ipt(r), ipt(r)}};\n}\n" ++
-                "std::vector<interval> find_roots(const polynomial& p, const rational& max_width) {\nif (degree_wrt(0, p) == 1) {\nreturn linear_roots(p);\n}\nreturn isolate_roots(p, max_width);\n}\n\n"
+                "std::vector<interval> find_roots(const polynomial& p, const rational& max_width) {\nif (degree_wrt(0, p) == 1) {\nreturn linear_roots(p);\n}\n" ++
+                "if (degree_wrt(0, p) == 2) {\n\t" ++
+                "return quadratic_roots(p);\n" ++
+                "}\n" ++
+                
+                "return isolate_roots(p, max_width);\n}\n\n"
 
 -- findRootsCode = "std::vector<interval> find_roots(const polynomial& p, const rational& max_width) {\n\t" ++
 --                 "if (degree_wrt(0, p) == 1) {\n\t assert(false); }\n\t" ++
@@ -286,8 +320,8 @@ main = do
    case runParser bExpression () "expr" fmStr of
     Left err -> putStrLn $ show err
     Right expr -> do
-      writeOutput "circle_opt" "ellipse" (Var "x") (bExprToFm expr)
-      rc <- runCommand "clang++ -std=c++11 -lgmp -lgmpxx -lralg -c autogen/circle_opt_ellipse.cpp"
+      writeOutput "circle_optv2" "ellipse" (Var "x") (bExprToFm expr)
+      rc <- runCommand "clang++ -std=c++11 -lgmp -lgmpxx -lralg -c autogen/circle_optv2_ellipse.cpp"
       waitForProcess rc
       putStrLn "DONE"
 
