@@ -1,8 +1,2 @@
 
-                            2                         2
-(d - k <= 0 and a <> 0 and a *h + a*b - a*k >= 0 and a *c + a*b - a*k <= 0)
-
-                                2                         2
- or (d - k <= 0 and a <> 0 and a *h + a*b - a*d >= 0 and a *c + a*b - a*d <= 0)
-
- or (c - h <= 0 and a*h + b - k <= 0 and a*h + b - d >= 0)
+h - x >= 0 and c - x <= 0 and a*x + b - k <= 0 and a*x + b - d >= 0

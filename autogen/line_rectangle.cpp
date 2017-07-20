@@ -160,7 +160,7 @@ bool test_formula_at_sample_points(const double a, const double b, const double 
 	
 }
 
-bool shapes_intersect( const double a, const double b, const double c, const double d, const double h, const double k ) {
+bool line_rectangle( const double a, const double b, const double c, const double d, const double h, const double k ) {
 	vector<polynomial> polys{make_polynomial_1(), make_polynomial_2(), make_polynomial_3(), make_polynomial_4() };
 	vector<rational> rs{{a}, {b}, {c}, {d}, {h}, {k} };
 	vector<polynomial> upolys;

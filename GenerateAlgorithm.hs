@@ -257,7 +257,7 @@ writeOutput name1 name2 var expr =
 
 main :: IO ()
 main = do
-  writeFile "qe_input.red" $ intersectionString ["x", "y"] (onLineFm2D "a" "b") (rectangleFm "c" "d" "h" "k")
+  writeFile "qe_input.red" $ intersectionString ["y"] (onLineFm2D "a" "b") (rectangleFm "c" "d" "h" "k")
   pr <- runCommand "./run_reduce.txt qe_input.red"
   waitForProcess pr
   a <- readFile "fresh_file"
@@ -265,7 +265,7 @@ main = do
   let fmStr = preprocessedReduceString a in
    case runParser bExpression () "expr" fmStr of
     Left err -> putStrLn $ show err
-    Right expr -> writeOutput "line_x" "rectangle" (Var "x") (bExprToFm expr) -- $ algorithmTextCpp (Var "x") $ bExprToFm expr
+    Right expr -> writeOutput "line" "rectangle" (Var "x") (bExprToFm expr) -- $ algorithmTextCpp (Var "x") $ bExprToFm expr
 
 l1 = "                       2    2            2"
 l2 = "(c <> 0 and (d = 0 or c  - h  + 2*h*x - x  >= 0) and ((b - k <= 0 and "
