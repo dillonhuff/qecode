@@ -132,11 +132,54 @@ polynomial make_polynomial_4() {
 
 
 
+std::vector<interval> find_roots(const polynomial& p, const rational& max_width) {
+	if (degree_wrt(0, p) == 1) {
+	  cout << p << endl;
+	  auto ps = coefficients_wrt(p, 0);
+
+	  assert(ps.size() == 2);
+
+	  polynomial x_coeff = ps[1];
+
+	  assert(x_coeff.num_monos() == 1);
+
+	  monomial xc = x_coeff.monomial(0);
+
+	  assert(is_constant(xc));
+
+	  double xcd = xc.coeff().to_double();
+
+	  polynomial c = ps[0];
+
+	  assert(c.num_monos() == 1);
+	  
+	  monomial cc = x_coeff.monomial(0);
+
+	  double ccd = cc.coeff().to_double();
+
+	  assert(is_constant(cc));
+
+	  if (within_eps(xcd, 0.0, EPSILON)) {
+	    return {};
+	  }
+
+	  double root_loc = -ccd / xcd;
+	  rational r(root_loc);
+	  return {{ipt(r), ipt(r)}};
+
+	  cout << "x poly = " << c << endl;
+	  cout << "c = " << c << endl;
+
+	  assert(false);
+	}
+	return isolate_roots(p, max_width);
+}
+
 bool test_formula_at_sample_points(const double a, const double b, const double c, const double d, const double h, const double k , const std::vector<polynomial>& upolys) {
 	rational max_width(0.0001);
 	vector<interval> roots;
 	for (auto& p_univariate : upolys) {
-		concat(roots, isolate_roots(p_univariate, max_width));
+		concat(roots, find_roots(p_univariate, max_width));
 	}
 	vector<rational> points;
 	rational two(2);
@@ -156,7 +199,7 @@ bool test_formula_at_sample_points(const double a, const double b, const double 
 		return true;
 	 }
 	}
-	return fale;
+	return false;
 	
 }
 
