@@ -239,8 +239,10 @@ aExprToFm (IntConst s) = (Num $ fromInteger s)
 aExprToFm a = error $ "aExprToFm = " ++ show a
 
 bExprToFm (RBinary Equal a b) = EQL (aExprToFm a) (aExprToFm b)
-bExprToFm (RBinary GreaterEqual a b) = GEQ (aExprToFm a) (aExprToFm b)
-bExprToFm (RBinary LessEqual a b) = LEQ (aExprToFm a) (aExprToFm b)
+bExprToFm (RBinary GreaterEqual a b) = --GEQ (aExprToFm a) (aExprToFm b)
+  Or (GREATER (aExprToFm a) (aExprToFm b)) (EQL (aExprToFm a) (aExprToFm b))
+bExprToFm (RBinary LessEqual a b) =
+  Or (LESS (aExprToFm a) (aExprToFm b)) (EQL (aExprToFm a) (aExprToFm b))
 bExprToFm (RBinary ReduceParser.NEQ a b) = Formula.NEQ (aExprToFm a) (aExprToFm b)
 bExprToFm (BBinary RAnd a b) = And (bExprToFm a) (bExprToFm b)
 bExprToFm (BBinary ROr a b) = Or (bExprToFm a) (bExprToFm b)
@@ -265,7 +267,7 @@ main = do
   let fmStr = preprocessedReduceString a in
    case runParser bExpression () "expr" fmStr of
     Left err -> putStrLn $ show err
-    Right expr -> writeOutput "line" "rectangle" (Var "x") (bExprToFm expr) -- $ algorithmTextCpp (Var "x") $ bExprToFm expr
+    Right expr -> writeOutput "line" "rectangle" (Var "x") (bExprToFm expr)
 
 l1 = "                       2    2            2"
 l2 = "(c <> 0 and (d = 0 or c  - h  + 2*h*x - x  >= 0) and ((b - k <= 0 and "

@@ -9,8 +9,8 @@ TEST_CASE("Line rectangle pure") {
   double line_slope = -1.0;
   double line_intercept = 0.0;
 
-  double rectangle_x_min = -0.0000001;
-  double rectangle_y_min = -0.0000001;
+  double rectangle_x_min = 0.0;//-0.0000001;
+  double rectangle_y_min = 0.0; //-0.0000001;
 
   double rectangle_x_max = 1.0;
   double rectangle_y_max = 1.0;

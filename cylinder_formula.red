@@ -30,6 +30,6 @@ procedure CylTest_CapsFirst( pt1_x, pt1_y, pt1_z, pt2_x, pt2_y, pt2_z, lengthsq,
 	COMMENT end;
 	COMMENT end;
 
-val := ex(testpt_x, ex(testpt_y, ex(testpt_z, CylTest_CapsFirst( pt1_x, pt1_y, pt1_z, pt2_x, pt2_y, pt2_z, lengthsq, radius_sq, testpt_x, testpt_y, testpt_z ) ) ) );
+val := ex(testpt_y, ex(testpt_z, CylTest_CapsFirst( pt1_x, pt1_y, pt1_z, pt2_x, pt2_y, pt2_z, lengthsq, radius_sq, testpt_x, testpt_y, testpt_z ) ) );
 
 res := rlqe val;

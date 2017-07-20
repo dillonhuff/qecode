@@ -34,7 +34,7 @@ bool formula(const double a, const double b, const double c, const double d, con
 	double p_4 = ( ( ( a * x ) + b ) - d );
 
 
-	return ( ( ( ( p_1 >= 0.0 ) && ( p_2 <= 0.0 ) ) && ( p_3 <= 0.0 ) ) && ( p_4 >= 0.0 ) );
+	return ( ( ( ( ( p_1 > 0.0 ) || within_eps( p_1, 0.0 , EPSILON ) ) && ( ( p_2 < 0.0 ) || within_eps( p_2, 0.0 , EPSILON ) ) ) && ( ( p_3 < 0.0 ) || within_eps( p_3, 0.0 , EPSILON ) ) ) && ( ( p_4 > 0.0 ) || within_eps( p_4, 0.0 , EPSILON ) ) );
 }
 
 
