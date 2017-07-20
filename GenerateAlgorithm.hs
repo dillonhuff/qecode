@@ -167,12 +167,18 @@ algorithmDeclCpp name var@(Var s) fm =
   let varList = L.filter (\v -> not $ isNumberStr v) $ L.delete s $ L.sort $ varStrs fm in
   "bool " ++ name ++ "( " ++ (commaList $ L.map (\s -> "const double " ++ s) varList) ++ ");"
 
-testFormulaPointsBody vars =
+isolateRootsFormula =
   "\n\trational max_width(0.0001);\n\tvector<interval> roots;\n\t" ++
   "for (auto& p_univariate : upolys) {\n\t" ++
   "\tconcat(roots, isolate_roots(p_univariate, max_width));\n\t" ++
-  "}\n\t" ++
+  "}\n\t"
+
+evaluateFormula vars =
   "vector<rational> points;\n\trational two(2);\n\t for (auto& it : roots) {\n\t\t points.push_back((it.start.value + it.end.value) / two);\n\t }\n\n\t vector<rational> test_points = test_points_from_roots(points);\n\tif (test_points.size() == 0) {\n\t\treturn formula(" ++ (commaList vars) ++ ", 0.0);\n\t }\n\n\tfor (auto& pt : test_points) { double test_x = pt.to_double();\n\t bool fm_true = formula(" ++ (commaList vars) ++ ", test_x);\n\t cout << \"At x = \" << test_x << \" the formula is \" << fm_true << endl;\n\t if (fm_true) {\n\t\treturn true;\n\t }\n\t}\n\treturn false;\n\t"
+  
+testFormulaPointsBody vars =
+  isolateRootsFormula ++
+  (evaluateFormula vars)
 
 testFormulaPoints vars = "bool test_formula_at_sample_points(" ++ (commaList $ L.map (\s -> "const double " ++ s) vars) ++ ", const std::vector<polynomial>& upolys) {" ++ (testFormulaPointsBody vars) ++ "\n}"
 
@@ -267,7 +273,10 @@ main = do
   let fmStr = preprocessedReduceString a in
    case runParser bExpression () "expr" fmStr of
     Left err -> putStrLn $ show err
-    Right expr -> writeOutput "line" "rectangle" (Var "x") (bExprToFm expr)
+    Right expr -> do
+      writeOutput "line" "rectangle" (Var "x") (bExprToFm expr)
+      rc <- runCommand "clang++ -std=c++11 -lgmp -lgmpxx -lralg -c autogen/line_rectangle.cpp"
+      putStrLn "DONE"
 
 l1 = "                       2    2            2"
 l2 = "(c <> 0 and (d = 0 or c  - h  + 2*h*x - x  >= 0) and ((b - k <= 0 and "

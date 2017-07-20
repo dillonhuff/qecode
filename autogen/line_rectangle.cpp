@@ -156,7 +156,7 @@ bool test_formula_at_sample_points(const double a, const double b, const double 
 		return true;
 	 }
 	}
-	return false;
+	return fale;
 	
 }
 
