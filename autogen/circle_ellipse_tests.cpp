@@ -1,4 +1,4 @@
-#include "ellipse_circle.h"
+#include "circle_opt_ellipse.h"
 
 #define CATCH_CONFIG_MAIN
 
@@ -22,7 +22,7 @@ void overlap_case_1() {
   double h = 2;
   double k = 4;
 
-  bool i = shapes_intersect(a, b, c, d, h, k, r);
+  bool i = circle_opt_ellipse(a, b, c, d, h, k, r);
   cout << "Intersect ? " << i << endl;
   REQUIRE(i);
 
@@ -40,7 +40,7 @@ void no_overlap_case_1() {
   double h = 2;
   double k = 4;
 
-  bool i = shapes_intersect(a, b, c, d, h, k, r);
+  bool i = circle_opt_ellipse(a, b, c, d, h, k, r);
   cout << "Intersect ? " << i << endl;
   REQUIRE(!i);
 
@@ -58,7 +58,7 @@ void no_overlap_case_2() {
   double h = 7;
   double k = 0;
 
-  bool i = shapes_intersect(a, b, c, d, h, k, r);
+  bool i = circle_opt_ellipse(a, b, c, d, h, k, r);
   cout << "Intersect ? " << i << endl;
   REQUIRE(!i);
 }
@@ -75,7 +75,7 @@ void overlap_case_2() {
   double h = 7;
   double k = -4;
 
-  bool i = shapes_intersect(a, b, c, d, h, k, r);
+  bool i = circle_opt_ellipse(a, b, c, d, h, k, r);
   cout << "Intersect ? " << i << endl;
   REQUIRE(i);
 
@@ -94,7 +94,7 @@ void overlap_case_3() {
   double h = 3.3;
   double k = -4;
 
-  bool i = shapes_intersect(a, b, c, d, h, k, r);
+  bool i = circle_opt_ellipse(a, b, c, d, h, k, r);
   cout << "Intersect ? " << i << endl;
   REQUIRE(i);
 }
@@ -112,7 +112,7 @@ void overlap_case_5() {
   double h = 3.3;
   double k = -4.15;
 
-  bool i = shapes_intersect(a, b, c, d, h, k, r);
+  bool i = circle_opt_ellipse(a, b, c, d, h, k, r);
   cout << "Intersect ? " << i << endl;
   REQUIRE(i);
 
@@ -131,7 +131,7 @@ void overlap_case_4() {
   double h = 3.3;
   double k = -4;
 
-  bool i = shapes_intersect(a, b, c, d, h, k, r);
+  bool i = circle_opt_ellipse(a, b, c, d, h, k, r);
   cout << "Intersect ? " << i << endl;
   REQUIRE(i);
 

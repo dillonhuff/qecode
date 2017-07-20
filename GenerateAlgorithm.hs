@@ -277,7 +277,7 @@ writeOutput name1 name2 var expr =
 
 main :: IO ()
 main = do
-  writeFile "qe_input.red" $ intersectionString ["y"] (onLineFm2D "a" "b") (rectangleFm "c" "d" "h" "k")
+  writeFile "qe_input.red" $ intersectionString ["y"] (circleFm "a" "b" "r") (ellipseFm "c" "d" "h" "k")
   pr <- runCommand "./run_reduce.txt qe_input.red"
   waitForProcess pr
   a <- readFile "fresh_file"
@@ -286,8 +286,8 @@ main = do
    case runParser bExpression () "expr" fmStr of
     Left err -> putStrLn $ show err
     Right expr -> do
-      writeOutput "line_opt" "rectangle" (Var "x") (bExprToFm expr)
-      rc <- runCommand "clang++ -std=c++11 -lgmp -lgmpxx -lralg -c autogen/line_opt_rectangle.cpp"
+      writeOutput "circle_opt" "ellipse" (Var "x") (bExprToFm expr)
+      rc <- runCommand "clang++ -std=c++11 -lgmp -lgmpxx -lralg -c autogen/circle_opt_ellipse.cpp"
       waitForProcess rc
       putStrLn "DONE"
 
