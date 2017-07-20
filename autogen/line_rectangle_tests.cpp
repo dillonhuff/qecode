@@ -1,4 +1,4 @@
-#include "line_rectangle.h"
+#include "line_opt_rectangle.h"
 
 #define CATCH_CONFIG_MAIN
 
@@ -15,7 +15,7 @@ TEST_CASE("Line rectangle pure") {
   double rectangle_x_max = 1.0;
   double rectangle_y_max = 1.0;
 
-  bool it = line_rectangle(line_slope,
+  bool it = line_opt_rectangle(line_slope,
 			   line_intercept,
 			   rectangle_x_min,
 			   rectangle_y_min,

@@ -130,45 +130,32 @@ polynomial make_polynomial_4() {
 	return result_polynomial_21393;
 }
 
+
+
 double extract_double_from_coeff(const polynomial& x_coeff) {
-  assert(x_coeff.num_monos() == 1);
-
-  monomial xc = x_coeff.monomial(0);
-
-  assert(is_constant(xc));
-
-  double xcd = xc.coeff().to_double();
-
-  return xcd;
+assert(x_coeff.num_monos() == 1);
+monomial xc = x_coeff.monomial(0);
+assert(is_constant(xc));
+double xcd = xc.coeff().to_double();
+return xcd;
+}std::vector<interval> linear_roots(const polynomial& p) {
+cout << p << endl;
+auto ps = coefficients_wrt(p, 0);
+assert(ps.size() == 2);
+polynomial x_coeff = ps[1];
+double xcd = extract_double_from_coeff(x_coeff);
+if (within_eps(xcd, 0.0, EPSILON)) {
+return {};
+}polynomial c = ps[0];double ccd = extract_double_from_coeff(c);
+double root_loc = -ccd / xcd;
+rational r(root_loc);
+return {{ipt(r), ipt(r)}};
 }
-
-std::vector<interval> linear_roots(const polynomial& p) {
-  cout << p << endl;
-  auto ps = coefficients_wrt(p, 0);
-
-  assert(ps.size() == 2);
-
-  polynomial x_coeff = ps[1];
-  double xcd = extract_double_from_coeff(x_coeff);
-
-  if (within_eps(xcd, 0.0, EPSILON)) {
-    return {};
-  }
-
-  polynomial c = ps[0];
-  double ccd = extract_double_from_coeff(c);
-
-  double root_loc = -ccd / xcd;
-  rational r(root_loc);
-  return {{ipt(r), ipt(r)}};
-}
-
 std::vector<interval> find_roots(const polynomial& p, const rational& max_width) {
-	if (degree_wrt(0, p) == 1) {
-	  return linear_roots(p);
-	}
-	return isolate_roots(p, max_width);
+if (degree_wrt(0, p) == 1) {
+return linear_roots(p);
 }
+return isolate_roots(p, max_width);}
 
 bool test_formula_at_sample_points(const double a, const double b, const double c, const double d, const double h, const double k , const std::vector<polynomial>& upolys) {
 	rational max_width(0.0001);
@@ -198,7 +185,7 @@ bool test_formula_at_sample_points(const double a, const double b, const double 
 	
 }
 
-bool line_rectangle( const double a, const double b, const double c, const double d, const double h, const double k ) {
+bool line_opt_rectangle( const double a, const double b, const double c, const double d, const double h, const double k ) {
 	vector<polynomial> polys{make_polynomial_1(), make_polynomial_2(), make_polynomial_3(), make_polynomial_4() };
 	vector<rational> rs{{a}, {b}, {c}, {d}, {h}, {k} };
 	vector<polynomial> upolys;

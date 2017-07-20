@@ -182,52 +182,17 @@ testFormulaPointsBody vars =
 
 testFormulaPoints vars = "bool test_formula_at_sample_points(" ++ (commaList $ L.map (\s -> "const double " ++ s) vars) ++ ", const std::vector<polynomial>& upolys) {" ++ (testFormulaPointsBody vars) ++ "\n}"
 
--- std::vector<interval> find_roots(const polynomial& p, const rational& max_width) {
--- 	if (degree_wrt(0, p) == 1) {
--- 	  cout << p << endl;
--- 	  auto ps = coefficients_wrt(p, 0);
+findRootsCode = "double extract_double_from_coeff(const polynomial& x_coeff) {\nassert(x_coeff.num_monos() == 1);\nmonomial xc = x_coeff.monomial(0);\nassert(is_constant(xc));\ndouble xcd = xc.coeff().to_double();\nreturn xcd;\n}" ++
+                "std::vector<interval> linear_roots(const polynomial& p) {\ncout << p << endl;\nauto ps = coefficients_wrt(p, 0);\nassert(ps.size() == 2);\n" ++
+                "polynomial x_coeff = ps[1];\ndouble xcd = extract_double_from_coeff(x_coeff);\nif (within_eps(xcd, 0.0, EPSILON)) {\nreturn {};\n}" ++
+                "polynomial c = ps[0];double ccd = extract_double_from_coeff(c);\n" ++
+                "double root_loc = -ccd / xcd;\nrational r(root_loc);\nreturn {{ipt(r), ipt(r)}};\n}\n" ++
+                "std::vector<interval> find_roots(const polynomial& p, const rational& max_width) {\nif (degree_wrt(0, p) == 1) {\nreturn linear_roots(p);\n}\nreturn isolate_roots(p, max_width);}\n\n"
 
--- 	  assert(ps.size() == 2);
-
--- 	  polynomial x_coeff = ps[1];
-
--- 	  assert(x_coeff.num_monos() == 1);
-
--- 	  monomial xc = x_coeff.monomial(0);
-
--- 	  assert(is_constant(xc));
-
--- 	  double xcd = xc.coeff().to_double();
-
--- 	  polynomial c = ps[0];
-
--- 	  assert(c.num_monos() == 1);
--- 	  monomial cc = x_coeff.monomial(0);
-
--- 	  double ccd = cc.coeff().to_double();
-
--- 	  assert(is_constant(cc));
-
--- 	  if (within_eps(xcd, 0.0, EPSILON)) {
--- 	    return {};
--- 	  }
-
--- 	  double root_loc = -ccd / xcd;
--- 	  rational r(root_loc);
--- 	  return {{ipt(r), ipt(r)}};
-
--- 	  cout << "x poly = " << c << endl;
--- 	  cout << "c = " << c << endl;
-
--- 	  assert(false);
--- 	}
--- 	return isolate_roots(p, max_width);
--- }
-
-findRootsCode = "std::vector<interval> find_roots(const polynomial& p, const rational& max_width) {\n\t" ++
-                "if (degree_wrt(0, p) == 1) {\n\t assert(false); }\n\t" ++
-                "return isolate_roots(p, max_width);\n" ++
-                "}\n\n"
+-- findRootsCode = "std::vector<interval> find_roots(const polynomial& p, const rational& max_width) {\n\t" ++
+--                 "if (degree_wrt(0, p) == 1) {\n\t assert(false); }\n\t" ++
+--                 "return isolate_roots(p, max_width);\n" ++
+--                 "}\n\n"
 
 evaluationCode name var vars fm numPolys =
   (findRootsCode) ++ (testFormulaPoints vars) ++ "\n\n" ++ (shapesIntersect name var vars numPolys)
@@ -321,8 +286,8 @@ main = do
    case runParser bExpression () "expr" fmStr of
     Left err -> putStrLn $ show err
     Right expr -> do
-      writeOutput "line" "rectangle" (Var "x") (bExprToFm expr)
-      rc <- runCommand "clang++ -std=c++11 -lgmp -lgmpxx -lralg -c autogen/line_rectangle.cpp"
+      writeOutput "line_opt" "rectangle" (Var "x") (bExprToFm expr)
+      rc <- runCommand "clang++ -std=c++11 -lgmp -lgmpxx -lralg -c autogen/line_opt_rectangle.cpp"
       waitForProcess rc
       putStrLn "DONE"
 
