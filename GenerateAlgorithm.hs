@@ -183,32 +183,32 @@ testFormulaPointsBody vars =
 testFormulaPoints vars = "bool test_formula_at_sample_points(" ++ (commaList $ L.map (\s -> "const double " ++ s) vars) ++ ", const std::vector<polynomial>& upolys) {" ++ (testFormulaPointsBody vars) ++ "\n}"
 
 quadraticRoots = "std::vector<interval> quadratic_roots(const polynomial& p) {" ++
-                 "  auto ps = coefficients_wrt(p, 0);" ++
+                 "  auto ps = coefficients_wrt(p, 0);\n\t" ++
 
-                 "  double a = extract_double_from_coeff(ps[2]);" ++
-                 "  double b = extract_double_from_coeff(ps[1]);" ++
-                 "  double c = extract_double_from_coeff(ps[0]);" ++
+                 "  double a = extract_double_from_coeff(ps[2]);\n\t" ++
+                 "  double b = extract_double_from_coeff(ps[1]);\n\t" ++
+                 "  double c = extract_double_from_coeff(ps[0]);\n\t" ++
 
-                 "  double disc = b*b - 4*a*c;" ++
-                 "  double rld = -b / (2*a);" ++
+                 "  double disc = b*b - 4*a*c;\n\t" ++
+                 "  double rld = -b / (2*a);\n\t" ++
 
                  "  if (within_eps(disc, 0.0, EPSILON)) {" ++
-                 "    rational rl(rld);" ++
-                 "    return {{ipt(rl), ipt(rl)}};" ++
+                 "    rational rl(rld);\n\t" ++
+                 "    return {{ipt(rl), ipt(rl)}};\n\t" ++
                  "  }" ++
 
                  "  if (disc < 0) {" ++
-                 "    return {};" ++
+                 "    return {};\n\t" ++
                  "  }" ++
 
-                 "  double r1d = rld - (sqrt(disc) / (2*a));" ++
-                 "  double r2d = rld + (sqrt(disc) / (2*a));" ++
+                 "  double r1d = rld - (sqrt(disc) / (2*a));\n\t" ++
+                 "  double r2d = rld + (sqrt(disc) / (2*a));\n\t" ++
 
-                 "  rational r1(r1d);" ++
-                 "  rational r2(r2d);" ++
+                 "  rational r1(r1d);\n\t" ++
+                 "  rational r2(r2d);\n\t" ++
 
-                 "  return {{ipt(r1), ipt(r1)}, {ipt(r2), ipt(r2)}};" ++
-                 "}"
+                 "  return {{ipt(r1), ipt(r1)}, {ipt(r2), ipt(r2)}};\n\t" ++
+                 "}\n"
 
 findRootsCode = "double extract_double_from_coeff(const polynomial& x_coeff) {\nassert(x_coeff.num_monos() == 1);\nmonomial xc = x_coeff.monomial(0);\nassert(is_constant(xc));\ndouble xcd = xc.coeff().to_double();\nreturn xcd;\n}\n" ++
                 quadraticRoots ++
@@ -216,7 +216,7 @@ findRootsCode = "double extract_double_from_coeff(const polynomial& x_coeff) {\n
                 "polynomial x_coeff = ps[1];\ndouble xcd = extract_double_from_coeff(x_coeff);\nif (within_eps(xcd, 0.0, EPSILON)) {\nreturn {};\n}" ++
                 "polynomial c = ps[0];\ndouble ccd = extract_double_from_coeff(c);\n" ++
                 "double root_loc = -ccd / xcd;\nrational r(root_loc);\nreturn {{ipt(r), ipt(r)}};\n}\n" ++
-                "std::vector<interval> find_roots(const polynomial& p, const rational& max_width) {\nif (degree_wrt(0, p) == 1) {\nreturn linear_roots(p);\n}\n" ++
+                "std::vector<interval> find_roots(const polynomial& p, const rational& max_width) {\nif (degree_wrt(0, p) == 0) { return {}; }\n\tif (degree_wrt(0, p) == 1) {\nreturn linear_roots(p);\n}\n" ++
                 "if (degree_wrt(0, p) == 2) {\n\t" ++
                 "return quadratic_roots(p);\n" ++
                 "}\n" ++
