@@ -138,7 +138,6 @@ buildPolynomialCpp var@(Var s) vars p =
   let varList = vars ++ [s] in
    (declareMonomials varList) ++ "\n\n" ++ (declarePolynomials varList p) ++ "\n\n" ++ (constructPolynomialCpp p)
 
--- TODO: Make functions names unique
 polynomialFunction polyNum var vars p = "polynomial make_polynomial_" ++ show polyNum ++ "() {\n" ++ (buildPolynomialCpp var vars p) ++ "\n\treturn result_polynomial_21393;\n}"
 
 algoPolysCpp ps var vars fm =
@@ -151,13 +150,13 @@ polynomialConstructionCalls numPolys =
 
 shapesIntersectBodyCpp vars numPolys = 
   "\tvector<polynomial> polys{" ++ (polynomialConstructionCalls numPolys) ++ "};\n\t" ++
-  "vector<rational> rs{" ++ varsAsRationals vars ++ "};\n\t" ++ --{a}, {b}, {c}, {d}, {f} };\n\t" ++ 
+  "vector<rational> rs{" ++ varsAsRationals vars ++ "};\n\t" ++
   "vector<polynomial> upolys;\n\t" ++
   "for (auto& p : polys) {\n\t" ++
     "\tpolynomial p_univariate = evaluate_at(rs, p);\n\t" ++
     "\tupolys.push_back(p_univariate);\n\t" ++
   "}\n\t" ++
-  "return test_formula_at_sample_points(" ++ commaList vars ++ ", upolys);\n" --a, b, c, d, f , upolys);\n"
+  "return test_formula_at_sample_points(" ++ commaList vars ++ ", upolys);\n"
 
 shapesIntersect name var@(Var s) vars numPolys =
   let varList = vars in
@@ -290,7 +289,7 @@ aExprToFm (IntConst s) = (Num $ fromInteger s)
 aExprToFm a = error $ "aExprToFm = " ++ show a
 
 bExprToFm (RBinary Equal a b) = EQL (aExprToFm a) (aExprToFm b)
-bExprToFm (RBinary GreaterEqual a b) = --GEQ (aExprToFm a) (aExprToFm b)
+bExprToFm (RBinary GreaterEqual a b) =
   Or (GREATER (aExprToFm a) (aExprToFm b)) (EQL (aExprToFm a) (aExprToFm b))
 bExprToFm (RBinary LessEqual a b) =
   Or (LESS (aExprToFm a) (aExprToFm b)) (EQL (aExprToFm a) (aExprToFm b))
