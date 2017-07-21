@@ -1,4 +1,4 @@
-#include "ellipse_circle.h"
+#include "sphere_ellipsoid_opt.h"
 
 #include <iostream>
 #include <ctime>
@@ -8,10 +8,28 @@ using namespace std;
 
 void benchmark_ellipsoid_plane_intersection_code() {
 
+  // Plane variables
+  double a = 0;
+  double b = 0;
+  double c = 1;
+  double d = 1.1;
+
+  //Ellipsoid variables
+
+  // Offsets
+  double f = 0;
+  double g = 0;
+  double h = 0;
+
+  // Major axis lengths
+  double l = 3; // x
+  double m = 2; // y
+  double n = 1; // z
 
   int num_trials = 30;
   for (int i = 0; i < num_trials; i++) {
-    cout << it << endl;
+    bool intersect = sphere_ellipsoid_opt(  a,  b,  c,  d,  f,  g,  h,  l,  m,  n );
+    cout << intersect << endl;
   }
   
 }
@@ -19,10 +37,10 @@ void benchmark_ellipsoid_plane_intersection_code() {
 int main() {
   clock_t begin = clock();
 
-  benchmark_ellipse_circle_intersection_code();
+  benchmark_ellipsoid_plane_intersection_code();
 
   clock_t end = clock();
   double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 
-  cout << "Unoptimized circle-ellipse intersection = " << elapsed_secs << " secs" << endl;
+  cout << "Optimized ellipsoid-plane intersection = " << elapsed_secs << " secs" << endl;
 }

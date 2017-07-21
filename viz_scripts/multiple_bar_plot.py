@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
  
 # data to plot
 n_groups = 2
-opt_scores = (0.19, 0.3)
-no_opt_scores = (0.32, 0.2)
+opt_scores = (0.19, 0.35)
+no_opt_scores = (0.32, 0.42)
  
 # create plot
 fig, ax = plt.subplots()
