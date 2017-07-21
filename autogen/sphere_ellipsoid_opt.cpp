@@ -932,8 +932,60 @@ polynomial make_polynomial_28() {
 
 
 
+double extract_double_from_coeff(const polynomial& x_coeff) {
+assert(x_coeff.num_monos() == 1);
+monomial xc = x_coeff.monomial(0);
+assert(is_constant(xc));
+double xcd = xc.coeff().to_double();
+return xcd;
+}
+std::vector<interval> quadratic_roots(const polynomial& p) {
+	auto ps = coefficients_wrt(p, 0);
+	double a = extract_double_from_coeff(ps[2]);
+	double b = extract_double_from_coeff(ps[1]);
+	double c = extract_double_from_coeff(ps[0]);
+	double disc = b*b - 4*a*c;
+	double rld = -b / (2*a);
+
+	if (within_eps(disc, 0.0, EPSILON)) {
+	  rational rl(rld);
+	  return {{ipt(rl), ipt(rl)}};
+	}
+
+	if (disc < 0) {
+	   return {};
+	}
+
+	double r1d = rld - (sqrt(disc) / (2*a));
+	double r2d = rld + (sqrt(disc) / (2*a));
+	rational r1(r1d);
+	rational r2(r2d);
+	return {{ipt(r1), ipt(r1)}, {ipt(r2), ipt(r2)}};
+}
+
+std::vector<interval> linear_roots(const polynomial& p) {
+cout << p << endl;
+auto ps = coefficients_wrt(p, 0);
+assert(ps.size() == 2);
+polynomial x_coeff = ps[1];
+double xcd = extract_double_from_coeff(x_coeff);
+if (within_eps(xcd, 0.0, EPSILON)) {
+return {};
+}polynomial c = ps[0];
+double ccd = extract_double_from_coeff(c);
+double root_loc = -ccd / xcd;
+rational r(root_loc);
+return {{ipt(r), ipt(r)}};
+}
 std::vector<interval> find_roots(const polynomial& p, const rational& max_width) {
-	return isolate_roots(p, max_width);
+if (degree_wrt(0, p) == 0) { return {}; }
+	if (degree_wrt(0, p) == 1) {
+return linear_roots(p);
+}
+if (degree_wrt(0, p) == 2) {
+	return quadratic_roots(p);
+}
+return isolate_roots(p, max_width);
 }
 
 bool test_formula_at_sample_points(const double a, const double b, const double c, const double d, const double f, const double g, const double h, const double l, const double m, const double n , const std::vector<polynomial>& upolys) {
@@ -964,7 +1016,7 @@ bool test_formula_at_sample_points(const double a, const double b, const double 
 	
 }
 
-bool sphere_ellipsoid( const double a, const double b, const double c, const double d, const double f, const double g, const double h, const double l, const double m, const double n ) {
+bool sphere_ellipsoid_opt( const double a, const double b, const double c, const double d, const double f, const double g, const double h, const double l, const double m, const double n ) {
 	vector<polynomial> polys{make_polynomial_1(), make_polynomial_2(), make_polynomial_3(), make_polynomial_4(), make_polynomial_5(), make_polynomial_6(), make_polynomial_7(), make_polynomial_8(), make_polynomial_9(), make_polynomial_10(), make_polynomial_11(), make_polynomial_12(), make_polynomial_13(), make_polynomial_14(), make_polynomial_15(), make_polynomial_16(), make_polynomial_17(), make_polynomial_18(), make_polynomial_19(), make_polynomial_20(), make_polynomial_21(), make_polynomial_22(), make_polynomial_23(), make_polynomial_24(), make_polynomial_25(), make_polynomial_26(), make_polynomial_27(), make_polynomial_28() };
 	vector<rational> rs{{a}, {b}, {c}, {d}, {f}, {g}, {h}, {l}, {m}, {n} };
 	vector<polynomial> upolys;

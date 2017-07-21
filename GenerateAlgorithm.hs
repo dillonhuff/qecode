@@ -209,7 +209,7 @@ quadraticRoots = "std::vector<interval> quadratic_roots(const polynomial& p) {\n
                  "return {{ipt(r1), ipt(r1)}, {ipt(r2), ipt(r2)}};\n" ++
                  "}\n\n"
 
-findRootsCode = "double extract_double_from_coeff(const polynomial& x_coeff) {\nassert(x_coeff.num_monos() == 1);\nmonomial xc = x_coeff.monomial(0);\nassert(is_constant(xc));\ndouble xcd = xc.coeff().to_double();\nreturn xcd;\n}\n" ++
+findRootsCodeOpt = "double extract_double_from_coeff(const polynomial& x_coeff) {\nassert(x_coeff.num_monos() == 1);\nmonomial xc = x_coeff.monomial(0);\nassert(is_constant(xc));\ndouble xcd = xc.coeff().to_double();\nreturn xcd;\n}\n" ++
                 quadraticRoots ++
                 "std::vector<interval> linear_roots(const polynomial& p) {\ncout << p << endl;\nauto ps = coefficients_wrt(p, 0);\nassert(ps.size() == 2);\n" ++
                 "polynomial x_coeff = ps[1];\ndouble xcd = extract_double_from_coeff(x_coeff);\nif (within_eps(xcd, 0.0, EPSILON)) {\nreturn {};\n}" ++
@@ -226,19 +226,22 @@ findRootsCodeNoOpt = "std::vector<interval> find_roots(const polynomial& p, cons
                      "return isolate_roots(p, max_width);\n" ++
                      "}\n\n"
 
-evaluationCode name var vars fm numPolys =
-  (findRootsCode) ++ (testFormulaPoints vars) ++ "\n\n" ++ (shapesIntersect name var vars numPolys)
+findRootsCode optimizeRoots =
+  if optimizeRoots then findRootsCodeOpt else findRootsCodeNoOpt
+
+evaluationCode optimizeRoots name var vars fm numPolys =
+  (findRootsCode optimizeRoots) ++ (testFormulaPoints vars) ++ "\n\n" ++ (shapesIntersect name var vars numPolys)
 
 isNumberStr :: String -> Bool
 isNumberStr f =
   isNumber $ f !! 0
 
-algorithmTextCpp :: String -> Arith -> Arith -> String
-algorithmTextCpp name var@(Var s) fm =
+algorithmTextCpp :: Bool -> String -> Arith -> Arith -> String
+algorithmTextCpp optimizeRoots name var@(Var s) fm =
   let eps = 0.0001
       vars = L.filter (\v -> not $ isNumberStr v) $ L.delete s $ L.sort $ varStrs fm
       ps = L.filter (\s -> not $ isNum s) $ collectPolynomials fm in
-   (algoPrefixCpp eps var vars fm) ++ "\n\n" ++ (algoPolysCpp ps var vars fm) ++ "\n\n" ++ (evaluationCode name var vars fm (L.length ps))
+   (algoPrefixCpp eps var vars fm) ++ "\n\n" ++ (algoPolysCpp ps var vars fm) ++ "\n\n" ++ (evaluationCode optimizeRoots name var vars fm (L.length ps))
 
 fm = EQL (Minus (Minus (Plus (Times (Var "a") (Var "x")) (Var "b")) (Times (Var "c") (Var "x"))) (Var "d")) (Num 0.0)
 
@@ -300,12 +303,12 @@ bExprToFm (RBinary Less a b) = LESS (aExprToFm a) (aExprToFm b)
 bExprToFm (RBinary Greater a b) = GREATER (aExprToFm a) (aExprToFm b)
 bExprToFm fm = error $ "bExprToFm cannot handle = " ++ show fm
 
-writeOutput name1 name2 var expr =
+writeOutput optimizeRoots name1 name2 var expr =
   let testName = name1 ++ "_" ++ name2
       fileName = "autogen/" ++ testName in
    do 
      writeFile (fileName ++ ".h") $ algorithmDeclCpp testName var expr
-     writeFile (fileName ++ ".cpp") $ algorithmTextCpp testName var expr
+     writeFile (fileName ++ ".cpp") $ algorithmTextCpp optimizeRoots testName var expr
 
 main :: IO ()
 main = do
@@ -318,8 +321,8 @@ main = do
    case runParser bExpression () "expr" fmStr of
     Left err -> putStrLn $ show err
     Right expr -> do
-      writeOutput "sphere" "ellipsoid" (Var "x") (bExprToFm expr)
-      rc <- runCommand "clang++ -std=c++11 -lgmp -lgmpxx -lralg -c autogen/circle_optv2_ellipse.cpp"
+      writeOutput False "sphere" "ellipsoid" (Var "x") (bExprToFm expr)
+      rc <- runCommand "clang++ -std=c++11 -lgmp -lgmpxx -lralg -c autogen/sphere_ellipsoid.cpp"
       waitForProcess rc
       putStrLn "DONE"
 
