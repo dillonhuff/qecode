@@ -25,6 +25,8 @@ onPlaneFm a b c d = "onPlaneFormula( " ++ (commaList [a, b, c, d]) ++ " )"
 belowPlaneFm a b c d = "belowPlaneFormula( " ++ (commaList [a, b, c, d]) ++ " )"
 abovePlaneFm a b c d = "abovePlaneFormula( " ++ (commaList [a, b, c, d]) ++ " )"
 cubeFm a b c l = "inCubeFormula( " ++ (commaList[a, b, c, l]) ++ " )"
+ellipsoidFm a b c h k l =
+  "inEllipsoidFormula( " ++ (commaList [a, b, c, h, k, l]) ++ " )"
 
 intersectionFm2D a b = intersectionString ["x", "y"] a b
 

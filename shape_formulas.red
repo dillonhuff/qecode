@@ -20,3 +20,4 @@ procedure onLineFormula2D(a, b); a*x + b = y;
 
 procedure onParabolaFormula(a, b, c); a*x^2 + b*x + c - y = 0;
 
+procedure inEllipsoidFormula(a, b, c, h, k, l); (k^2)*(l^2)*(x - a)^2 + (h^2)*(l^2)*(y - b)^2 + (h^2)*(k^2)*(z - c)^2 <= h^2 * k^2 + l^2;

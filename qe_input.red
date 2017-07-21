@@ -2,7 +2,7 @@ load redlog;
 rlset ofsf;
 in "shape_formulas.red";
 
-phi := ex( y, inCircleFormula( a, b, r ) and inEllipseFormula( c, d, h, k ) )$
+phi := ex( y, ex( z, onPlaneFormula( a, b, c, d  ) and inEllipsoidFormula( f, g, h, l, m, n  ) ) )$
 out fresh_file$
 rlqe phi;
 shut fresh_file$
