@@ -3,7 +3,7 @@
 using namespace std;
 using namespace ralg;
 
-#define EPSILON 1.0e-6
+#define EPSILON 1.0e-9
 
 bool within_eps(const double a, const double b, const double eps) {
 	return fabs(a - b) < eps;
@@ -989,7 +989,7 @@ return isolate_roots(p, max_width);
 }
 
 bool test_formula_at_sample_points(const double a, const double b, const double c, const double d, const double f, const double g, const double h, const double l, const double m, const double n , const std::vector<polynomial>& upolys) {
-	rational max_width(0.000001);
+	rational max_width(0.0000000001);
 	vector<interval> roots;
 	for (auto& p_univariate : upolys) {
 		concat(roots, find_roots(p_univariate, max_width));
