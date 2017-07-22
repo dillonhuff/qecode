@@ -19,6 +19,8 @@ squareFm a b l = "inSquareFormula( " ++ a ++ ", " ++ b ++ ", " ++ l ++ " )"
 rectangleFm a b c d = "inRectangleFormula( " ++ (commaList [a, b, c, d]) ++ " )"
 onLineFm2D a b = "onLineFormula2D( " ++ a ++ ", " ++ b ++ " )"
 ellipseFm a b h k = "inEllipseFormula( " ++ a ++ ", " ++ b ++ ", " ++ h ++ ", " ++ k ++ " )"
+triangleFm v1x v1y v2x v2y v3x v3y =
+  "inTriangleFormula( " ++ commaList [v1x, v1y, v2x, v2y, v3x, v3y] ++ " )"
 
 sphereFm a b c r = "inSphereFormula( " ++ (commaList [a, b, c, r]) ++ " )"
 onPlaneFm a b c d = "onPlaneFormula( " ++ (commaList [a, b, c, d]) ++ " )"

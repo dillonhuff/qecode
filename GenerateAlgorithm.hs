@@ -310,9 +310,11 @@ writeOutput optimizeRoots name1 name2 var expr =
      writeFile (fileName ++ ".h") $ algorithmDeclCpp testName var expr
      writeFile (fileName ++ ".cpp") $ algorithmTextCpp optimizeRoots testName var expr
 
+--(onPlaneFm "a" "b" "c" "d") (ellipsoidFm "f" "g" "h" "l" "m" "n")
+
 main :: IO ()
 main = do
-  writeFile "qe_input.red" $ intersectionString ["y", "z"] (onPlaneFm "a" "b" "c" "d") (ellipsoidFm "f" "g" "h" "l" "m" "n")
+  writeFile "qe_input.red" $ intersectionString ["y"] (triangleFm "v1x" "v1y" "v2x" "v2y" "v3x" "v3y") (circleFm "a" "b" "r" )
   pr <- runCommand "./run_reduce.txt qe_input.red"
   waitForProcess pr
   a <- readFile "fresh_file"
@@ -321,10 +323,12 @@ main = do
    case runParser bExpression () "expr" fmStr of
     Left err -> putStrLn $ show err
     Right expr -> do
-      writeOutput False "sphere" "ellipsoid" (Var "x") (bExprToFm expr)
-      rc <- runCommand "clang++ -std=c++11 -lgmp -lgmpxx -lralg -c autogen/sphere_ellipsoid.cpp"
+      writeOutput False "triangle" "circle" (Var "x") (bExprToFm expr)
+      rc <- runCommand "clang++ -std=c++11 -lgmp -lgmpxx -lralg -c autogen/triangle_circle.cpp"
       waitForProcess rc
       putStrLn "DONE"
+
+--  
 
 l1 = "                       2    2            2"
 l2 = "(c <> 0 and (d = 0 or c  - h  + 2*h*x - x  >= 0) and ((b - k <= 0 and "

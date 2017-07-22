@@ -1,598 +1,1073 @@
 
-(v2y - v3y = 0 and v2x - v3x = 0 and v2x*v3y - v2y*v3x = 0 and v1y - v3y = 0
+                     2    2      2            2    2          2
+(v2x - v3x <> 0 and a *v2x  - 2*a *v2x*v3x + a *v3x  - 2*a*v2x *x
 
- and v1y - v2y = 0 and v1x - v3x = 0 and v1x - v2x = 0 and v1x*v3y - v1y*v3x = 0
+                          2      2    2      2            2    2          2
+ + 4*a*v2x*v3x*x - 2*a*v3x *x + b *v2x  - 2*b *v2x*v3x + b *v3x  - 2*b*v2x *v3y
 
- and v1x*v2y - v1y*v2x = 0) or (v2y - v3y <> 0 and v2x - v3x = 0
+ + 2*b*v2x*v2y*v3x - 2*b*v2x*v2y*x + 2*b*v2x*v3x*v3y + 2*b*v2x*v3y*x
 
- and v1x - v3x = 0 and v1x - v2x = 0
+              2                                    2    2      2
+ - 2*b*v2y*v3x  + 2*b*v2y*v3x*x - 2*b*v3x*v3y*x - r *v2x  + 2*r *v2x*v3x
 
- and (v3y = 0 or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0)
+    2    2      2    2      2  2
+ - r *v3x  + v2x *v3y  + v2x *x  - 2*v2x*v2y*v3x*v3y + 2*v2x*v2y*v3y*x
 
- and (v2y = 0 or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))
+              2            2        2    2        2            2  2
+ - 2*v2x*v3x*x  - 2*v2x*v3y *x + v2y *v3x  - 2*v2y *v3x*x + v2y *x
 
- or (v2y - v3y <> 0 and (v2x - v3x < 0 or (v2y - v3y <= 0 and v2x - v3x = 0)) 
+                                2      2  2      2  2
+ + 2*v2y*v3x*v3y*x - 2*v2y*v3y*x  + v3x *x  + v3y *x  <= 0 and (v3x - x = 0
 
-                                                 2                    2
-and (v1x - v3x > 0 or (v1x - v3x = 0 and (v1x*v2y *v3y - 2*v1x*v2y*v3y
+ or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0) and (
 
-          3                                2                                2
- + v1x*v3y  - v1y*v2x*v2y*v3y + v1y*v2x*v3y  + v1y*v2y*v3x*v3y - v1y*v3x*v3y
+v2x - x = 0 or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0)) 
 
-              2          3      2                      2
- + v2x*v2y*v3y  - v2x*v3y  - v2y *v3x*v3y + v2y*v3x*v3y  < 0 or (v1y - v3y > 0
+                         2    2      2            2    2          2
+or (v2x - v3x <> 0 and (a *v2x  - 2*a *v2x*v3x + a *v3x  - 2*a*v2x *x
 
- and (v3y = 0 or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))
+                          2      2    2      2            2    2          2
+ + 4*a*v2x*v3x*x - 2*a*v3x *x + b *v2x  - 2*b *v2x*v3x + b *v3x  - 2*b*v2x *v3y
 
-                                                     3            2
-))) and (v1x - v2x < 0 or (v1x - v2x = 0 and (v1x*v2y  - 2*v1x*v2y *v3y
+ + 2*b*v2x*v2y*v3x - 2*b*v2x*v2y*x + 2*b*v2x*v3x*v3y + 2*b*v2x*v3y*x
 
-              2              2                            2
- + v1x*v2y*v3y  - v1y*v2x*v2y  + v1y*v2x*v2y*v3y + v1y*v2y *v3x
+              2                                    2    2      2
+ - 2*b*v2y*v3x  + 2*b*v2y*v3x*x - 2*b*v3x*v3y*x - r *v2x  + 2*r *v2x*v3x
 
-                            2                  2      3          2
- - v1y*v2y*v3x*v3y + v2x*v2y *v3y - v2x*v2y*v3y  - v2y *v3x + v2y *v3x*v3y > 0 
+    2    2      2    2      2  2
+ - r *v3x  + v2x *v3y  + v2x *x  - 2*v2x*v2y*v3x*v3y + 2*v2x*v2y*v3y*x
 
-or (v1y - v2y < 0
+              2            2        2    2        2            2  2
+ - 2*v2x*v3x*x  - 2*v2x*v3y *x + v2y *v3x  - 2*v2y *v3x*x + v2y *x
 
- and (v2y = 0 or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))
+                                2      2  2      2  2              2
+ + 2*v2y*v3x*v3y*x - 2*v2y*v3y*x  + v3x *x  + v3y *x  < 0 or (b*v2x
 
-)))) or (v2y - v3y <> 0
+                      2      2
+ - 2*b*v2x*v3x + b*v3x  - v2x *v3y + v2x*v2y*v3x - v2x*v2y*x + v2x*v3x*v3y
 
- and (v2x - v3x > 0 or (v2y - v3y >= 0 and v2x - v3x = 0)) and (v1x - v3x < 0 or
+                      2                                  2    2      2
+ + v2x*v3y*x - v2y*v3x  + v2y*v3x*x - v3x*v3y*x < 0 and a *v2x  - 2*a *v2x*v3x
 
-                            2                    2          3
- (v1x - v3x = 0 and (v1x*v2y *v3y - 2*v1x*v2y*v3y  + v1x*v3y  - v1y*v2x*v2y*v3y
+    2    2          2                            2      2    2      2
+ + a *v3x  - 2*a*v2x *x + 4*a*v2x*v3x*x - 2*a*v3x *x + b *v2x  - 2*b *v2x*v3x
 
-              2                                2              2          3
- + v1y*v2x*v3y  + v1y*v2y*v3x*v3y - v1y*v3x*v3y  + v2x*v2y*v3y  - v2x*v3y
+    2    2          2
+ + b *v3x  - 2*b*v2x *v3y + 2*b*v2x*v2y*v3x - 2*b*v2x*v2y*x + 2*b*v2x*v3x*v3y
 
-      2                      2
- - v2y *v3x*v3y + v2y*v3x*v3y  > 0 or (v1y - v3y < 0
+                              2                                    2    2
+ + 2*b*v2x*v3y*x - 2*b*v2y*v3x  + 2*b*v2y*v3x*x - 2*b*v3x*v3y*x - r *v2x
 
- and (v3y = 0 or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))
+      2            2    2      2    2      2  2
+ + 2*r *v2x*v3x - r *v3x  + v2x *v3y  + v2x *x  - 2*v2x*v2y*v3x*v3y
 
-                                                     3            2
-))) and (v1x - v2x > 0 or (v1x - v2x = 0 and (v1x*v2y  - 2*v1x*v2y *v3y
+                                2            2        2    2        2
+ + 2*v2x*v2y*v3y*x - 2*v2x*v3x*x  - 2*v2x*v3y *x + v2y *v3x  - 2*v2y *v3x*x
 
-              2              2                            2
- + v1x*v2y*v3y  - v1y*v2x*v2y  + v1y*v2x*v2y*v3y + v1y*v2y *v3x
+      2  2                                2      2  2      2  2
+ + v2y *x  + 2*v2y*v3x*v3y*x - 2*v2y*v3y*x  + v3x *x  + v3y *x  = 0)) and ((
 
-                            2                  2      3          2
- - v1y*v2y*v3x*v3y + v2x*v2y *v3y - v2x*v2y*v3y  - v2y *v3x + v2y *v3x*v3y < 0 
+v2x - v3x <= 0 and (v1x*v2x*v2y*v3x - v1x*v2x*v2y*x - v1x*v2x*v3x*v3y
 
-or (v1y - v2y > 0
+                              2                          2
+ + v1x*v2x*v3y*x - v1x*v2y*v3x  + v1x*v2y*v3x*x + v1x*v3x *v3y - v1x*v3x*v3y*x
 
- and (v2y = 0 or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))
+          2              2                  2                            3
+ - v1y*v2x *v3x + v1y*v2x *x + 2*v1y*v2x*v3x  - 2*v1y*v2x*v3x*x - v1y*v3x
 
-)))) or (v2x - v3x = 0 and v1y - v3y <> 0 and v1x - v3x = 0 and v1x - v2x = 0
+          2        2              2                    2
+ + v1y*v3x *x + v2x *v3x*v3y - v2x *v3y*x - v2x*v2y*v3x  + v2x*v2y*v3x*x
 
- and (v3y = 0 or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0)
+          2                              3          2
+ - v2x*v3x *v3y + v2x*v3x*v3y*x + v2y*v3x  - v2y*v3x *x > 0 or (v1x - v3x > 0 
 
- and (v1y = 0 or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))
+and (v3x - x = 0
 
- or (v2x - v3x = 0 and v1y - v2y <> 0 and v1x - v3x = 0 and v1x - v2x = 0
+ or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))) and (
 
- and (v2y = 0 or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0)
+       2              2
+v1x*v2x *v2y - v1x*v2x *v3y - v1x*v2x*v2y*v3x - v1x*v2x*v2y*x + v1x*v2x*v3x*v3y
 
- and (v1y = 0 or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))
+                                                          3            2
+ + v1x*v2x*v3y*x + v1x*v2y*v3x*x - v1x*v3x*v3y*x - v1y*v2x  + 2*v1y*v2x *v3x
 
- or (v2x - v3x <> 0
+          2                2                            2        3
+ + v1y*v2x *x - v1y*v2x*v3x  - 2*v1y*v2x*v3x*x + v1y*v3x *x + v2x *v3y
 
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0) or (
+      2              2              2                    2
+ - v2x *v2y*v3x - v2x *v3x*v3y - v2x *v3y*x + v2x*v2y*v3x  + v2x*v2y*v3x*x
 
-v2x - v3x < 0 and v1x - v3x > 0 and (
+                          2
+ + v2x*v3x*v3y*x - v2y*v3x *x < 0 or (v1x - v2x < 0 and (v2x - x = 0
 
-v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x < 0 or (v1x - v2x < 0
+ or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0)))) or (
 
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))) or (
+v2x - v3x >= 0 and (v1x*v2x*v2y*v3x - v1x*v2x*v2y*x - v1x*v2x*v3x*v3y
 
-v2x - v3x < 0 and v1x - v2x < 0 and (
+                              2                          2
+ + v1x*v2x*v3y*x - v1x*v2y*v3x  + v1x*v2y*v3x*x + v1x*v3x *v3y - v1x*v3x*v3y*x
 
-v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x < 0 or (v1x - v3x > 0
+          2              2                  2                            3
+ - v1y*v2x *v3x + v1y*v2x *x + 2*v1y*v2x*v3x  - 2*v1y*v2x*v3x*x - v1y*v3x
 
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))) or (
+          2        2              2                    2
+ + v1y*v3x *x + v2x *v3x*v3y - v2x *v3y*x - v2x*v2y*v3x  + v2x*v2y*v3x*x
 
-v2x - v3x < 0 and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x < 0 
+          2                              3          2
+ - v2x*v3x *v3y + v2x*v3x*v3y*x + v2y*v3x  - v2y*v3x *x < 0 or (v1x - v3x < 0 
 
-                                                                   2
-and v1x*v2x*v2y - v1x*v2x*v3y - v1x*v2y*v3x + v1x*v3x*v3y - v1y*v2x
+and (v3x - x = 0
 
-                          2      2                                          2
- + 2*v1y*v2x*v3x - v1y*v3x  + v2x *v3y - v2x*v2y*v3x - v2x*v3x*v3y + v2y*v3x
+ or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))) and (
 
- < 0) or (v2x - v3x < 0
+       2              2
+v1x*v2x *v2y - v1x*v2x *v3y - v1x*v2x*v2y*v3x - v1x*v2x*v2y*x + v1x*v2x*v3x*v3y
 
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x < 0 and 
+                                                          3            2
+ + v1x*v2x*v3y*x + v1x*v2y*v3x*x - v1x*v3x*v3y*x - v1y*v2x  + 2*v1y*v2x *v3x
 
-                                                               2
-v1x*v2x*v2y - v1x*v2x*v3y - v1x*v2y*v3x + v1x*v3x*v3y - v1y*v2x  + 2*v1y*v2x*v3x
+          2                2                            2        3
+ + v1y*v2x *x - v1y*v2x*v3x  - 2*v1y*v2x*v3x*x + v1y*v3x *x + v2x *v3y
 
-          2      2                                          2
- - v1y*v3x  + v2x *v3y - v2x*v2y*v3x - v2x*v3x*v3y + v2y*v3x  > 0) or (
+      2              2              2                    2
+ - v2x *v2y*v3x - v2x *v3x*v3y - v2x *v3y*x + v2x*v2y*v3x  + v2x*v2y*v3x*x
 
-v2x - v3x < 0 and (v1x*v2x*v2y - v1x*v2x*v3y - v1x*v2y*v3x + v1x*v3x*v3y
+                          2
+ + v2x*v3x*v3y*x - v2y*v3x *x > 0 or (v1x - v2x > 0 and (v2x - x = 0
 
-          2                          2      2
- - v1y*v2x  + 2*v1y*v2x*v3x - v1y*v3x  + v2x *v3y - v2x*v2y*v3x - v2x*v3x*v3y
+ or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0)))))) or (
+
+                    2    2      2            2    2          2
+v1x - v3x <> 0 and a *v1x  - 2*a *v1x*v3x + a *v3x  - 2*a*v1x *x + 4*a*v1x*v3x*x
+
+          2      2    2      2            2    2          2
+ - 2*a*v3x *x + b *v1x  - 2*b *v1x*v3x + b *v3x  - 2*b*v1x *v3y
+
+ + 2*b*v1x*v1y*v3x - 2*b*v1x*v1y*x + 2*b*v1x*v3x*v3y + 2*b*v1x*v3y*x
+
+              2                                    2    2      2
+ - 2*b*v1y*v3x  + 2*b*v1y*v3x*x - 2*b*v3x*v3y*x - r *v1x  + 2*r *v1x*v3x
+
+    2    2      2    2      2  2
+ - r *v3x  + v1x *v3y  + v1x *x  - 2*v1x*v1y*v3x*v3y + 2*v1x*v1y*v3y*x
+
+              2            2        2    2        2            2  2
+ - 2*v1x*v3x*x  - 2*v1x*v3y *x + v1y *v3x  - 2*v1y *v3x*x + v1y *x
+
+                                2      2  2      2  2
+ + 2*v1y*v3x*v3y*x - 2*v1y*v3y*x  + v3x *x  + v3y *x  <= 0 and (v3x - x = 0
+
+ or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0) and (
+
+v1x - x = 0 or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0)) 
+
+                         2    2      2            2    2          2
+or (v1x - v3x <> 0 and (a *v1x  - 2*a *v1x*v3x + a *v3x  - 2*a*v1x *x
+
+                          2      2    2      2            2    2          2
+ + 4*a*v1x*v3x*x - 2*a*v3x *x + b *v1x  - 2*b *v1x*v3x + b *v3x  - 2*b*v1x *v3y
+
+ + 2*b*v1x*v1y*v3x - 2*b*v1x*v1y*x + 2*b*v1x*v3x*v3y + 2*b*v1x*v3y*x
+
+              2                                    2    2      2
+ - 2*b*v1y*v3x  + 2*b*v1y*v3x*x - 2*b*v3x*v3y*x - r *v1x  + 2*r *v1x*v3x
+
+    2    2      2    2      2  2
+ - r *v3x  + v1x *v3y  + v1x *x  - 2*v1x*v1y*v3x*v3y + 2*v1x*v1y*v3y*x
+
+              2            2        2    2        2            2  2
+ - 2*v1x*v3x*x  - 2*v1x*v3y *x + v1y *v3x  - 2*v1y *v3x*x + v1y *x
+
+                                2      2  2      2  2              2
+ + 2*v1y*v3x*v3y*x - 2*v1y*v3y*x  + v3x *x  + v3y *x  < 0 or (b*v1x
+
+                      2      2
+ - 2*b*v1x*v3x + b*v3x  - v1x *v3y + v1x*v1y*v3x - v1x*v1y*x + v1x*v3x*v3y
+
+                      2                                  2    2      2
+ + v1x*v3y*x - v1y*v3x  + v1y*v3x*x - v3x*v3y*x < 0 and a *v1x  - 2*a *v1x*v3x
+
+    2    2          2                            2      2    2      2
+ + a *v3x  - 2*a*v1x *x + 4*a*v1x*v3x*x - 2*a*v3x *x + b *v1x  - 2*b *v1x*v3x
+
+    2    2          2
+ + b *v3x  - 2*b*v1x *v3y + 2*b*v1x*v1y*v3x - 2*b*v1x*v1y*x + 2*b*v1x*v3x*v3y
+
+                              2                                    2    2
+ + 2*b*v1x*v3y*x - 2*b*v1y*v3x  + 2*b*v1y*v3x*x - 2*b*v3x*v3y*x - r *v1x
+
+      2            2    2      2    2      2  2
+ + 2*r *v1x*v3x - r *v3x  + v1x *v3y  + v1x *x  - 2*v1x*v1y*v3x*v3y
+
+                                2            2        2    2        2
+ + 2*v1x*v1y*v3y*x - 2*v1x*v3x*x  - 2*v1x*v3y *x + v1y *v3x  - 2*v1y *v3x*x
+
+      2  2                                2      2  2      2  2
+ + v1y *x  + 2*v1y*v3x*v3y*x - 2*v1y*v3y*x  + v3x *x  + v3y *x  = 0)) and ((
+
+                       2              2            2              2
+v1x - v3x <= 0 and (v1x *v2y*v3x - v1x *v2y*x - v1x *v3x*v3y + v1x *v3y*x
+
+                                                2
+ - v1x*v1y*v2x*v3x + v1x*v1y*v2x*x + v1x*v1y*v3x  - v1x*v1y*v3x*x
+
+                                                  2
+ + v1x*v2x*v3x*v3y - v1x*v2x*v3y*x - 2*v1x*v2y*v3x  + 2*v1x*v2y*v3x*x
+
+          2                                  2                          3
+ + v1x*v3x *v3y - v1x*v3x*v3y*x + v1y*v2x*v3x  - v1y*v2x*v3x*x - v1y*v3x
+
+          2            2                              3          2
+ + v1y*v3x *x - v2x*v3x *v3y + v2x*v3x*v3y*x + v2y*v3x  - v2y*v3x *x < 0 or (
+
+v2x - v3x > 0 and (v3x - x = 0
+
+ or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))) and (
+
+   3          3          2              2              2
+v1x *v2y - v1x *v3y - v1x *v1y*v2x + v1x *v1y*v3x + v1x *v2x*v3y
+
+        2              2            2              2
+ - 2*v1x *v2y*v3x - v1x *v2y*x + v1x *v3x*v3y + v1x *v3y*x + v1x*v1y*v2x*v3x
+
+                              2
+ + v1x*v1y*v2x*x - v1x*v1y*v3x  - v1x*v1y*v3x*x - v1x*v2x*v3x*v3y
+
+                              2
+ - v1x*v2x*v3y*x + v1x*v2y*v3x  + 2*v1x*v2y*v3x*x - v1x*v3x*v3y*x
+
+                          2                            2
+ - v1y*v2x*v3x*x + v1y*v3x *x + v2x*v3x*v3y*x - v2y*v3x *x > 0 or (v1x - v2x > 0
+
+ and (v1x - x = 0
+
+ or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0)))) or (
+
+                       2              2            2              2
+v1x - v3x >= 0 and (v1x *v2y*v3x - v1x *v2y*x - v1x *v3x*v3y + v1x *v3y*x
+
+                                                2
+ - v1x*v1y*v2x*v3x + v1x*v1y*v2x*x + v1x*v1y*v3x  - v1x*v1y*v3x*x
+
+                                                  2
+ + v1x*v2x*v3x*v3y - v1x*v2x*v3y*x - 2*v1x*v2y*v3x  + 2*v1x*v2y*v3x*x
+
+          2                                  2                          3
+ + v1x*v3x *v3y - v1x*v3x*v3y*x + v1y*v2x*v3x  - v1y*v2x*v3x*x - v1y*v3x
+
+          2            2                              3          2
+ + v1y*v3x *x - v2x*v3x *v3y + v2x*v3x*v3y*x + v2y*v3x  - v2y*v3x *x > 0 or (
+
+v2x - v3x < 0 and (v3x - x = 0
+
+ or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))) and (
+
+   3          3          2              2              2
+v1x *v2y - v1x *v3y - v1x *v1y*v2x + v1x *v1y*v3x + v1x *v2x*v3y
+
+        2              2            2              2
+ - 2*v1x *v2y*v3x - v1x *v2y*x + v1x *v3x*v3y + v1x *v3y*x + v1x*v1y*v2x*v3x
+
+                              2
+ + v1x*v1y*v2x*x - v1x*v1y*v3x  - v1x*v1y*v3x*x - v1x*v2x*v3x*v3y
+
+                              2
+ - v1x*v2x*v3y*x + v1x*v2y*v3x  + 2*v1x*v2y*v3x*x - v1x*v3x*v3y*x
+
+                          2                            2
+ - v1y*v2x*v3x*x + v1y*v3x *x + v2x*v3x*v3y*x - v2y*v3x *x < 0 or (v1x - v2x < 0
+
+ and (v1x - x = 0
+
+ or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0)))))) or (
+
+                    2    2      2            2    2          2
+v1x - v2x <> 0 and a *v1x  - 2*a *v1x*v2x + a *v2x  - 2*a*v1x *x + 4*a*v1x*v2x*x
+
+          2      2    2      2            2    2          2
+ - 2*a*v2x *x + b *v1x  - 2*b *v1x*v2x + b *v2x  - 2*b*v1x *v2y
+
+ + 2*b*v1x*v1y*v2x - 2*b*v1x*v1y*x + 2*b*v1x*v2x*v2y + 2*b*v1x*v2y*x
+
+              2                                    2    2      2
+ - 2*b*v1y*v2x  + 2*b*v1y*v2x*x - 2*b*v2x*v2y*x - r *v1x  + 2*r *v1x*v2x
+
+    2    2      2    2      2  2
+ - r *v2x  + v1x *v2y  + v1x *x  - 2*v1x*v1y*v2x*v2y + 2*v1x*v1y*v2y*x
+
+              2            2        2    2        2            2  2
+ - 2*v1x*v2x*x  - 2*v1x*v2y *x + v1y *v2x  - 2*v1y *v2x*x + v1y *x
+
+                                2      2  2      2  2
+ + 2*v1y*v2x*v2y*x - 2*v1y*v2y*x  + v2x *x  + v2y *x  <= 0 and (v2x - x = 0
+
+ or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0) and (
+
+v1x - x = 0 or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0)) 
+
+                         2    2      2            2    2          2
+or (v1x - v2x <> 0 and (a *v1x  - 2*a *v1x*v2x + a *v2x  - 2*a*v1x *x
+
+                          2      2    2      2            2    2          2
+ + 4*a*v1x*v2x*x - 2*a*v2x *x + b *v1x  - 2*b *v1x*v2x + b *v2x  - 2*b*v1x *v2y
+
+ + 2*b*v1x*v1y*v2x - 2*b*v1x*v1y*x + 2*b*v1x*v2x*v2y + 2*b*v1x*v2y*x
+
+              2                                    2    2      2
+ - 2*b*v1y*v2x  + 2*b*v1y*v2x*x - 2*b*v2x*v2y*x - r *v1x  + 2*r *v1x*v2x
+
+    2    2      2    2      2  2
+ - r *v2x  + v1x *v2y  + v1x *x  - 2*v1x*v1y*v2x*v2y + 2*v1x*v1y*v2y*x
+
+              2            2        2    2        2            2  2
+ - 2*v1x*v2x*x  - 2*v1x*v2y *x + v1y *v2x  - 2*v1y *v2x*x + v1y *x
+
+                                2      2  2      2  2              2
+ + 2*v1y*v2x*v2y*x - 2*v1y*v2y*x  + v2x *x  + v2y *x  < 0 or (b*v1x
+
+                      2      2
+ - 2*b*v1x*v2x + b*v2x  - v1x *v2y + v1x*v1y*v2x - v1x*v1y*x + v1x*v2x*v2y
+
+                      2                                  2    2      2
+ + v1x*v2y*x - v1y*v2x  + v1y*v2x*x - v2x*v2y*x < 0 and a *v1x  - 2*a *v1x*v2x
+
+    2    2          2                            2      2    2      2
+ + a *v2x  - 2*a*v1x *x + 4*a*v1x*v2x*x - 2*a*v2x *x + b *v1x  - 2*b *v1x*v2x
+
+    2    2          2
+ + b *v2x  - 2*b*v1x *v2y + 2*b*v1x*v1y*v2x - 2*b*v1x*v1y*x + 2*b*v1x*v2x*v2y
+
+                              2                                    2    2
+ + 2*b*v1x*v2y*x - 2*b*v1y*v2x  + 2*b*v1y*v2x*x - 2*b*v2x*v2y*x - r *v1x
+
+      2            2    2      2    2      2  2
+ + 2*r *v1x*v2x - r *v2x  + v1x *v2y  + v1x *x  - 2*v1x*v1y*v2x*v2y
+
+                                2            2        2    2        2
+ + 2*v1x*v1y*v2y*x - 2*v1x*v2x*x  - 2*v1x*v2y *x + v1y *v2x  - 2*v1y *v2x*x
+
+      2  2                                2      2  2      2  2
+ + v1y *x  + 2*v1y*v2x*v2y*x - 2*v1y*v2y*x  + v2x *x  + v2y *x  = 0)) and ((
+
+                       2              2              2            2
+v1x - v2x <= 0 and (v1x *v2x*v2y - v1x *v2x*v3y - v1x *v2y*x + v1x *v3y*x
+
+              2                                                            2
+ - v1x*v1y*v2x  + v1x*v1y*v2x*v3x + v1x*v1y*v2x*x - v1x*v1y*v3x*x - v1x*v2x *v2y
+
+            2
+ + 2*v1x*v2x *v3y - v1x*v2x*v2y*v3x + v1x*v2x*v2y*x - 2*v1x*v2x*v3y*x
+
+                          3          2              2
+ + v1x*v2y*v3x*x + v1y*v2x  - v1y*v2x *v3x - v1y*v2x *x + v1y*v2x*v3x*x
+
+      3          2              2
+ - v2x *v3y + v2x *v2y*v3x + v2x *v3y*x - v2x*v2y*v3x*x > 0 or (v2x - v3x < 0 
+
+and (v2x - x = 0
+
+ or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))) and (
+
+   3          3          2              2              2
+v1x *v2y - v1x *v3y - v1x *v1y*v2x + v1x *v1y*v3x - v1x *v2x*v2y
+
+        2              2              2            2                    2
+ + 2*v1x *v2x*v3y - v1x *v2y*v3x - v1x *v2y*x + v1x *v3y*x + v1x*v1y*v2x
+
+                                                            2
+ - v1x*v1y*v2x*v3x + v1x*v1y*v2x*x - v1x*v1y*v3x*x - v1x*v2x *v3y
+
+ + v1x*v2x*v2y*v3x + v1x*v2x*v2y*x - 2*v1x*v2x*v3y*x + v1x*v2y*v3x*x
+
+          2                        2
+ - v1y*v2x *x + v1y*v2x*v3x*x + v2x *v3y*x - v2x*v2y*v3x*x < 0 or (v1x - v3x > 0
+
+ and (v1x - x = 0
+
+ or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0)))) or (
+
+                       2              2              2            2
+v1x - v2x >= 0 and (v1x *v2x*v2y - v1x *v2x*v3y - v1x *v2y*x + v1x *v3y*x
+
+              2                                                            2
+ - v1x*v1y*v2x  + v1x*v1y*v2x*v3x + v1x*v1y*v2x*x - v1x*v1y*v3x*x - v1x*v2x *v2y
+
+            2
+ + 2*v1x*v2x *v3y - v1x*v2x*v2y*v3x + v1x*v2x*v2y*x - 2*v1x*v2x*v3y*x
+
+                          3          2              2
+ + v1x*v2y*v3x*x + v1y*v2x  - v1y*v2x *v3x - v1y*v2x *x + v1y*v2x*v3x*x
+
+      3          2              2
+ - v2x *v3y + v2x *v2y*v3x + v2x *v3y*x - v2x*v2y*v3x*x < 0 or (v2x - v3x > 0 
+
+and (v2x - x = 0
+
+ or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))) and (
+
+   3          3          2              2              2
+v1x *v2y - v1x *v3y - v1x *v1y*v2x + v1x *v1y*v3x - v1x *v2x*v2y
+
+        2              2              2            2                    2
+ + 2*v1x *v2x*v3y - v1x *v2y*v3x - v1x *v2y*x + v1x *v3y*x + v1x*v1y*v2x
+
+                                                            2
+ - v1x*v1y*v2x*v3x + v1x*v1y*v2x*x - v1x*v1y*v3x*x - v1x*v2x *v3y
+
+ + v1x*v2x*v2y*v3x + v1x*v2x*v2y*x - 2*v1x*v2x*v3y*x + v1x*v2y*v3x*x
+
+          2                        2
+ - v1y*v2x *x + v1y*v2x*v3x*x + v2x *v3y*x - v2x*v2y*v3x*x > 0 or (v1x - v3x < 0
+
+ and (v1x - x = 0
+
+ or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0)))))) or (
+
+ 2            2    2                 2                      2      2
+a  - 2*a*x - r  + x  <= 0 and ((b*v2x  - 2*b*v2x*v3x + b*v3x  - v2x *v3y
+
+                                                              2
+ + v2x*v2y*v3x - v2x*v2y*x + v2x*v3x*v3y + v2x*v3y*x - v2y*v3x  + v2y*v3x*x
+
+                           2                      2      2
+ - v3x*v3y*x <= 0 and b*v1x  - 2*b*v1x*v3x + b*v3x  - v1x *v3y + v1x*v1y*v3x
+
+                                                2
+ - v1x*v1y*x + v1x*v3x*v3y + v1x*v3y*x - v1y*v3x  + v1y*v3x*x - v3x*v3y*x <= 0 
+
+         2                      2      2
+and b*v1x  - 2*b*v1x*v2x + b*v2x  - v1x *v2y + v1x*v1y*v2x - v1x*v1y*x
+
+                                    2                                   2    2
+ + v1x*v2x*v2y + v1x*v2y*x - v1y*v2x  + v1y*v2x*x - v2x*v2y*x <= 0 and a *v2x
+
+      2            2    2          2                            2      2    2
+ - 2*a *v2x*v3x + a *v3x  - 2*a*v2x *x + 4*a*v2x*v3x*x - 2*a*v3x *x + b *v2x
+
+      2            2    2          2
+ - 2*b *v2x*v3x + b *v3x  - 2*b*v2x *v3y + 2*b*v2x*v2y*v3x - 2*b*v2x*v2y*x
+
+                                                2
+ + 2*b*v2x*v3x*v3y + 2*b*v2x*v3y*x - 2*b*v2y*v3x  + 2*b*v2y*v3x*x
+
+                    2    2      2            2    2      2    2      2  2
+ - 2*b*v3x*v3y*x - r *v2x  + 2*r *v2x*v3x - r *v3x  + v2x *v3y  + v2x *x
+
+                                                    2            2        2    2
+ - 2*v2x*v2y*v3x*v3y + 2*v2x*v2y*v3y*x - 2*v2x*v3x*x  - 2*v2x*v3y *x + v2y *v3x
+
+        2            2  2                                2      2  2      2  2
+ - 2*v2y *v3x*x + v2y *x  + 2*v2y*v3x*v3y*x - 2*v2y*v3y*x  + v3x *x  + v3y *x
+
+          2    2      2            2    2          2
+ = 0 and a *v1x  - 2*a *v1x*v3x + a *v3x  - 2*a*v1x *x + 4*a*v1x*v3x*x
+
+          2      2    2      2            2    2          2
+ - 2*a*v3x *x + b *v1x  - 2*b *v1x*v3x + b *v3x  - 2*b*v1x *v3y
+
+ + 2*b*v1x*v1y*v3x - 2*b*v1x*v1y*x + 2*b*v1x*v3x*v3y + 2*b*v1x*v3y*x
+
+              2                                    2    2      2
+ - 2*b*v1y*v3x  + 2*b*v1y*v3x*x - 2*b*v3x*v3y*x - r *v1x  + 2*r *v1x*v3x
+
+    2    2      2    2      2  2
+ - r *v3x  + v1x *v3y  + v1x *x  - 2*v1x*v1y*v3x*v3y + 2*v1x*v1y*v3y*x
+
+              2            2        2    2        2            2  2
+ - 2*v1x*v3x*x  - 2*v1x*v3y *x + v1y *v3x  - 2*v1y *v3x*x + v1y *x
+
+                                2      2  2      2  2          2    2
+ + 2*v1y*v3x*v3y*x - 2*v1y*v3y*x  + v3x *x  + v3y *x  = 0 and a *v1x
+
+      2            2    2          2                            2      2    2
+ - 2*a *v1x*v2x + a *v2x  - 2*a*v1x *x + 4*a*v1x*v2x*x - 2*a*v2x *x + b *v1x
+
+      2            2    2          2
+ - 2*b *v1x*v2x + b *v2x  - 2*b*v1x *v2y + 2*b*v1x*v1y*v2x - 2*b*v1x*v1y*x
+
+                                                2
+ + 2*b*v1x*v2x*v2y + 2*b*v1x*v2y*x - 2*b*v1y*v2x  + 2*b*v1y*v2x*x
+
+                    2    2      2            2    2      2    2      2  2
+ - 2*b*v2x*v2y*x - r *v1x  + 2*r *v1x*v2x - r *v2x  + v1x *v2y  + v1x *x
+
+                                                    2            2        2    2
+ - 2*v1x*v1y*v2x*v2y + 2*v1x*v1y*v2y*x - 2*v1x*v2x*x  - 2*v1x*v2y *x + v1y *v2x
+
+        2            2  2                                2      2  2      2  2
+ - 2*v1y *v2x*x + v1y *x  + 2*v1y*v2x*v2y*x - 2*v1y*v2y*x  + v2x *x  + v2y *x
+
+               2                      2      2
+ = 0) or (b*v2x  - 2*b*v2x*v3x + b*v3x  - v2x *v3y + v2x*v2y*v3x - v2x*v2y*x
+
+                                    2                                       2
+ + v2x*v3x*v3y + v2x*v3y*x - v2y*v3x  + v2y*v3x*x - v3x*v3y*x >= 0 and b*v1x
+
+                      2      2
+ - 2*b*v1x*v3x + b*v3x  - v1x *v3y + v1x*v1y*v3x - v1x*v1y*x + v1x*v3x*v3y
+
+                      2                                       2
+ + v1x*v3y*x - v1y*v3x  + v1y*v3x*x - v3x*v3y*x >= 0 and b*v1x  - 2*b*v1x*v2x
+
+        2      2
+ + b*v2x  - v1x *v2y + v1x*v1y*v2x - v1x*v1y*x + v1x*v2x*v2y + v1x*v2y*x
+
+          2                                   2    2      2            2    2
+ - v1y*v2x  + v1y*v2x*x - v2x*v2y*x >= 0 and a *v2x  - 2*a *v2x*v3x + a *v3x
+
+          2                            2      2    2      2            2    2
+ - 2*a*v2x *x + 4*a*v2x*v3x*x - 2*a*v3x *x + b *v2x  - 2*b *v2x*v3x + b *v3x
 
           2
- + v2y*v3x  < 0 or (v1x - v3x > 0
+ - 2*b*v2x *v3y + 2*b*v2x*v2y*v3x - 2*b*v2x*v2y*x + 2*b*v2x*v3x*v3y
 
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0) or (
+                              2                                    2    2
+ + 2*b*v2x*v3y*x - 2*b*v2y*v3x  + 2*b*v2y*v3x*x - 2*b*v3x*v3y*x - r *v2x
 
-v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0 and 
+      2            2    2      2    2      2  2
+ + 2*r *v2x*v3x - r *v3x  + v2x *v3y  + v2x *x  - 2*v2x*v2y*v3x*v3y
 
-                                               2          2              2
-v1x*v2x*v2y*v3x - v1x*v2x*v3x*v3y - v1x*v2y*v3x  + v1x*v3x *v3y - v1y*v2x *v3x
+                                2            2        2    2        2
+ + 2*v2x*v2y*v3y*x - 2*v2x*v3x*x  - 2*v2x*v3y *x + v2y *v3x  - 2*v2y *v3x*x
 
-                2          3      2                      2          2
- + 2*v1y*v2x*v3x  - v1y*v3x  + v2x *v3x*v3y - v2x*v2y*v3x  - v2x*v3x *v3y
+      2  2                                2      2  2      2  2          2    2
+ + v2y *x  + 2*v2y*v3x*v3y*x - 2*v2y*v3y*x  + v3x *x  + v3y *x  = 0 and a *v1x
 
-          3
- + v2y*v3x  > 0)) and (v1x*v2x*v2y - v1x*v2x*v3y - v1x*v2y*v3x + v1x*v3x*v3y
+      2            2    2          2                            2      2    2
+ - 2*a *v1x*v3x + a *v3x  - 2*a*v1x *x + 4*a*v1x*v3x*x - 2*a*v3x *x + b *v1x
 
-          2                          2      2
- - v1y*v2x  + 2*v1y*v2x*v3x - v1y*v3x  + v2x *v3y - v2x*v2y*v3x - v2x*v3x*v3y
+      2            2    2          2
+ - 2*b *v1x*v3x + b *v3x  - 2*b*v1x *v3y + 2*b*v1x*v1y*v3x - 2*b*v1x*v1y*x
+
+                                                2
+ + 2*b*v1x*v3x*v3y + 2*b*v1x*v3y*x - 2*b*v1y*v3x  + 2*b*v1y*v3x*x
+
+                    2    2      2            2    2      2    2      2  2
+ - 2*b*v3x*v3y*x - r *v1x  + 2*r *v1x*v3x - r *v3x  + v1x *v3y  + v1x *x
+
+                                                    2            2        2    2
+ - 2*v1x*v1y*v3x*v3y + 2*v1x*v1y*v3y*x - 2*v1x*v3x*x  - 2*v1x*v3y *x + v1y *v3x
+
+        2            2  2                                2      2  2      2  2
+ - 2*v1y *v3x*x + v1y *x  + 2*v1y*v3x*v3y*x - 2*v1y*v3y*x  + v3x *x  + v3y *x
+
+          2    2      2            2    2          2
+ = 0 and a *v1x  - 2*a *v1x*v2x + a *v2x  - 2*a*v1x *x + 4*a*v1x*v2x*x
+
+          2      2    2      2            2    2          2
+ - 2*a*v2x *x + b *v1x  - 2*b *v1x*v2x + b *v2x  - 2*b*v1x *v2y
+
+ + 2*b*v1x*v1y*v2x - 2*b*v1x*v1y*x + 2*b*v1x*v2x*v2y + 2*b*v1x*v2y*x
+
+              2                                    2    2      2
+ - 2*b*v1y*v2x  + 2*b*v1y*v2x*x - 2*b*v2x*v2y*x - r *v1x  + 2*r *v1x*v2x
+
+    2    2      2    2      2  2
+ - r *v2x  + v1x *v2y  + v1x *x  - 2*v1x*v1y*v2x*v2y + 2*v1x*v1y*v2y*x
+
+              2            2        2    2        2            2  2
+ - 2*v1x*v2x*x  - 2*v1x*v2y *x + v1y *v2x  - 2*v1y *v2x*x + v1y *x
+
+                                2      2  2      2  2
+ + 2*v1y*v2x*v2y*x - 2*v1y*v2y*x  + v2x *x  + v2y *x  = 0) or ((v2x - v3x < 0 or
+
+  2    2      2            2    2          2                            2
+ a *v2x  - 2*a *v2x*v3x + a *v3x  - 2*a*v2x *x + 4*a*v2x*v3x*x - 2*a*v3x *x
+
+    2    2      2            2    2          2
+ + b *v2x  - 2*b *v2x*v3x + b *v3x  - 2*b*v2x *v3y + 2*b*v2x*v2y*v3x
+
+                                                                2
+ - 2*b*v2x*v2y*x + 2*b*v2x*v3x*v3y + 2*b*v2x*v3y*x - 2*b*v2y*v3x
+
+                                    2    2      2            2    2      2    2
+ + 2*b*v2y*v3x*x - 2*b*v3x*v3y*x - r *v2x  + 2*r *v2x*v3x - r *v3x  + v2x *v3y
+
+      2  2                                                    2            2
+ + v2x *x  - 2*v2x*v2y*v3x*v3y + 2*v2x*v2y*v3y*x - 2*v2x*v3x*x  - 2*v2x*v3y *x
+
+      2    2        2            2  2                                2      2  2
+ + v2y *v3x  - 2*v2y *v3x*x + v2y *x  + 2*v2y*v3x*v3y*x - 2*v2y*v3y*x  + v3x *x
+
+      2  2                             2    2      2            2    2
+ + v3y *x  > 0) and (v1x - v2x < 0 or a *v1x  - 2*a *v1x*v2x + a *v2x
+
+          2                            2      2    2      2            2    2
+ - 2*a*v1x *x + 4*a*v1x*v2x*x - 2*a*v2x *x + b *v1x  - 2*b *v1x*v2x + b *v2x
 
           2
- + v2y*v3x  > 0 or (v1x - v2x < 0
+ - 2*b*v1x *v2y + 2*b*v1x*v1y*v2x - 2*b*v1x*v1y*x + 2*b*v1x*v2x*v2y
 
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0) or (
+                              2                                    2    2
+ + 2*b*v1x*v2y*x - 2*b*v1y*v2x  + 2*b*v1y*v2x*x - 2*b*v2x*v2y*x - r *v1x
 
-                                                                         2
-v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0 and v1x*v2x *v2y
+      2            2    2      2    2      2  2
+ + 2*r *v1x*v2x - r *v2x  + v1x *v2y  + v1x *x  - 2*v1x*v1y*v2x*v2y
 
-          2                                                  3            2
- - v1x*v2x *v3y - v1x*v2x*v2y*v3x + v1x*v2x*v3x*v3y - v1y*v2x  + 2*v1y*v2x *v3x
+                                2            2        2    2        2
+ + 2*v1x*v1y*v2y*x - 2*v1x*v2x*x  - 2*v1x*v2y *x + v1y *v2x  - 2*v1y *v2x*x
 
-              2      3          2              2                      2
- - v1y*v2x*v3x  + v2x *v3y - v2x *v2y*v3x - v2x *v3x*v3y + v2x*v2y*v3x  < 0))) 
+      2  2                                2      2  2      2  2
+ + v1y *x  + 2*v1y*v2x*v2y*x - 2*v1y*v2y*x  + v2x *x  + v2y *x  > 0) and (
 
-or (v2x - v3x > 0 and v1x - v3x < 0 and (
+                                                          2    2      2
+b*v2x - b*v3x - v2x*v3y + v2y*v3x - v2y*x + v3y*x < 0 or a *v2x  - 2*a *v2x*v3x
 
-v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x > 0 or (v1x - v2x > 0
+    2    2          2                            2      2    2      2
+ + a *v3x  - 2*a*v2x *x + 4*a*v2x*v3x*x - 2*a*v3x *x + b *v2x  - 2*b *v2x*v3x
 
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))) or (
+    2    2          2
+ + b *v3x  - 2*b*v2x *v3y + 2*b*v2x*v2y*v3x - 2*b*v2x*v2y*x + 2*b*v2x*v3x*v3y
 
-v2x - v3x > 0 and v1x - v2x > 0 and (
+                              2                                    2    2
+ + 2*b*v2x*v3y*x - 2*b*v2y*v3x  + 2*b*v2y*v3x*x - 2*b*v3x*v3y*x - r *v2x
 
-v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x > 0 or (v1x - v3x < 0
+      2            2    2      2    2      2  2
+ + 2*r *v2x*v3x - r *v3x  + v2x *v3y  + v2x *x  - 2*v2x*v2y*v3x*v3y
 
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))) or (
+                                2            2        2    2        2
+ + 2*v2x*v2y*v3y*x - 2*v2x*v3x*x  - 2*v2x*v3y *x + v2y *v3x  - 2*v2y *v3x*x
 
-v2x - v3x > 0 and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x > 0 
+      2  2                                2      2  2      2  2
+ + v2y *x  + 2*v2y*v3x*v3y*x - 2*v2y*v3y*x  + v3x *x  + v3y *x  < 0) and (
 
-                                                                   2
-and v1x*v2x*v2y - v1x*v2x*v3y - v1x*v2y*v3x + v1x*v3x*v3y - v1y*v2x
+                                                          2    2      2
+b*v1x - b*v2x - v1x*v2y + v1y*v2x - v1y*x + v2y*x < 0 or a *v1x  - 2*a *v1x*v2x
 
-                          2      2                                          2
- + 2*v1y*v2x*v3x - v1y*v3x  + v2x *v3y - v2x*v2y*v3x - v2x*v3x*v3y + v2y*v3x
+    2    2          2                            2      2    2      2
+ + a *v2x  - 2*a*v1x *x + 4*a*v1x*v2x*x - 2*a*v2x *x + b *v1x  - 2*b *v1x*v2x
 
- < 0) or (v2x - v3x > 0
+    2    2          2
+ + b *v2x  - 2*b*v1x *v2y + 2*b*v1x*v1y*v2x - 2*b*v1x*v1y*x + 2*b*v1x*v2x*v2y
 
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x > 0 and 
+                              2                                    2    2
+ + 2*b*v1x*v2y*x - 2*b*v1y*v2x  + 2*b*v1y*v2x*x - 2*b*v2x*v2y*x - r *v1x
 
-                                                               2
-v1x*v2x*v2y - v1x*v2x*v3y - v1x*v2y*v3x + v1x*v3x*v3y - v1y*v2x  + 2*v1y*v2x*v3x
+      2            2    2      2    2      2  2
+ + 2*r *v1x*v2x - r *v2x  + v1x *v2y  + v1x *x  - 2*v1x*v1y*v2x*v2y
 
-          2      2                                          2
- - v1y*v3x  + v2x *v3y - v2x*v2y*v3x - v2x*v3x*v3y + v2y*v3x  > 0) or (
+                                2            2        2    2        2
+ + 2*v1x*v1y*v2y*x - 2*v1x*v2x*x  - 2*v1x*v2y *x + v1y *v2x  - 2*v1y *v2x*x
 
-v2x - v3x > 0 and (v1x*v2x*v2y - v1x*v2x*v3y - v1x*v2y*v3x + v1x*v3x*v3y
+      2  2                                2      2  2      2  2
+ + v1y *x  + 2*v1y*v2x*v2y*x - 2*v1y*v2y*x  + v2x *x  + v2y *x  < 0) and ((
 
-          2                          2      2
- - v1y*v2x  + 2*v1y*v2x*v3x - v1y*v3x  + v2x *v3y - v2x*v2y*v3x - v2x*v3x*v3y
+v1x - v3x >= 0 and (b*v1x - b*v3x - v1x*v3y + v1y*v3x - v1y*x + v3y*x > 0 or 
+
+ 2    2      2            2    2          2                            2
+a *v1x  - 2*a *v1x*v3x + a *v3x  - 2*a*v1x *x + 4*a*v1x*v3x*x - 2*a*v3x *x
+
+    2    2      2            2    2          2
+ + b *v1x  - 2*b *v1x*v3x + b *v3x  - 2*b*v1x *v3y + 2*b*v1x*v1y*v3x
+
+                                                                2
+ - 2*b*v1x*v1y*x + 2*b*v1x*v3x*v3y + 2*b*v1x*v3y*x - 2*b*v1y*v3x
+
+                                    2    2      2            2    2      2    2
+ + 2*b*v1y*v3x*x - 2*b*v3x*v3y*x - r *v1x  + 2*r *v1x*v3x - r *v3x  + v1x *v3y
+
+      2  2                                                    2            2
+ + v1x *x  - 2*v1x*v1y*v3x*v3y + 2*v1x*v1y*v3y*x - 2*v1x*v3x*x  - 2*v1x*v3y *x
+
+      2    2        2            2  2                                2      2  2
+ + v1y *v3x  - 2*v1y *v3x*x + v1y *x  + 2*v1y*v3x*v3y*x - 2*v1y*v3y*x  + v3x *x
+
+      2  2
+ + v3y *x  < 0)) or (b*v1x - b*v3x - v1x*v3y + v1y*v3x - v1y*x + v3y*x > 0 and 
+
+ 2    2      2            2    2          2                            2
+a *v1x  - 2*a *v1x*v3x + a *v3x  - 2*a*v1x *x + 4*a*v1x*v3x*x - 2*a*v3x *x
+
+    2    2      2            2    2          2
+ + b *v1x  - 2*b *v1x*v3x + b *v3x  - 2*b*v1x *v3y + 2*b*v1x*v1y*v3x
+
+                                                                2
+ - 2*b*v1x*v1y*x + 2*b*v1x*v3x*v3y + 2*b*v1x*v3y*x - 2*b*v1y*v3x
+
+                                    2    2      2            2    2      2    2
+ + 2*b*v1y*v3x*x - 2*b*v3x*v3y*x - r *v1x  + 2*r *v1x*v3x - r *v3x  + v1x *v3y
+
+      2  2                                                    2            2
+ + v1x *x  - 2*v1x*v1y*v3x*v3y + 2*v1x*v1y*v3y*x - 2*v1x*v3x*x  - 2*v1x*v3y *x
+
+      2    2        2            2  2                                2      2  2
+ + v1y *v3x  - 2*v1y *v3x*x + v1y *x  + 2*v1y*v3x*v3y*x - 2*v1y*v3y*x  + v3x *x
+
+      2  2                               2    2      2            2    2
+ + v3y *x  > 0))) or ((v2x - v3x > 0 or a *v2x  - 2*a *v2x*v3x + a *v3x
+
+          2                            2      2    2      2            2    2
+ - 2*a*v2x *x + 4*a*v2x*v3x*x - 2*a*v3x *x + b *v2x  - 2*b *v2x*v3x + b *v3x
 
           2
- + v2y*v3x  < 0 or (v1x - v2x > 0
+ - 2*b*v2x *v3y + 2*b*v2x*v2y*v3x - 2*b*v2x*v2y*x + 2*b*v2x*v3x*v3y
 
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0) or (
+                              2                                    2    2
+ + 2*b*v2x*v3y*x - 2*b*v2y*v3x  + 2*b*v2y*v3x*x - 2*b*v3x*v3y*x - r *v2x
 
-                                                                         2
-v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0 and v1x*v2x *v2y
+      2            2    2      2    2      2  2
+ + 2*r *v2x*v3x - r *v3x  + v2x *v3y  + v2x *x  - 2*v2x*v2y*v3x*v3y
 
-          2                                                  3            2
- - v1x*v2x *v3y - v1x*v2x*v2y*v3x + v1x*v2x*v3x*v3y - v1y*v2x  + 2*v1y*v2x *v3x
+                                2            2        2    2        2
+ + 2*v2x*v2y*v3y*x - 2*v2x*v3x*x  - 2*v2x*v3y *x + v2y *v3x  - 2*v2y *v3x*x
 
-              2      3          2              2                      2
- - v1y*v2x*v3x  + v2x *v3y - v2x *v2y*v3x - v2x *v3x*v3y + v2x*v2y*v3x  > 0)) 
+      2  2                                2      2  2      2  2
+ + v2y *x  + 2*v2y*v3x*v3y*x - 2*v2y*v3y*x  + v3x *x  + v3y *x  > 0) and (
 
-                                                                    2
-and (v1x*v2x*v2y - v1x*v2x*v3y - v1x*v2y*v3x + v1x*v3x*v3y - v1y*v2x
+                  2    2      2            2    2          2
+v1x - v2x > 0 or a *v1x  - 2*a *v1x*v2x + a *v2x  - 2*a*v1x *x + 4*a*v1x*v2x*x
 
-                          2      2                                          2
- + 2*v1y*v2x*v3x - v1y*v3x  + v2x *v3y - v2x*v2y*v3x - v2x*v3x*v3y + v2y*v3x
+          2      2    2      2            2    2          2
+ - 2*a*v2x *x + b *v1x  - 2*b *v1x*v2x + b *v2x  - 2*b*v1x *v2y
 
- > 0 or (v1x - v3x < 0
+ + 2*b*v1x*v1y*v2x - 2*b*v1x*v1y*x + 2*b*v1x*v2x*v2y + 2*b*v1x*v2y*x
 
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0) or (
+              2                                    2    2      2
+ - 2*b*v1y*v2x  + 2*b*v1y*v2x*x - 2*b*v2x*v2y*x - r *v1x  + 2*r *v1x*v2x
 
-v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0 and 
+    2    2      2    2      2  2
+ - r *v2x  + v1x *v2y  + v1x *x  - 2*v1x*v1y*v2x*v2y + 2*v1x*v1y*v2y*x
 
-                                               2          2              2
-v1x*v2x*v2y*v3x - v1x*v2x*v3x*v3y - v1x*v2y*v3x  + v1x*v3x *v3y - v1y*v2x *v3x
+              2            2        2    2        2            2  2
+ - 2*v1x*v2x*x  - 2*v1x*v2y *x + v1y *v2x  - 2*v1y *v2x*x + v1y *x
 
-                2          3      2                      2          2
- + 2*v1y*v2x*v3x  - v1y*v3x  + v2x *v3x*v3y - v2x*v2y*v3x  - v2x*v3x *v3y
+                                2      2  2      2  2
+ + 2*v1y*v2x*v2y*x - 2*v1y*v2y*x  + v2x *x  + v2y *x  > 0) and (
 
-          3
- + v2y*v3x  < 0))) or (v1y - v3y <> 0 and (v2x - v3x < 0 or (v2x - v3x = 0 and (
+                                                          2    2      2
+b*v2x - b*v3x - v2x*v3y + v2y*v3x - v2y*x + v3y*x < 0 or a *v2x  - 2*a *v2x*v3x
 
-                             2              2          3      2
-v1x*v1y*v2y*v3y - v1x*v1y*v3y  - v1x*v2y*v3y  + v1x*v3y  - v1y *v2x*v3y
+    2    2          2                            2      2    2      2
+ + a *v3x  - 2*a*v2x *x + 4*a*v2x*v3x*x - 2*a*v3x *x + b *v2x  - 2*b *v2x*v3x
 
-      2                        2                                2          3
- + v1y *v3x*v3y + 2*v1y*v2x*v3y  - v1y*v2y*v3x*v3y - v1y*v3x*v3y  - v2x*v3y
+    2    2          2
+ + b *v3x  - 2*b*v2x *v3y + 2*b*v2x*v2y*v3x - 2*b*v2x*v2y*x + 2*b*v2x*v3x*v3y
 
-              2
- + v2y*v3x*v3y  < 0 or (v2y - v3y < 0
+                              2                                    2    2
+ + 2*b*v2x*v3y*x - 2*b*v2y*v3x  + 2*b*v2y*v3x*x - 2*b*v3x*v3y*x - r *v2x
 
- and (v3y = 0 or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))
+      2            2    2      2    2      2  2
+ + 2*r *v2x*v3x - r *v3x  + v2x *v3y  + v2x *x  - 2*v2x*v2y*v3x*v3y
 
-))) and (v1x - v3x > 0 or (v1y - v3y >= 0 and v1x - v3x = 0)) and (v1x - v2x < 0
+                                2            2        2    2        2
+ + 2*v2x*v2y*v3y*x - 2*v2x*v3x*x  - 2*v2x*v3y *x + v2y *v3x  - 2*v2y *v3x*x
 
-                               2              2
- or (v1x - v2x = 0 and (v1x*v1y *v2y - v1x*v1y *v3y - v1x*v1y*v2y*v3y
+      2  2                                2      2  2      2  2
+ + v2y *x  + 2*v2y*v3x*v3y*x - 2*v2y*v3y*x  + v3x *x  + v3y *x  < 0) and (
 
-              2      3          3            2              2
- + v1x*v1y*v3y  - v1y *v2x + v1y *v3x + 2*v1y *v2x*v3y - v1y *v2y*v3x
+                                                          2    2      2
+b*v1x - b*v2x - v1x*v2y + v1y*v2x - v1y*x + v2y*x < 0 or a *v1x  - 2*a *v1x*v2x
 
-      2                      2
- - v1y *v3x*v3y - v1y*v2x*v3y  + v1y*v2y*v3x*v3y > 0 or (v1y - v2y < 0
+    2    2          2                            2      2    2      2
+ + a *v2x  - 2*a*v1x *x + 4*a*v1x*v2x*x - 2*a*v2x *x + b *v1x  - 2*b *v1x*v2x
 
- and (v1y = 0 or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))
+    2    2          2
+ + b *v2x  - 2*b*v1x *v2y + 2*b*v1x*v1y*v2x - 2*b*v1x*v1y*x + 2*b*v1x*v2x*v2y
 
-)))) or (v1y - v3y <> 0 and (v2x - v3x > 0 or (v2x - v3x = 0 and (
+                              2                                    2    2
+ + 2*b*v1x*v2y*x - 2*b*v1y*v2x  + 2*b*v1y*v2x*x - 2*b*v2x*v2y*x - r *v1x
 
-                             2              2          3      2
-v1x*v1y*v2y*v3y - v1x*v1y*v3y  - v1x*v2y*v3y  + v1x*v3y  - v1y *v2x*v3y
+      2            2    2      2    2      2  2
+ + 2*r *v1x*v2x - r *v2x  + v1x *v2y  + v1x *x  - 2*v1x*v1y*v2x*v2y
 
-      2                        2                                2          3
- + v1y *v3x*v3y + 2*v1y*v2x*v3y  - v1y*v2y*v3x*v3y - v1y*v3x*v3y  - v2x*v3y
+                                2            2        2    2        2
+ + 2*v1x*v1y*v2y*x - 2*v1x*v2x*x  - 2*v1x*v2y *x + v1y *v2x  - 2*v1y *v2x*x
 
-              2
- + v2y*v3x*v3y  > 0 or (v2y - v3y > 0
+      2  2                                2      2  2      2  2
+ + v1y *x  + 2*v1y*v2x*v2y*x - 2*v1y*v2y*x  + v2x *x  + v2y *x  < 0) and ((
 
- and (v3y = 0 or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))
+v1x - v3x <= 0 and (b*v1x - b*v3x - v1x*v3y + v1y*v3x - v1y*x + v3y*x > 0 or 
 
-))) and (v1x - v3x < 0 or (v1y - v3y <= 0 and v1x - v3x = 0)) and (v1x - v2x > 0
+ 2    2      2            2    2          2                            2
+a *v1x  - 2*a *v1x*v3x + a *v3x  - 2*a*v1x *x + 4*a*v1x*v3x*x - 2*a*v3x *x
 
-                               2              2
- or (v1x - v2x = 0 and (v1x*v1y *v2y - v1x*v1y *v3y - v1x*v1y*v2y*v3y
+    2    2      2            2    2          2
+ + b *v1x  - 2*b *v1x*v3x + b *v3x  - 2*b*v1x *v3y + 2*b*v1x*v1y*v3x
 
-              2      3          3            2              2
- + v1x*v1y*v3y  - v1y *v2x + v1y *v3x + 2*v1y *v2x*v3y - v1y *v2y*v3x
+                                                                2
+ - 2*b*v1x*v1y*x + 2*b*v1x*v3x*v3y + 2*b*v1x*v3y*x - 2*b*v1y*v3x
 
-      2                      2
- - v1y *v3x*v3y - v1y*v2x*v3y  + v1y*v2y*v3x*v3y < 0 or (v1y - v2y > 0
+                                    2    2      2            2    2      2    2
+ + 2*b*v1y*v3x*x - 2*b*v3x*v3y*x - r *v1x  + 2*r *v1x*v3x - r *v3x  + v1x *v3y
 
- and (v1y = 0 or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))
+      2  2                                                    2            2
+ + v1x *x  - 2*v1x*v1y*v3x*v3y + 2*v1x*v1y*v3y*x - 2*v1x*v3x*x  - 2*v1x*v3y *x
 
-                                                                             2
-)))) or (v1y - v2y <> 0 and (v2x - v3x < 0 or (v2x - v3x = 0 and (v1x*v1y*v2y
+      2    2        2            2  2                                2      2  2
+ + v1y *v3x  - 2*v1y *v3x*x + v1y *x  + 2*v1y*v3x*v3y*x - 2*v1y*v3y*x  + v3x *x
 
-                            3          2          2              2
- - v1x*v1y*v2y*v3y - v1x*v2y  + v1x*v2y *v3y - v1y *v2x*v2y + v1y *v2y*v3x
+      2  2
+ + v3y *x  < 0)) or (b*v1x - b*v3x - v1x*v3y + v1y*v3x - v1y*x + v3y*x > 0 and 
 
-              2                              2              2          3
- + v1y*v2x*v2y  + v1y*v2x*v2y*v3y - 2*v1y*v2y *v3x - v2x*v2y *v3y + v2y *v3x < 0
+ 2    2      2            2    2          2                            2
+a *v1x  - 2*a *v1x*v3x + a *v3x  - 2*a*v1x *x + 4*a*v1x*v3x*x - 2*a*v3x *x
 
- or (v2y - v3y < 0
+    2    2      2            2    2          2
+ + b *v1x  - 2*b *v1x*v3x + b *v3x  - 2*b*v1x *v3y + 2*b*v1x*v1y*v3x
 
- and (v2y = 0 or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))
+                                                                2
+ - 2*b*v1x*v1y*x + 2*b*v1x*v3x*v3y + 2*b*v1x*v3y*x - 2*b*v1y*v3x
 
-                                                     2              2
-))) and (v1x - v3x > 0 or (v1x - v3x = 0 and (v1x*v1y *v2y - v1x*v1y *v3y
+                                    2    2      2            2    2      2    2
+ + 2*b*v1y*v3x*x - 2*b*v3x*v3y*x - r *v1x  + 2*r *v1x*v3x - r *v3x  + v1x *v3y
 
-              2                        3          3          2
- - v1x*v1y*v2y  + v1x*v1y*v2y*v3y - v1y *v2x + v1y *v3x + v1y *v2x*v2y
+      2  2                                                    2            2
+ + v1x *x  - 2*v1x*v1y*v3x*v3y + 2*v1x*v1y*v3y*x - 2*v1x*v3x*x  - 2*v1x*v3y *x
 
-      2                2                                    2
- + v1y *v2x*v3y - 2*v1y *v2y*v3x - v1y*v2x*v2y*v3y + v1y*v2y *v3x > 0 or (
+      2    2        2            2  2                                2      2  2
+ + v1y *v3x  - 2*v1y *v3x*x + v1y *x  + 2*v1y*v3x*v3y*x - 2*v1y*v3y*x  + v3x *x
 
-v1y - v3y > 0
+      2  2                               2    2      2            2    2
+ + v3y *x  > 0))) or ((v1x - v3x < 0 or a *v1x  - 2*a *v1x*v3x + a *v3x
 
- and (v1y = 0 or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))
+          2                            2      2    2      2            2    2
+ - 2*a*v1x *x + 4*a*v1x*v3x*x - 2*a*v3x *x + b *v1x  - 2*b *v1x*v3x + b *v3x
 
-))) and (v1x - v2x < 0 or (v1y - v2y <= 0 and v1x - v2x = 0))) or (
+          2
+ - 2*b*v1x *v3y + 2*b*v1x*v1y*v3x - 2*b*v1x*v1y*x + 2*b*v1x*v3x*v3y
 
-                                                                    2
-v1y - v2y <> 0 and (v2x - v3x > 0 or (v2x - v3x = 0 and (v1x*v1y*v2y
+                              2                                    2    2
+ + 2*b*v1x*v3y*x - 2*b*v1y*v3x  + 2*b*v1y*v3x*x - 2*b*v3x*v3y*x - r *v1x
 
-                            3          2          2              2
- - v1x*v1y*v2y*v3y - v1x*v2y  + v1x*v2y *v3y - v1y *v2x*v2y + v1y *v2y*v3x
+      2            2    2      2    2      2  2
+ + 2*r *v1x*v3x - r *v3x  + v1x *v3y  + v1x *x  - 2*v1x*v1y*v3x*v3y
 
-              2                              2              2          3
- + v1y*v2x*v2y  + v1y*v2x*v2y*v3y - 2*v1y*v2y *v3x - v2x*v2y *v3y + v2y *v3x > 0
+                                2            2        2    2        2
+ + 2*v1x*v1y*v3y*x - 2*v1x*v3x*x  - 2*v1x*v3y *x + v1y *v3x  - 2*v1y *v3x*x
 
- or (v2y - v3y > 0
+      2  2                                2      2  2      2  2
+ + v1y *x  + 2*v1y*v3x*v3y*x - 2*v1y*v3y*x  + v3x *x  + v3y *x  > 0) and (
 
- and (v2y = 0 or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))
+                                                          2    2      2
+b*v1x - b*v3x - v1x*v3y + v1y*v3x - v1y*x + v3y*x < 0 or a *v1x  - 2*a *v1x*v3x
 
-                                                     2              2
-))) and (v1x - v3x < 0 or (v1x - v3x = 0 and (v1x*v1y *v2y - v1x*v1y *v3y
+    2    2          2                            2      2    2      2
+ + a *v3x  - 2*a*v1x *x + 4*a*v1x*v3x*x - 2*a*v3x *x + b *v1x  - 2*b *v1x*v3x
 
-              2                        3          3          2
- - v1x*v1y*v2y  + v1x*v1y*v2y*v3y - v1y *v2x + v1y *v3x + v1y *v2x*v2y
+    2    2          2
+ + b *v3x  - 2*b*v1x *v3y + 2*b*v1x*v1y*v3x - 2*b*v1x*v1y*x + 2*b*v1x*v3x*v3y
 
-      2                2                                    2
- + v1y *v2x*v3y - 2*v1y *v2y*v3x - v1y*v2x*v2y*v3y + v1y*v2y *v3x < 0 or (
+                              2                                    2    2
+ + 2*b*v1x*v3y*x - 2*b*v1y*v3x  + 2*b*v1y*v3x*x - 2*b*v3x*v3y*x - r *v1x
 
-v1y - v3y < 0
+      2            2    2      2    2      2  2
+ + 2*r *v1x*v3x - r *v3x  + v1x *v3y  + v1x *x  - 2*v1x*v1y*v3x*v3y
 
- and (v1y = 0 or v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))
+                                2            2        2    2        2
+ + 2*v1x*v1y*v3y*x - 2*v1x*v3x*x  - 2*v1x*v3y *x + v1y *v3x  - 2*v1y *v3x*x
 
-))) and (v1x - v2x > 0 or (v1y - v2y >= 0 and v1x - v2x = 0))) or (
+      2  2                                2      2  2      2  2
+ + v1y *x  + 2*v1y*v3x*v3y*x - 2*v1y*v3y*x  + v3x *x  + v3y *x  < 0) and ((
 
-v1x - v3x <> 0 and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0
+v2x - v3x >= 0 and (b*v2x - b*v3x - v2x*v3y + v2y*v3x - v2y*x + v3y*x > 0 or 
 
-) or (v1x - v3x < 0 and v1x - v2x > 0 and (
+ 2    2      2            2    2          2                            2
+a *v2x  - 2*a *v2x*v3x + a *v3x  - 2*a*v2x *x + 4*a*v2x*v3x*x - 2*a*v3x *x
 
-v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x > 0 or (v2x - v3x > 0
+    2    2      2            2    2          2
+ + b *v2x  - 2*b *v2x*v3x + b *v3x  - 2*b*v2x *v3y + 2*b*v2x*v2y*v3x
 
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))) or (
+                                                                2
+ - 2*b*v2x*v2y*x + 2*b*v2x*v3x*v3y + 2*b*v2x*v3y*x - 2*b*v2y*v3x
 
-v1x - v3x < 0 and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x > 0 
+                                    2    2      2            2    2      2    2
+ + 2*b*v2y*v3x*x - 2*b*v3x*v3y*x - r *v2x  + 2*r *v2x*v3x - r *v3x  + v2x *v3y
 
-       2          2
-and v1x *v2y - v1x *v3y - v1x*v1y*v2x + v1x*v1y*v3x + v1x*v2x*v3y
+      2  2                                                    2            2
+ + v2x *x  - 2*v2x*v2y*v3x*v3y + 2*v2x*v2y*v3y*x - 2*v2x*v3x*x  - 2*v2x*v3y *x
 
-                                                      2                        2
- - 2*v1x*v2y*v3x + v1x*v3x*v3y + v1y*v2x*v3x - v1y*v3x  - v2x*v3x*v3y + v2y*v3x
+      2    2        2            2  2                                2      2  2
+ + v2y *v3x  - 2*v2y *v3x*x + v2y *x  + 2*v2y*v3x*v3y*x - 2*v2y*v3y*x  + v3x *x
 
- < 0) or (v1x - v3x < 0
+      2  2
+ + v3y *x  < 0)) or (b*v2x - b*v3x - v2x*v3y + v2y*v3x - v2y*x + v3y*x > 0 and 
 
-                                                                          2
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x > 0 and v1x *v2y
+ 2    2      2            2    2          2                            2
+a *v2x  - 2*a *v2x*v3x + a *v3x  - 2*a*v2x *x + 4*a*v2x*v3x*x - 2*a*v3x *x
 
-      2
- - v1x *v3y - v1x*v1y*v2x + v1x*v1y*v3x + v1x*v2x*v3y - 2*v1x*v2y*v3x
+    2    2      2            2    2          2
+ + b *v2x  - 2*b *v2x*v3x + b *v3x  - 2*b*v2x *v3y + 2*b*v2x*v2y*v3x
 
-                                      2                        2
- + v1x*v3x*v3y + v1y*v2x*v3x - v1y*v3x  - v2x*v3x*v3y + v2y*v3x  > 0) or (
+                                                                2
+ - 2*b*v2x*v2y*x + 2*b*v2x*v3x*v3y + 2*b*v2x*v3y*x - 2*b*v2y*v3x
 
-                      2          2
-v1x - v3x < 0 and (v1x *v2y - v1x *v3y - v1x*v1y*v2x + v1x*v1y*v3x + v1x*v2x*v3y
+                                    2    2      2            2    2      2    2
+ + 2*b*v2y*v3x*x - 2*b*v3x*v3y*x - r *v2x  + 2*r *v2x*v3x - r *v3x  + v2x *v3y
 
-                                                      2                        2
- - 2*v1x*v2y*v3x + v1x*v3x*v3y + v1y*v2x*v3x - v1y*v3x  - v2x*v3x*v3y + v2y*v3x
+      2  2                                                    2            2
+ + v2x *x  - 2*v2x*v2y*v3x*v3y + 2*v2x*v2y*v3y*x - 2*v2x*v3x*x  - 2*v2x*v3y *x
 
- < 0 or (v1x - v2x > 0
+      2    2        2            2  2                                2      2  2
+ + v2y *v3x  - 2*v2y *v3x*x + v2y *x  + 2*v2y*v3x*v3y*x - 2*v2y*v3y*x  + v3x *x
 
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0) or (
+      2  2
+ + v3y *x  > 0)) and ((v1x - v2x >= 0 and (
 
-                                                                     3
-v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0 and v1x *v2y
+                                                          2    2      2
+b*v1x - b*v2x - v1x*v2y + v1y*v2x - v1y*x + v2y*x > 0 or a *v1x  - 2*a *v1x*v2x
 
-      3          2              2              2                2
- - v1x *v3y - v1x *v1y*v2x + v1x *v1y*v3x + v1x *v2x*v3y - 2*v1x *v2y*v3x
+    2    2          2                            2      2    2      2
+ + a *v2x  - 2*a*v1x *x + 4*a*v1x*v2x*x - 2*a*v2x *x + b *v1x  - 2*b *v1x*v2x
 
-      2                                        2
- + v1x *v3x*v3y + v1x*v1y*v2x*v3x - v1x*v1y*v3x  - v1x*v2x*v3x*v3y
+    2    2          2
+ + b *v2x  - 2*b*v1x *v2y + 2*b*v1x*v1y*v2x - 2*b*v1x*v1y*x + 2*b*v1x*v2x*v2y
 
-              2               2          2
- + v1x*v2y*v3x  > 0)) and (v1x *v2y - v1x *v3y - v1x*v1y*v2x + v1x*v1y*v3x
+                              2                                    2    2
+ + 2*b*v1x*v2y*x - 2*b*v1y*v2x  + 2*b*v1y*v2x*x - 2*b*v2x*v2y*x - r *v1x
 
-                                                                    2
- + v1x*v2x*v3y - 2*v1x*v2y*v3x + v1x*v3x*v3y + v1y*v2x*v3x - v1y*v3x
+      2            2    2      2    2      2  2
+ + 2*r *v1x*v2x - r *v2x  + v1x *v2y  + v1x *x  - 2*v1x*v1y*v2x*v2y
 
-                        2
- - v2x*v3x*v3y + v2y*v3x  > 0 or (v2x - v3x > 0
+                                2            2        2    2        2
+ + 2*v1x*v1y*v2y*x - 2*v1x*v2x*x  - 2*v1x*v2y *x + v1y *v2x  - 2*v1y *v2x*x
 
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0) or (
+      2  2                                2      2  2      2  2
+ + v1y *x  + 2*v1y*v2x*v2y*x - 2*v1y*v2y*x  + v2x *x  + v2y *x  < 0)) or (
 
-                                                                     2
-v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0 and v1x *v2y*v3x
+                                                           2    2      2
+b*v1x - b*v2x - v1x*v2y + v1y*v2x - v1y*x + v2y*x > 0 and a *v1x  - 2*a *v1x*v2x
 
-      2                                        2
- - v1x *v3x*v3y - v1x*v1y*v2x*v3x + v1x*v1y*v3x  + v1x*v2x*v3x*v3y
+    2    2          2                            2      2    2      2
+ + a *v2x  - 2*a*v1x *x + 4*a*v1x*v2x*x - 2*a*v2x *x + b *v1x  - 2*b *v1x*v2x
 
-                2          2                  2          3          2
- - 2*v1x*v2y*v3x  + v1x*v3x *v3y + v1y*v2x*v3x  - v1y*v3x  - v2x*v3x *v3y
+    2    2          2
+ + b *v2x  - 2*b*v1x *v2y + 2*b*v1x*v1y*v2x - 2*b*v1x*v1y*x + 2*b*v1x*v2x*v2y
 
-          3
- + v2y*v3x  < 0))) or (v1x - v3x > 0 and v1x - v2x < 0 and (
+                              2                                    2    2
+ + 2*b*v1x*v2y*x - 2*b*v1y*v2x  + 2*b*v1y*v2x*x - 2*b*v2x*v2y*x - r *v1x
 
-v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x < 0 or (v2x - v3x < 0
+      2            2    2      2    2      2  2
+ + 2*r *v1x*v2x - r *v2x  + v1x *v2y  + v1x *x  - 2*v1x*v1y*v2x*v2y
 
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0))) or (
+                                2            2        2    2        2
+ + 2*v1x*v1y*v2y*x - 2*v1x*v2x*x  - 2*v1x*v2y *x + v1y *v2x  - 2*v1y *v2x*x
 
-v1x - v3x > 0 and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x < 0 
+      2  2                                2      2  2      2  2
+ + v1y *x  + 2*v1y*v2x*v2y*x - 2*v1y*v2y*x  + v2x *x  + v2y *x  > 0))) or ((
 
-       2          2
-and v1x *v2y - v1x *v3y - v1x*v1y*v2x + v1x*v1y*v3x + v1x*v2x*v3y
+                  2    2      2            2    2          2
+v1x - v3x > 0 or a *v1x  - 2*a *v1x*v3x + a *v3x  - 2*a*v1x *x + 4*a*v1x*v3x*x
 
-                                                      2                        2
- - 2*v1x*v2y*v3x + v1x*v3x*v3y + v1y*v2x*v3x - v1y*v3x  - v2x*v3x*v3y + v2y*v3x
+          2      2    2      2            2    2          2
+ - 2*a*v3x *x + b *v1x  - 2*b *v1x*v3x + b *v3x  - 2*b*v1x *v3y
 
- < 0) or (v1x - v3x > 0
+ + 2*b*v1x*v1y*v3x - 2*b*v1x*v1y*x + 2*b*v1x*v3x*v3y + 2*b*v1x*v3y*x
 
-                                                                          2
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x < 0 and v1x *v2y
+              2                                    2    2      2
+ - 2*b*v1y*v3x  + 2*b*v1y*v3x*x - 2*b*v3x*v3y*x - r *v1x  + 2*r *v1x*v3x
 
-      2
- - v1x *v3y - v1x*v1y*v2x + v1x*v1y*v3x + v1x*v2x*v3y - 2*v1x*v2y*v3x
+    2    2      2    2      2  2
+ - r *v3x  + v1x *v3y  + v1x *x  - 2*v1x*v1y*v3x*v3y + 2*v1x*v1y*v3y*x
 
-                                      2                        2
- + v1x*v3x*v3y + v1y*v2x*v3x - v1y*v3x  - v2x*v3x*v3y + v2y*v3x  > 0) or (
+              2            2        2    2        2            2  2
+ - 2*v1x*v3x*x  - 2*v1x*v3y *x + v1y *v3x  - 2*v1y *v3x*x + v1y *x
 
-                      2          2
-v1x - v3x > 0 and (v1x *v2y - v1x *v3y - v1x*v1y*v2x + v1x*v1y*v3x + v1x*v2x*v3y
+                                2      2  2      2  2
+ + 2*v1y*v3x*v3y*x - 2*v1y*v3y*x  + v3x *x  + v3y *x  > 0) and (
 
-                                                      2                        2
- - 2*v1x*v2y*v3x + v1x*v3x*v3y + v1y*v2x*v3x - v1y*v3x  - v2x*v3x*v3y + v2y*v3x
+                                                          2    2      2
+b*v1x - b*v3x - v1x*v3y + v1y*v3x - v1y*x + v3y*x < 0 or a *v1x  - 2*a *v1x*v3x
 
- < 0 or (v2x - v3x < 0
+    2    2          2                            2      2    2      2
+ + a *v3x  - 2*a*v1x *x + 4*a*v1x*v3x*x - 2*a*v3x *x + b *v1x  - 2*b *v1x*v3x
 
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0) or (
+    2    2          2
+ + b *v3x  - 2*b*v1x *v3y + 2*b*v1x*v1y*v3x - 2*b*v1x*v1y*x + 2*b*v1x*v3x*v3y
 
-                                                                     2
-v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0 and v1x *v2y*v3x
+                              2                                    2    2
+ + 2*b*v1x*v3y*x - 2*b*v1y*v3x  + 2*b*v1y*v3x*x - 2*b*v3x*v3y*x - r *v1x
 
-      2                                        2
- - v1x *v3x*v3y - v1x*v1y*v2x*v3x + v1x*v1y*v3x  + v1x*v2x*v3x*v3y
+      2            2    2      2    2      2  2
+ + 2*r *v1x*v3x - r *v3x  + v1x *v3y  + v1x *x  - 2*v1x*v1y*v3x*v3y
 
-                2          2                  2          3          2
- - 2*v1x*v2y*v3x  + v1x*v3x *v3y + v1y*v2x*v3x  - v1y*v3x  - v2x*v3x *v3y
+                                2            2        2    2        2
+ + 2*v1x*v1y*v3y*x - 2*v1x*v3x*x  - 2*v1x*v3y *x + v1y *v3x  - 2*v1y *v3x*x
 
-          3               2          2
- + v2y*v3x  > 0)) and (v1x *v2y - v1x *v3y - v1x*v1y*v2x + v1x*v1y*v3x
+      2  2                                2      2  2      2  2
+ + v1y *x  + 2*v1y*v3x*v3y*x - 2*v1y*v3y*x  + v3x *x  + v3y *x  < 0) and ((
 
-                                                                    2
- + v1x*v2x*v3y - 2*v1x*v2y*v3x + v1x*v3x*v3y + v1y*v2x*v3x - v1y*v3x
+v2x - v3x <= 0 and (b*v2x - b*v3x - v2x*v3y + v2y*v3x - v2y*x + v3y*x > 0 or 
 
-                        2
- - v2x*v3x*v3y + v2y*v3x  > 0 or (v1x - v2x < 0
+ 2    2      2            2    2          2                            2
+a *v2x  - 2*a *v2x*v3x + a *v3x  - 2*a*v2x *x + 4*a*v2x*v3x*x - 2*a*v3x *x
 
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0) or (
+    2    2      2            2    2          2
+ + b *v2x  - 2*b *v2x*v3x + b *v3x  - 2*b*v2x *v3y + 2*b*v2x*v2y*v3x
 
-                                                                     3
-v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0 and v1x *v2y
+                                                                2
+ - 2*b*v2x*v2y*x + 2*b*v2x*v3x*v3y + 2*b*v2x*v3y*x - 2*b*v2y*v3x
 
-      3          2              2              2                2
- - v1x *v3y - v1x *v1y*v2x + v1x *v1y*v3x + v1x *v2x*v3y - 2*v1x *v2y*v3x
+                                    2    2      2            2    2      2    2
+ + 2*b*v2y*v3x*x - 2*b*v3x*v3y*x - r *v2x  + 2*r *v2x*v3x - r *v3x  + v2x *v3y
 
-      2                                        2
- + v1x *v3x*v3y + v1x*v1y*v2x*v3x - v1x*v1y*v3x  - v1x*v2x*v3x*v3y
+      2  2                                                    2            2
+ + v2x *x  - 2*v2x*v2y*v3x*v3y + 2*v2x*v2y*v3y*x - 2*v2x*v3x*x  - 2*v2x*v3y *x
 
-              2
- + v1x*v2y*v3x  < 0))) or (v1x - v2x <> 0
+      2    2        2            2  2                                2      2  2
+ + v2y *v3x  - 2*v2y *v3x*x + v2y *x  + 2*v2y*v3x*v3y*x - 2*v2y*v3y*x  + v3x *x
 
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0) or (
+      2  2
+ + v3y *x  < 0)) or (b*v2x - b*v3x - v2x*v3y + v2y*v3x - v2y*x + v3y*x > 0 and 
 
-v1x - v2x < 0 and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x < 0 
+ 2    2      2            2    2          2                            2
+a *v2x  - 2*a *v2x*v3x + a *v3x  - 2*a*v2x *x + 4*a*v2x*v3x*x - 2*a*v3x *x
 
-       2          2
-and v1x *v2y - v1x *v3y - v1x*v1y*v2x + v1x*v1y*v3x - v1x*v2x*v2y
+    2    2      2            2    2          2
+ + b *v2x  - 2*b *v2x*v3x + b *v3x  - 2*b*v2x *v3y + 2*b*v2x*v2y*v3x
 
-                                        2                    2
- + 2*v1x*v2x*v3y - v1x*v2y*v3x + v1y*v2x  - v1y*v2x*v3x - v2x *v3y + v2x*v2y*v3x
+                                                                2
+ - 2*b*v2x*v2y*x + 2*b*v2x*v3x*v3y + 2*b*v2x*v3y*x - 2*b*v2y*v3x
 
- < 0) or (v1x - v2x < 0
+                                    2    2      2            2    2      2    2
+ + 2*b*v2y*v3x*x - 2*b*v3x*v3y*x - r *v2x  + 2*r *v2x*v3x - r *v3x  + v2x *v3y
 
-                                                                          2
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x < 0 and v1x *v2y
+      2  2                                                    2            2
+ + v2x *x  - 2*v2x*v2y*v3x*v3y + 2*v2x*v2y*v3y*x - 2*v2x*v3x*x  - 2*v2x*v3y *x
 
-      2
- - v1x *v3y - v1x*v1y*v2x + v1x*v1y*v3x - v1x*v2x*v2y + 2*v1x*v2x*v3y
+      2    2        2            2  2                                2      2  2
+ + v2y *v3x  - 2*v2y *v3x*x + v2y *x  + 2*v2y*v3x*v3y*x - 2*v2y*v3y*x  + v3x *x
 
-                        2                    2
- - v1x*v2y*v3x + v1y*v2x  - v1y*v2x*v3x - v2x *v3y + v2x*v2y*v3x > 0) or (
+      2  2
+ + v3y *x  > 0)) and ((v1x - v2x <= 0 and (
 
-                      2          2
-v1x - v2x < 0 and (v1x *v2y - v1x *v3y - v1x*v1y*v2x + v1x*v1y*v3x - v1x*v2x*v2y
+                                                          2    2      2
+b*v1x - b*v2x - v1x*v2y + v1y*v2x - v1y*x + v2y*x > 0 or a *v1x  - 2*a *v1x*v2x
 
-                                        2                    2
- + 2*v1x*v2x*v3y - v1x*v2y*v3x + v1y*v2x  - v1y*v2x*v3x - v2x *v3y + v2x*v2y*v3x
+    2    2          2                            2      2    2      2
+ + a *v2x  - 2*a*v1x *x + 4*a*v1x*v2x*x - 2*a*v2x *x + b *v1x  - 2*b *v1x*v2x
 
- < 0 or (v2x - v3x < 0
+    2    2          2
+ + b *v2x  - 2*b*v1x *v2y + 2*b*v1x*v1y*v2x - 2*b*v1x*v1y*x + 2*b*v1x*v2x*v2y
 
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0) or (
+                              2                                    2    2
+ + 2*b*v1x*v2y*x - 2*b*v1y*v2x  + 2*b*v1y*v2x*x - 2*b*v2x*v2y*x - r *v1x
 
-                                                                     2
-v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0 and v1x *v2x*v2y
+      2            2    2      2    2      2  2
+ + 2*r *v1x*v2x - r *v2x  + v1x *v2y  + v1x *x  - 2*v1x*v1y*v2x*v2y
 
-      2                      2                            2                2
- - v1x *v2x*v3y - v1x*v1y*v2x  + v1x*v1y*v2x*v3x - v1x*v2x *v2y + 2*v1x*v2x *v3y
+                                2            2        2    2        2
+ + 2*v1x*v1y*v2y*x - 2*v1x*v2x*x  - 2*v1x*v2y *x + v1y *v2x  - 2*v1y *v2x*x
 
-                            3          2          3          2
- - v1x*v2x*v2y*v3x + v1y*v2x  - v1y*v2x *v3x - v2x *v3y + v2x *v2y*v3x > 0)) and
+      2  2                                2      2  2      2  2
+ + v1y *x  + 2*v1y*v2x*v2y*x - 2*v1y*v2y*x  + v2x *x  + v2y *x  < 0)) or (
 
-     2          2
- (v1x *v2y - v1x *v3y - v1x*v1y*v2x + v1x*v1y*v3x - v1x*v2x*v2y + 2*v1x*v2x*v3y
+                                                           2    2      2
+b*v1x - b*v2x - v1x*v2y + v1y*v2x - v1y*x + v2y*x > 0 and a *v1x  - 2*a *v1x*v2x
 
-                        2                    2
- - v1x*v2y*v3x + v1y*v2x  - v1y*v2x*v3x - v2x *v3y + v2x*v2y*v3x > 0 or (
+    2    2          2                            2      2    2      2
+ + a *v2x  - 2*a*v1x *x + 4*a*v1x*v2x*x - 2*a*v2x *x + b *v1x  - 2*b *v1x*v2x
 
-v1x - v3x > 0 and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0)
+    2    2          2
+ + b *v2x  - 2*b*v1x *v2y + 2*b*v1x*v1y*v2x - 2*b*v1x*v1y*x + 2*b*v1x*v2x*v2y
 
-                                                                          3
- or (v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0 and v1x *v2y
+                              2                                    2    2
+ + 2*b*v1x*v2y*x - 2*b*v1y*v2x  + 2*b*v1y*v2x*x - 2*b*v2x*v2y*x - r *v1x
 
-      3          2              2              2                2
- - v1x *v3y - v1x *v1y*v2x + v1x *v1y*v3x - v1x *v2x*v2y + 2*v1x *v2x*v3y
+      2            2    2      2    2      2  2
+ + 2*r *v1x*v2x - r *v2x  + v1x *v2y  + v1x *x  - 2*v1x*v1y*v2x*v2y
 
-      2                      2                            2
- - v1x *v2y*v3x + v1x*v1y*v2x  - v1x*v1y*v2x*v3x - v1x*v2x *v3y
+                                2            2        2    2        2
+ + 2*v1x*v1y*v2y*x - 2*v1x*v2x*x  - 2*v1x*v2y *x + v1y *v2x  - 2*v1y *v2x*x
 
- + v1x*v2x*v2y*v3x < 0))) or (v1x - v2x > 0
-
-                                                                          2
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x > 0 and v1x *v2y
-
-      2
- - v1x *v3y - v1x*v1y*v2x + v1x*v1y*v3x - v1x*v2x*v2y + 2*v1x*v2x*v3y
-
-                        2                    2
- - v1x*v2y*v3x + v1y*v2x  - v1y*v2x*v3x - v2x *v3y + v2x*v2y*v3x < 0) or (
-
-v1x - v2x > 0 and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x > 0 
-
-       2          2
-and v1x *v2y - v1x *v3y - v1x*v1y*v2x + v1x*v1y*v3x - v1x*v2x*v2y
-
-                                        2                    2
- + 2*v1x*v2x*v3y - v1x*v2y*v3x + v1y*v2x  - v1y*v2x*v3x - v2x *v3y + v2x*v2y*v3x
-
-                                2          2
- > 0) or (v1x - v2x > 0 and (v1x *v2y - v1x *v3y - v1x*v1y*v2x + v1x*v1y*v3x
-
-                                                      2                    2
- - v1x*v2x*v2y + 2*v1x*v2x*v3y - v1x*v2y*v3x + v1y*v2x  - v1y*v2x*v3x - v2x *v3y
-
- + v2x*v2y*v3x < 0 or (v1x - v3x < 0
-
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0) or (
-
-                                                                     3
-v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0 and v1x *v2y
-
-      3          2              2              2                2
- - v1x *v3y - v1x *v1y*v2x + v1x *v1y*v3x - v1x *v2x*v2y + 2*v1x *v2x*v3y
-
-      2                      2                            2
- - v1x *v2y*v3x + v1x*v1y*v2x  - v1x*v1y*v2x*v3x - v1x*v2x *v3y
-
-                                 2          2
- + v1x*v2x*v2y*v3x > 0)) and (v1x *v2y - v1x *v3y - v1x*v1y*v2x + v1x*v1y*v3x
-
-                                                      2                    2
- - v1x*v2x*v2y + 2*v1x*v2x*v3y - v1x*v2y*v3x + v1y*v2x  - v1y*v2x*v3x - v2x *v3y
-
- + v2x*v2y*v3x > 0 or (v2x - v3x > 0
-
- and v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0) or (
-
-                                                                     2
-v1x*v2y - v1x*v3y - v1y*v2x + v1y*v3x + v2x*v3y - v2y*v3x = 0 and v1x *v2x*v2y
-
-      2                      2                            2                2
- - v1x *v2x*v3y - v1x*v1y*v2x  + v1x*v1y*v2x*v3x - v1x*v2x *v2y + 2*v1x*v2x *v3y
-
-                            3          2          3          2
- - v1x*v2x*v2y*v3x + v1y*v2x  - v1y*v2x *v3x - v2x *v3y + v2x *v2y*v3x < 0))) or
-
- ((v2x - v3x < 0 or (v2x - v3x = 0
-
- and (v2y - v3y > 0 or (v2y - v3y = 0 and v2x*v3y - v2y*v3x > 0)))) and (
-
-v1x - v3x > 0 or (v1x - v3x = 0
-
- and (v1y - v3y < 0 or (v1y - v3y = 0 and v1x*v3y - v1y*v3x < 0)))) and (
-
-v1x - v2x < 0 or (v1x - v2x = 0
-
- and (v1y - v2y > 0 or (v1y - v2y = 0 and v1x*v2y - v1y*v2x > 0))))) or ((
-
-v2x - v3x > 0 or (v2x - v3x = 0
-
- and (v2y - v3y < 0 or (v2y - v3y = 0 and v2x*v3y - v2y*v3x < 0)))) and (
-
-v1x - v3x < 0 or (v1x - v3x = 0
-
- and (v1y - v3y > 0 or (v1y - v3y = 0 and v1x*v3y - v1y*v3x > 0)))) and (
-
-v1x - v2x > 0 or (v1x - v2x = 0
-
- and (v1y - v2y < 0 or (v1y - v2y = 0 and v1x*v2y - v1y*v2x < 0)))))
+      2  2                                2      2  2      2  2
+ + v1y *x  + 2*v1y*v2x*v2y*x - 2*v1y*v2y*x  + v2x *x  + v2y *x  > 0)))))
