@@ -328,7 +328,5 @@ main = do
       waitForProcess rc
       putStrLn "DONE"
 
---  
-
 l1 = "                       2    2            2"
 l2 = "(c <> 0 and (d = 0 or c  - h  + 2*h*x - x  >= 0) and ((b - k <= 0 and "
