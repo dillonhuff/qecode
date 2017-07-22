@@ -749,7 +749,7 @@ bool test_formula_at_sample_points(const double a, const double b, const double 
 
 	for (auto& pt : test_points) { double test_x = pt.to_double();
 	 bool fm_true = formula(a, b, r, v1x, v1y, v2x, v2y, v3x, v3y , test_x);
-	 cout << "At x = " << test_x << " the formula is " << fm_true << endl;
+	 //cout << "At x = " << test_x << " the formula is " << fm_true << endl;
 	 if (fm_true) {
 		return true;
 	 }
