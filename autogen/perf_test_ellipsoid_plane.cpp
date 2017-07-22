@@ -9,17 +9,17 @@ using namespace std;
 void benchmark_ellipsoid_plane_intersection_code() {
 
   // Plane variables
-  double a = 0;
-  double b = 0;
+  double a = 0.2;
+  double b = 2.3;
   double c = 1;
   double d = 1.1;
 
   //Ellipsoid variables
 
   // Offsets
-  double f = 0;
-  double g = 0;
-  double h = 0;
+  double f = 3;
+  double g = -2;
+  double h = 1;
 
   // Major axis lengths
   double l = 3; // x

@@ -978,14 +978,19 @@ rational r(root_loc);
 return {{ipt(r), ipt(r)}};
 }
 std::vector<interval> find_roots(const polynomial& p, const rational& max_width) {
-if (degree_wrt(0, p) == 0) { return {}; }
-	if (degree_wrt(0, p) == 1) {
-return linear_roots(p);
-}
-if (degree_wrt(0, p) == 2) {
-	return quadratic_roots(p);
-}
-return isolate_roots(p, max_width);
+  cout << p << endl;
+  if (degree_wrt(0, p) == 0) { return {}; }
+  if (degree_wrt(0, p) == 1) {
+    return linear_roots(p);
+  }
+  if (degree_wrt(0, p) == 2) {
+    return quadratic_roots(p);
+  }
+
+  if (degree_wrt(0, p) == 3) {
+    assert(false);
+  }
+  return isolate_roots(p, max_width);
 }
 
 bool test_formula_at_sample_points(const double a, const double b, const double c, const double d, const double f, const double g, const double h, const double l, const double m, const double n , const std::vector<polynomial>& upolys) {
