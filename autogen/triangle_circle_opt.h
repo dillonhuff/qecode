@@ -1,0 +1,1 @@
+bool triangle_circle_opt( const double a, const double b, const double r, const double v1x, const double v1y, const double v2x, const double v2y, const double v3x, const double v3y );

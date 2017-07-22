@@ -323,8 +323,8 @@ main = do
    case runParser bExpression () "expr" fmStr of
     Left err -> putStrLn $ show err
     Right expr -> do
-      writeOutput False "triangle" "circle" (Var "x") (bExprToFm expr)
-      rc <- runCommand "clang++ -std=c++11 -lgmp -lgmpxx -lralg -c autogen/triangle_circle.cpp"
+      writeOutput True "triangle" "circle_opt" (Var "x") (bExprToFm expr)
+      rc <- runCommand "clang++ -std=c++11 -lgmp -lgmpxx -lralg -c autogen/triangle_circle_opt.cpp"
       waitForProcess rc
       putStrLn "DONE"
 
