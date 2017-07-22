@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
  
 # data to plot
 n_groups = 3
-opt_scores = (0.19, 0.35, 0.64)
-no_opt_scores = (0.32, 0.42, 0.97)
+opt_scores = (0.19, 0.64, 0.35)
+no_opt_scores = (0.32, 0.97, 0.42)
  
 # create plot
 fig, ax = plt.subplots()
@@ -25,7 +25,7 @@ rects2 = plt.bar(index + bar_width, opt_scores, bar_width,
 plt.xlabel('Intersection Test')
 plt.ylabel('Benchmark Time')
 plt.title('Effect of Analytic Root Finding Optimization')
-plt.xticks(index + bar_width, ('Circle-Ellipse', 'Ellipsoid-Plane', 'Triangle-Circle'))
+plt.xticks(index + bar_width, ('Circle-Ellipse', 'Triangle-Circle', 'Ellipsoid-Plane'))
 plt.legend()
  
 plt.tight_layout()
