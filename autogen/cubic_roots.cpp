@@ -54,9 +54,15 @@ vector<double> cubic_roots(const double a,
   
     return {r1, r2, r3};
   } else if (p > 0) {
+
+    cout << "sqrt(p / 3.0) = " << sqrt(p / 3.0) << endl;
+
     double A = 2*sqrt(p/3.0);
+
+    cout << "A = " << A << endl;
     double phi = asinh((3.0*q) / (A*p));
-    double r1 = -A * sinh(phi / 3.0);
+    cout << "phi = " << phi << endl;
+    double r1 = -A * sinh((phi / 3.0));
 
     cout << "r1 = " << r1 << endl;
     //double B = -b / (3.0*a);
@@ -86,11 +92,16 @@ TEST_CASE("x^3 - 6x^2 + 11x - 6, 3 roots") {
   double c = 11;
   double d = -6;
 
-  REQUIRE(cubic_roots(a, b, c, d).size() == 3);
+  auto roots = cubic_roots(a, b, c, d);
+  double r = roots[0];
+
+  cout << "value at root = " << evaluate_cubic(a, b, c, d, r) << endl;
+  
+  REQUIRE(roots.size() == 3);
 }
 
-TEST_CASE("10x^3 + 5^2 + 1x - 1, 1 real") {
-  double a = 10;
+TEST_CASE("15x^3 + 5x^2 + 1x - 1, 1 real") {
+  double a = 15;
   double b = 5;
   double c = 1;
   double d = -1;
