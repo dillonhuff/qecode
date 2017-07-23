@@ -100,9 +100,9 @@ TEST_CASE("x^3 - 6x^2 + 11x - 6, 3 roots") {
   REQUIRE(roots.size() == 3);
 }
 
-TEST_CASE("15x^3 + 5x^2 + 1x - 1, 1 real") {
+TEST_CASE("15x^3 + 0x^2 + 1x - 1, 1 real") {
   double a = 15;
-  double b = 5;
+  double b = 0;
   double c = 1;
   double d = -1;
 
