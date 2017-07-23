@@ -37,6 +37,6 @@ int main() {
   clock_t end = clock();
   double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 
-  cout << "Optimized circle-ellipse intersection = " << elapsed_secs << " secs" << endl;
+  cout << "Unoptimized triangle-circle intersection = " << elapsed_secs << " secs" << endl;
 
 }
