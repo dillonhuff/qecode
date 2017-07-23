@@ -102,8 +102,8 @@ TEST_CASE("x^3 - 6x^2 + 11x - 6, 3 roots") {
 
 TEST_CASE("15x^3 + 0x^2 + 1x - 1, 1 real") {
   double a = 15;
-  double b = 0;
-  double c = 1;
+  double b = 0.1;
+  double c = 10;
   double d = -1;
 
   auto roots = cubic_roots(a, b, c, d);
